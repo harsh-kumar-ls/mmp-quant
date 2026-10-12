@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MMP-Quant</title>
+  <meta name="color-scheme" content="dark" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;550;600;650;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true">
+          <defs><linearGradient id="bm" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7c6cff"/><stop offset="1" stop-color="#5fd8ef"/></linearGradient></defs>
+          <rect width="40" height="40" rx="11" fill="url(#bm)"/>
+          <rect x="8" y="10" width="17" height="13" rx="3" fill="#0b0e1a" opacity=".85"/>
+          <rect x="11" y="13.5" width="11" height="1.8" rx=".9" fill="#5fd8ef"/>
+          <rect x="11" y="17.2" width="7" height="1.8" rx=".9" fill="#a397ff"/>
+          <path d="M9 30c2-4 4-4 6 0s4 4 6 0 4-4 6 0 4 4 4 0" fill="none" stroke="#0b0e1a" stroke-width="2.4" stroke-linecap="round"/>
+        </svg>
+        <div>
+          <div class="brand-name">MMP-Quant</div>
+          <div class="brand-sub">Redundancy in educational video</div>
+        </div>
+      </div>
+
+      <div class="dropzone" id="dropzone" role="button" tabindex="0" aria-label="Upload a video">
+        <svg width="46" height="38" viewBox="0 0 46 38" aria-hidden="true">
+          <rect x="3" y="6" width="34" height="24" rx="5" fill="none" stroke="#a397ff" stroke-width="2"/>
+          <path d="M17 13l8 5-8 5z" fill="#5fd8ef"/>
+          <circle cx="37" cy="9" r="7" fill="#7c6cff"/>
+          <path d="M37 5.5v7M33.5 9h7" stroke="#0b0e1a" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <div class="dropzone-title">Drop a video, or click to upload</div>
+        <div class="dropzone-hint">.mp4 · .mov · .mkv · .webm — up to 3 GB</div>
+        <input type="file" id="file-input" accept=".mp4,.mov,.mkv,.webm,.m4v,.avi" hidden />
+      </div>
+
+      <div style="flex:1; min-height:0; display:flex; flex-direction:column;">
+        <div class="video-list-title">Scored videos</div>
+        <div class="video-list" id="video-list"><div class="muted">Loading…</div></div>
+      </div>
+    </aside>
+
+    <main class="main" id="main"></main>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

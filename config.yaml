@@ -1,0 +1,200 @@
+# MMP-Quant configuration.
+#
+# EVERY tunable parameter lives here. Nothing in the code carries a magic number.
+# The exact contents of this file are copied verbatim into each run's report
+# (methodology appendix) so any number in the thesis is traceable to a config.
+#
+# WARNING: do not tune any value below until the professor's scoring scale and
+# criteria are known. See PROGRESS.md > Open Decisions.
+
+media:
+  frame_fps: 2.0            # frame sampling rate for OCR
+  audio_sample_rate: 16000  # Hz, mono — what faster-whisper expects
+  frame_format: png         # png = lossless; jpg would add compression artifacts to OCR
+
+# Segments are the unit the supervisor annotates, and therefore the unit the
+# system reports for validation. Windows (below) remain the measurement
+# granularity; segments aggregate them. The annotation sheet is generated from
+# this same length, so human and system segments match by construction.
+segments:
+  length_s: 30.0            # 2-3 min video -> 4-6 segments per video
+  raters: [rater_1, rater_2]  # one score column per rater on the blank sheet
+
+windowing:
+  size_s: 10.0
+  keep_partial_final_window: true   # if true, a <size_s tail window is kept and
+                                    # contributes its true duration to the weighted mean
+
+alignment:
+  tolerance_s: 3.0
+  # Which side gets widened by tolerance_s. The on-screen text is the visual
+  # anchor (it is what the learner is looking at), so by default we widen the
+  # narration pool around it. "both" doubles the effective slack to 6 s per side
+  # and inflates overlap — not recommended.
+  expand: asr               # asr | ocr | both
+
+asr:
+  backend: faster-whisper
+  model: small              # tiny|base|small|medium|large-v3
+  device: cpu               # CTranslate2 has no Metal/MPS backend — CPU only on macOS
+  compute_type: int8
+  beam_size: 5
+  vad_filter: true          # drop non-speech; prevents Whisper hallucinating over silence
+  word_timestamps: true
+  language: en              # transcribe in English. Detection still runs and is
+                            # recorded, and still warns on a mismatch (05 Oct 2026:
+                            # autodetect heard Sir Ken Robinson as Welsh and wrote
+                            # 14-27% of four transcripts in Welsh). null = decode
+                            # in whatever language is detected.
+  expected_language: en     # warn (do not fail) if detected language differs
+  min_language_probability: 0.5
+
+ocr:
+  backend: apple            # apple | rapidocr  (see mmpquant.extract.ocr)
+                            # apple: macOS Vision -- reads handwriting and chalk far
+                            # better than PP-OCR (04 Oct 2026 comparison), but macOS-only
+                            # and its model changes with the OS version (recorded per run).
+                            # rapidocr: PP-OCRv4, cross-platform, printed text only.
+  min_line_confidence: 0.5
+  dedup:
+    # A static slide must be OCR'd once, not once per sampled frame.
+    #
+    # method: changed_pixel_ratio | mean_abs_diff
+    #   changed_pixel_ratio counts HOW MANY pixels moved appreciably.
+    #   mean_abs_diff averages HOW FAR the typical pixel moved, which is diluted
+    #   ~30x by the mostly-blank background of a slide and provably failed on the
+    #   first end-to-end run (see PROGRESS.md > Session 1 > Bug found and fixed).
+    #   Keep changed_pixel_ratio unless reproducing that comparison.
+    method: changed_pixel_ratio
+    downscale_width: 320    # compare frames at this width (grayscale) — cheap and robust
+    pixel_tolerance: 0.1    # per-pixel intensity move (0-1) that counts as "changed";
+                            # absorbs compression noise and anti-aliasing jitter
+    threshold: 0.005        # fraction of changed pixels above which a frame is "new".
+                            # Measured signal for a real slide change: ~0.027.
+
+scoring:
+  # Which Mayer principles each run scores. Each is an independent scorer
+  # (src/mmpquant/scoring/); removing one here skips its extraction step too.
+  principles: [redundancy, coherence]
+
+  redundancy:
+    weights:
+      verbatim: 0.6         # ROUGE-L F1 over normalised tokens
+      semantic: 0.4         # cosine of sentence embeddings
+    # Operative definition (supervisor, 07 Sep 2026): redundancy is on-screen
+    # text duplicating concurrent narration. Key terms, labels and headlines are
+    # signaling, not redundancy.
+    #
+    # Sentence vs label is decided by grammar (a finite verb with a real word as
+    # the verb), not length -- see onscreen.py. This is only the minimum amount
+    # of sentence text a window needs on screen before it is scored at all.
+    min_onscreen_words: 5
+    min_narration_words: 1  # literal reading of the spec ("contains narration").
+                            # NOTE: I recommend 3 — see PROGRESS.md open decision D4.
+    embedding_model: sentence-transformers/all-MiniLM-L6-v2
+    # Text on screen is not redundancy by being there (04-05 Oct 2026). A
+    # window scores 0 unless the narration RESTATES an on-screen sentence: says
+    # more than min_sentence_coverage of that sentence's content words (at
+    # least min_shared_content_words), and more of it than narration elsewhere
+    # in the same video does (median). Above that gate, verbatim and semantic overlap are
+    # each measured above chance: compared with the same on-screen text against
+    # narration from windows more than null_exclusion_s away (median). This
+    # removes the meaning-similarity floor (unrelated English sentences score
+    # 0.1-0.3) and the topic floor (a lecture mentions its topic throughout).
+    chance_correction:
+      min_sentence_coverage: 0.5    # the narration must say MORE than half of one
+                                    # on-screen sentence's content words (05 Oct 2026:
+                                    # sentence-level, not words gathered across a screen)
+      min_shared_content_words: 2   # the same minimum the classifier uses for a
+                                    # clause: something to say, and something
+                                    # said about it
+      null_exclusion_s: 30.0        # one segment: "elsewhere" means not nearby
+      min_null_windows: 3           # fewer than this -> no chance baseline
+
+  # Coherence (11 Oct 2026, approved by user): extraneous material harms
+  # learning. Two parts, each 0-1 per window; window score =
+  # 100 x (w_music x background_music + w_off x off_topic). Segment and video
+  # scores use the same whole-video averaging rule as redundancy. Higher = worse.
+  coherence:
+    weights:
+      background_music: 1.0   # 11 Oct 2026 (user decision): the off-topic part is
+      off_topic: 0.0          # computed and shown but kept OUT of the score. Read
+                              # by hand, ~4-5 of its 17 corpus flags were real
+                              # asides; the rest were content-light board talk or
+                              # on-topic speech (PROGRESS.md). Approved originally
+                              # as 0.5 / 0.5.
+    # Pre-registered alternative, stored beside the score in every run. When the
+    # professor's coherence scores arrive, ONLY these two are compared (on the
+    # tune split) -- no other weightings.
+    alternative_weights:
+      background_music: 0.5
+      off_topic: 0.5
+    background_music:
+      # Share of the window's SPOKEN seconds during which music plays. Music with
+      # no one speaking (an intro jingle) does not count: Mayer's effect is music
+      # competing with narration for the auditory channel.
+      model: MIT/ast-finetuned-audioset-10-10-0.4593   # AudioSet sound classifier
+      device: cpu             # deterministic; ~0.4 s per clip
+      clip_s: 3.0             # context per 1 s frame (1 s is too short for music)
+      hop_s: 1.0              # timeline resolution
+      sound_classes: [Music]  # AudioSet classes that count as background sound
+      threshold: 0.3          # class probability at/above which it counts as present.
+                              # 11 Oct 2026 scan of all 28 videos: under speech, music
+                              # probability is either <= 0.08 or 0.40-0.71 (one clip at
+                              # 0.32), so any value in 0.1-0.4 gives near-identical
+                              # results. Chosen from the classifier's output distribution
+                              # only -- no manual scores used.
+    off_topic:
+      # A window's narration is off-topic when it is closer (by meaning) to
+      # unrelated text than to the video's typical narration.
+      embedding_model: sentence-transformers/all-MiniLM-L6-v2
+      min_narration_words: 8  # fewer words -> embedding too noisy to judge; the
+                              # window counts 0 for this part (untuned default)
+      decision_point: 0.5     # 0.5 = the midpoint between "unrelated" and
+                              # "typical": off-topic when nearer to unrelated
+      min_assessed_windows: 3 # fewer judgeable windows -> no "typical" level
+      reference_texts: unrelated_reference.txt   # in src/mmpquant/data/
+
+onscreen:
+  # Sentence vs label classification. See src/mmpquant/onscreen.py.
+  #   finite verb present                  -> sentence (redundancy-eligible)
+  #   no finite verb, >= min content words -> sentence
+  #   otherwise                            -> label    (signaling; excluded)
+  classifier: spacy            # spacy | word_count
+  spacy_model: en_core_web_trf # transformer parser (05 Oct 2026): no errors on 22
+                               # hard corpus cases vs 4 for en_core_web_sm. Supplies
+                               # VerbForm=Fin and the subject, which separate a
+                               # headline ("How to make a video") from an
+                               # assertion ("Water boils")
+
+  # Layout reconstruction: which OCR lines belong to the same block of text.
+  line_gap_ratio: 1.6      # max vertical gap between lines of one block,
+                           # as a multiple of line height
+  x_align_tol_px: 24.0     # left edges within this many px count as aligned
+  dedup_similarity: 0.88   # character similarity above which two readings are
+                           # treated as the same text read twice (animated text
+                           # is captured mid-render and misread)
+  split_run_together_words: true  # OCR sometimes drops spaces between correctly
+                           # read words ("Heatcannotspontaneouslyflowfromacolderbody");
+                           # restore them before classifying and comparing.
+                           # See src/mmpquant/wordsplit.py for the acceptance rule.
+
+
+text_normalisation:
+  # Applied to BOTH OCR and ASR text before verbatim (ROUGE-L) comparison.
+  # Without this, verbatim overlap is systematically deflated: OCR emits
+  # "photo-\nsynthesis" and "3", ASR emits "photosynthesis" and "three".
+  lowercase: true
+  dehyphenate_linebreaks: true
+  strip_punctuation: true
+  words_to_digits: true     # "three" -> "3", applied to both sides
+  collapse_whitespace: true
+
+output:
+  dir: runs                 # per-run artifacts: runs/<video_id>/
+  log_intermediates: true   # transcript, OCR dumps, windows, per-window scores
+  # A 40-min lecture at 2 fps is ~4800 PNGs (several GB per run), which makes
+  # retaining every run impractical. With this false, only the frames actually
+  # sent to OCR are kept — enough to audit any reported timestamp — and the rest
+  # are deleted after the OCR stage. They are reproducible from video + config.
+  keep_all_frames: false

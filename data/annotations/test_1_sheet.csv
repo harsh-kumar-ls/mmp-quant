@@ -1,0 +1,7 @@
+video_id,segment_index,start_s,end_s,timecode,rater_1_score,rater_2_score,rater_1_notes,rater_2_notes
+test_1,0,0.0,30.0,0:00-0:30,,,,
+test_1,1,30.0,60.0,0:30-1:00,,,,
+test_1,2,60.0,90.0,1:00-1:30,,,,
+test_1,3,90.0,120.0,1:30-2:00,,,,
+test_1,4,120.0,150.0,2:00-2:30,,,,
+test_1,5,150.0,161.9,2:30-2:41,,,,

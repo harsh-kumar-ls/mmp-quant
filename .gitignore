@@ -1,0 +1,19 @@
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+runs/
+data/videos/*
+!data/videos/.gitkeep
+data/manual_scores.csv
+# Regenerate with: python tools/make_synthetic_fixtures.py data/fixtures
+data/fixtures/
+.DS_Store
+
+# Private working notes and local tooling (not published)
+PROGRESS.md
+CLAUDE.md
+.claude/
+.venv 2/
