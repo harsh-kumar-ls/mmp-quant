@@ -1,0 +1,53 @@
+# Reference texts for the coherence scorer's off-topic test (11 Oct 2026).
+#
+# These define "unrelated narration": the similarity a video's narration has
+# to ordinary everyday talk on other subjects. The median similarity of the
+# video's topic to these paragraphs is the "unrelated" reference level.
+#
+# Written for this project as a fixed, versioned baseline -- not data and not
+# tuned against any score. Deliberately everyday subjects in a spoken style,
+# and deliberately NO channel boilerplate ("like and subscribe", sponsor
+# reads), so the reference is not built to catch one particular pattern.
+# One paragraph per line; lines starting with # are ignored. Changing this
+# file changes scores -- record any change in PROGRESS.md.
+
+To make a good tomato sauce, start by frying chopped onions and garlic in olive oil until they are soft, then add the tomatoes and let it simmer for about twenty minutes.
+The match went into extra time after both teams scored in the second half, and the home side finally won it with a penalty in the last minute.
+We spent three days in the old town, walking the narrow streets, trying the local bakeries, and taking the evening boat along the coast.
+It looks like rain for most of the weekend, so if you were planning a picnic you might want to move it indoors or wait until Monday.
+I picked up a new pair of running shoes yesterday; they were on sale, and they feel much lighter than my old ones.
+Our dog loves the park in the morning, and she gets so excited when she sees the other dogs that she pulls on the lead the whole way there.
+The best time to plant roses is early spring, and you should water them deeply once a week rather than a little bit every day.
+The actor is back in a new film this summer, playing a retired detective who gets pulled into one last case in a small seaside town.
+The concert was amazing; the band played all their old songs, and the whole crowd was singing along by the end of the night.
+If your kitchen tap keeps dripping, the washer inside is probably worn out, and replacing it only takes a few minutes with a spanner.
+This car has a bigger boot than the old model, more comfortable seats, and it uses a lot less fuel on the motorway.
+A twenty-minute walk after dinner is a simple habit, and many people find it helps them sleep better and feel more relaxed.
+We booked a table at the new Italian place on the corner, and the pizza was really good, although the service was a bit slow.
+The festival runs all week, with food stalls, live music, and fireworks over the river on the final night.
+When the baby finally started sleeping through the night, it felt like we had our lives back.
+I always grind my coffee beans fresh in the morning, because the smell alone is enough to wake me up.
+The new season of the game adds three maps, a few new characters, and a ranked mode that a lot of players have been asking for.
+We went fishing at the lake on Sunday, but the only thing we caught all morning was a cold.
+The trail climbs steeply for the first hour, but once you reach the ridge the views over the valley are worth every step.
+Their wedding was in a garden with lanterns in the trees, and the speeches made half the guests cry.
+Make sure you pack sunscreen, a hat, and plenty of water, because the beach gets very hot by midday.
+The shop is having a clearance sale, so jackets and boots are half price until the end of the month.
+She knitted a scarf for each of her grandchildren this winter, all in different colours.
+The train was delayed by forty minutes, so we sat in the station cafe and shared a slice of cake.
+If you want a lawn that stays green, mow it often but not too short, and leave the clippings on the grass.
+The museum has a new exhibition of old photographs of the city, showing how the market square looked a hundred years ago.
+Our neighbours are repainting their house, and they have chosen a bright yellow that you can see from the end of the street.
+I tried a yoga class for the first time last week, and I was surprised by how much it made my legs ache the next day.
+The bakery sells out of croissants by nine, so if you want one you have to get there early.
+We adopted a kitten from the shelter, and she spends most of the day chasing a piece of string around the living room.
+The cyclists rode past in a long line, cheered on by people standing at the side of the road with flags.
+For a birthday party at home, a few balloons, some music and a big chocolate cake are usually all the children need.
+He has been learning to play the guitar in the evenings and can now manage three songs without stopping.
+The hotel room had a balcony facing the sea, and every morning we had breakfast watching the boats go out.
+Spring cleaning is easier if you do one room a day instead of trying to do the whole house in a weekend.
+The local team has a new coach this year, and fans are hoping for a better result than last season.
+At the market you can buy fresh fruit, homemade cheese, and flowers straight from the farms nearby.
+We watched the sunset from the top of the hill and then drove home with the windows down.
+My grandmother's recipe for apple pie uses a little cinnamon and a squeeze of lemon, and it never fails.
+The airline lost my suitcase on the way out, so I spent the first day of the holiday buying new clothes.
