@@ -450,6 +450,13 @@ def run_extraction(
     events, audio_warnings = (None, [])
     if (outdir / AUDIO_EVENTS_JSON).exists() and "coherence" in enabled_principles(cfg):
         events, audio_warnings = load_audio_events(outdir / AUDIO_EVENTS_JSON)
+        wav = outdir / "audio.wav"
+        if events.frames and events.frames[0].level_db is None and wav.exists():
+            # Runs classified before 14 Oct 2026 lack loudness; it needs only
+            # the WAV, not the model, so fill it in rather than re-classify.
+            from .extract.audio_events import with_levels
+
+            events = with_levels(events, wav)
 
     return ExtractionResult(
         windows=windows,

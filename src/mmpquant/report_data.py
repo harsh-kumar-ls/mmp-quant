@@ -148,6 +148,7 @@ def _coherence_window(w: dict[str, Any]) -> dict[str, Any]:
         "music_under_speech_at": music.get("music_under_speech_at", []),
         "music_without_speech_at": music.get("music_without_speech_at", []),
         "heard": music.get("heard", []),
+        "music_to_speech_db": music.get("music_to_speech_db", []),
         "off_topic_check": off,
     }
 
@@ -171,6 +172,7 @@ def build_coherence_data(coh: dict[str, Any] | None) -> dict[str, Any] | None:
         "warnings": res.get("warnings", []),
         "parts": coh.get("parts"),
         "alternative": coh.get("alternative"),
+        "music_loudness": coh.get("music_loudness"),
         "assessed_score": coh.get("assessed_score"),
         "coverage": coh.get("coverage"),
         "n_windows_total": res["n_windows_total"],

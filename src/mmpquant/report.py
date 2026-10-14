@@ -539,6 +539,15 @@ def _coherence(payload: dict[str, Any]) -> list[str]:
             f"The sound classifier heard: {', '.join(list(heard)[:6])}.",
             "",
         ]
+        loud = coh.get("music_loudness") or {}
+        if loud.get("median_db") is not None:
+            lines += [
+                (f"Music level relative to speech: **{loud['median_db']:.1f} dB** (median over "
+                 f"{loud['n_seconds']} s; the quietest 100 ms of each second — a pause between "
+                 "words, where only the music is heard — against that second's level; nearer "
+                 "0 dB = music nearly as loud as the voice). Evidence only, not in the score."),
+                "",
+            ]
     else:
         lines += ["No music detected under narration.", ""]
     if alone:
