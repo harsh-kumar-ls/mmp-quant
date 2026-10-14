@@ -363,3 +363,46 @@ class TestOffTopicKeptOutOfTheScore:
         assert cfg.get("scoring.coherence.weights") == {PART_MUSIC: 1.0, PART_OFF_TOPIC: 0.0}
         assert cfg.get("scoring.coherence.alternative_weights") == {PART_MUSIC: 0.5,
                                                                     PART_OFF_TOPIC: 0.5}
+
+
+class TestMusicLoudness:
+    """14 Oct 2026: music level relative to speech, shown as evidence only.
+    The user heard test_7's music as louder than test6's / Test_11's."""
+
+    def test_quietest_block_measures_the_music_between_words(self):
+        from mmpquant.extract.audio_events import frame_levels
+
+        sr = 16000
+        t = np.arange(sr) / sr
+        music = 0.05 * np.sin(2 * np.pi * 220 * t)          # throughout the second
+        voice = np.where(t < 0.8, 0.5 * np.sin(2 * np.pi * 150 * t), 0.0)  # pause at 0.8-1.0 s
+        level, floor = frame_levels((music + voice).astype(np.float32), sr, 0.0, 1.0)
+        # the quietest 100 ms holds only the music: 0.05 amplitude sine -> RMS 0.0354 -> -29 dB
+        assert floor == pytest.approx(20 * np.log10(0.05 / np.sqrt(2)), abs=0.3)
+        assert level > floor + 10
+
+    def test_digital_silence_is_clamped_not_minus_infinity(self):
+        from mmpquant.extract.audio_events import MIN_DB, frame_levels
+
+        assert frame_levels(np.zeros(16000, np.float32), 16000, 0.0, 1.0) == (MIN_DB, MIN_DB)
+
+    def test_evidence_and_video_median_but_score_unchanged(self):
+        from dataclasses import replace
+
+        from mmpquant.scoring.coherence import music_loudness_db
+
+        ev = events(10, music=lambda t: 0.6)
+        ev = replace(ev, frames=tuple(replace(f, level_db=-20.0, floor_db=-26.0 - (f.start % 2))
+                                      for f in ev.frames))
+        ctx = VideoContext(transcript=transcript([(0, 10, PHYSICS)]), audio_events=ev)
+        r = scorer().score(windows(1), context=ctx)
+        diffs = r.window_scores[0].evidence["music"]["music_to_speech_db"]
+        assert sorted(set(diffs)) == [-7.0, -6.0]
+        assert music_loudness_db(r.window_scores) == {"median_db": -6.5, "n_seconds": 10}
+        assert r.window_scores[0].components[PART_MUSIC] == 1.0  # loudness never enters the score
+
+    def test_no_music_means_no_loudness(self):
+        from mmpquant.scoring.coherence import music_loudness_db
+
+        r = run([(0, 10, PHYSICS)], 1)
+        assert music_loudness_db(r.window_scores) == {"median_db": None, "n_seconds": 0}

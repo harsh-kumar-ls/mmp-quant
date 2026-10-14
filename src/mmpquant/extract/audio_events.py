@@ -48,14 +48,23 @@ class AudioFrame:
     probs: dict[str, float]
     # the model's top classes for this frame, for the audit trail
     top: tuple[tuple[str, float], ...] = ()
+    # Loudness (dBFS): the whole frame, and its quietest 100 ms block. In a
+    # second of speech over music, the quietest block falls in a pause between
+    # words, where only the music is audible -- see `frame_levels`.
+    level_db: float | None = None
+    floor_db: float | None = None
 
     def to_dict(self) -> dict[str, Any]:
-        return {
+        d = {
             "start": self.start,
             "end": self.end,
             "probs": self.probs,
             "top": [[label, p] for label, p in self.top],
         }
+        if self.level_db is not None:
+            d["level_db"] = self.level_db
+            d["floor_db"] = self.floor_db
+        return d
 
 
 @dataclass(frozen=True)
@@ -85,6 +94,8 @@ class AudioEvents:
                     end=f["end"],
                     probs=dict(f["probs"]),
                     top=tuple((label, p) for label, p in f.get("top", [])),
+                    level_db=f.get("level_db"),
+                    floor_db=f.get("floor_db"),
                 )
                 for f in payload.get("frames", [])
             ),
@@ -93,6 +104,52 @@ class AudioEvents:
             model=str(payload.get("model", "")),
             tracked=tuple(payload.get("tracked", [])),
         )
+
+
+MIN_DB = -100.0  # digital silence is clamped here rather than -inf
+BLOCK_S = 0.1    # the "quietest moment" granularity
+
+
+def _db(rms: float) -> float:
+    import math
+
+    return MIN_DB if rms <= 1e-5 else max(MIN_DB, 20.0 * math.log10(rms))
+
+
+def frame_levels(x, sr: int, start: float, end: float) -> tuple[float, float]:
+    """(level_db, floor_db) of x[start:end]: overall RMS, and the RMS of its
+    quietest 100 ms block.
+
+    Used for music loudness relative to speech (coherence evidence, 14 Oct
+    2026): within a second where someone speaks over music, the quietest
+    100 ms is a gap between words, so floor_db − level_db approximates the
+    music's level relative to the voice. Evidence only -- not in any score.
+    """
+    import numpy as np
+
+    seg = x[int(start * sr):int(end * sr)]
+    if len(seg) == 0:
+        return MIN_DB, MIN_DB
+    level = _db(float(np.sqrt(np.mean(seg ** 2))))
+    block = max(1, int(BLOCK_S * sr))
+    n = len(seg) // block
+    if n < 2:
+        return level, level
+    rms = np.sqrt((seg[: n * block].reshape(n, block) ** 2).mean(axis=1))
+    return round(level, 2), round(_db(float(rms.min())), 2)
+
+
+def with_levels(events: AudioEvents, wav_path: Path) -> AudioEvents:
+    """The same events with level_db / floor_db filled in from the WAV.
+    Cheap (no model), so older runs gain loudness without re-classifying."""
+    from dataclasses import replace
+
+    x, sr = read_wav_mono(wav_path)
+    frames = []
+    for f in events.frames:
+        level, floor = frame_levels(x, sr, f.start, f.end)
+        frames.append(replace(f, level_db=level, floor_db=floor))
+    return replace(events, frames=tuple(frames))
 
 
 def frame_clips(n_samples: int, sr: int, hop_s: float, clip_s: float):
@@ -188,7 +245,8 @@ def detect(
                 )
             )
     log.info("audio events: %d frames from %s", len(frames), wav_path)
-    return AudioEvents(
+    events = AudioEvents(
         frames=tuple(frames), hop_s=hop_s, clip_s=clip_s, model=model_name,
         tracked=tuple(track),
     )
+    return with_levels(events, wav_path)

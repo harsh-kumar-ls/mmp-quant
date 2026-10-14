@@ -19,7 +19,13 @@ from .config import Config
 from .overlap import SentenceTransformerEmbedder
 from .report import render_markdown
 from .scoring.base import VideoContext
-from .scoring.coherence import PART_MUSIC, PART_OFF_TOPIC, CoherenceScorer, part_scores
+from .scoring.coherence import (
+    PART_MUSIC,
+    PART_OFF_TOPIC,
+    CoherenceScorer,
+    music_loudness_db,
+    part_scores,
+)
 from .scoring.redundancy import RedundancyScorer
 from .segments import (
     SegmentScore,
@@ -144,6 +150,8 @@ def coherence_block(
         # each part on the headline's scale: score = Σ weight × part
         "parts": parts,
         "alternative": alternative,
+        # evidence only, not in any score (user decision, 14 Oct 2026)
+        "music_loudness": music_loudness_db(result.window_scores),
         "aggregation": "whole_video_mean",
     }
 

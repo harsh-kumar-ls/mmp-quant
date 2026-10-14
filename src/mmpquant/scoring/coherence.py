@@ -227,6 +227,7 @@ class CoherenceScorer(PrincipleScorer):
         music_times: list[float] = []
         jingle_times: list[float] = []
         spoken_times: list[float] = []
+        level_diffs: list[float] = []
         labels: dict[str, int] = {}
         for f in frames:
             mid = (f.start + f.end) / 2.0
@@ -242,6 +243,8 @@ class CoherenceScorer(PrincipleScorer):
                 if has_music:
                     music_under += dur
                     music_times.append(f.start)
+                    if f.level_db is not None and f.floor_db is not None:
+                        level_diffs.append(round(f.floor_db - f.level_db, 1))
                     for label, _ in f.top[:3]:
                         labels[label] = labels.get(label, 0) + 1
             elif has_music:
@@ -256,6 +259,9 @@ class CoherenceScorer(PrincipleScorer):
             "music_under_speech_at": music_times,
             "music_without_speech_at": jingle_times,
             "heard": [k for k, _ in sorted(labels.items(), key=lambda kv: -kv[1])[:5]],
+            # per second with music under speech: quietest 100 ms minus the
+            # second's level (dB). Evidence only (user decision, 14 Oct 2026).
+            "music_to_speech_db": level_diffs,
         }
 
     def _off_topic(self, narrations: Sequence[str]) -> dict[str, Any]:
@@ -330,6 +336,22 @@ class CoherenceScorer(PrincipleScorer):
                 "be judged without speech."
             )
         return None
+
+
+def music_loudness_db(window_scores: Sequence[WindowScore]) -> dict[str, float | int | None]:
+    """Median music level relative to speech over every second with music
+    under speech (dB; nearer 0 = music nearly as loud as the voice).
+
+    Evidence only, not part of any score (user decision, 14 Oct 2026). It
+    separated test_7 (-5.8 dB) from test6 / Test_11 (about -13 dB), matching
+    the user's listening -- but the measure was designed after hearing that,
+    so it is suggestive, not validated.
+    """
+    values = [v for ws in window_scores
+              for v in ((ws.evidence or {}).get("music") or {}).get("music_to_speech_db", [])]
+    if not values:
+        return {"median_db": None, "n_seconds": 0}
+    return {"median_db": round(statistics.median(values), 1), "n_seconds": len(values)}
 
 
 def part_scores(window_scores: Sequence[WindowScore]) -> dict[str, float | None]:

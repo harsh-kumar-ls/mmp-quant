@@ -46,6 +46,7 @@ const f2 = (x) => (x === null || x === undefined ? "—" : Number(x).toFixed(2))
 const f4 = (x) => (x === null || x === undefined ? "—" : Number(x).toFixed(4));
 const pct = (x) => (x === null || x === undefined ? "—" : `${Math.round(x * 100)}%`);
 const cap = (s) => (s || "").replace(/^./, (c) => c.toUpperCase());
+const median = (xs) => { const a = [...xs].sort((p, q) => p - q), n = a.length; return n % 2 ? a[(n - 1) / 2] : (a[n / 2 - 1] + a[n / 2]) / 2; };
 
 async function api(path, opts) {
   const res = await fetch(path, opts);
@@ -751,7 +752,13 @@ function soundTimeline(data, c) {
       <div class="stat"><dt>Spoken time</dt><dd class="tabular">${Math.round(spokenS)} s</dd></div>
       <div class="stat"><dt>With music under it</dt><dd class="tabular">${Math.round(underS)} s (${spokenS ? pct(underS / spokenS) : "—"})</dd></div>
       <div class="stat"><dt>Music threshold</dt><dd class="tabular">${escapeHtml(m.music_classes.join("/"))} ≥ ${m.music_threshold}</dd></div>
+      ${c.music_loudness && c.music_loudness.median_db != null ? `<div class="stat"><dt>Music loudness vs speech</dt>
+        <dd class="tabular">${c.music_loudness.median_db.toFixed(1)} dB</dd></div>` : ""}
     </dl>
+    ${c.music_loudness && c.music_loudness.median_db != null ? `<p class="muted" style="margin:10px 0 0">${icon("info", 14)}
+      Loudness is evidence only, not part of the score: the quietest 100 ms of each second (a pause between words, where only
+      the music is heard) compared with that second's level, over ${c.music_loudness.n_seconds} s. Nearer 0 dB means the music
+      is nearly as loud as the voice; every 6 dB is roughly a doubling.</p>` : ""}
     ${Object.keys(heard).length ? `<p class="muted" style="margin:10px 0 0">The classifier heard: ${escapeHtml(Object.entries(heard).sort((a, b) => b[1] - a[1]).slice(0, 6).map((e) => e[0]).join(", "))}.</p>` : ""}
   </div>`;
 }
@@ -846,6 +853,7 @@ function coherenceWindow(w, m, wm, wo, open) {
       <div class="note">A second counts when someone is speaking and the classifier gives ${escapeHtml(m.music_classes.join("/"))} a probability of at least ${m.music_threshold}.
         ${w.heard.length ? `Heard: ${escapeHtml(w.heard.join(", "))}.` : ""}</div>
       <div class="formula tabular">music share = ${f2(w.music_under_speech_s)} s with music ÷ ${f2(w.narrated_s)} s spoken = <strong>${f4(w.background_music)}</strong></div>
+      ${(w.music_to_speech_db || []).length ? `<div class="note">Music loudness here: ${median(w.music_to_speech_db).toFixed(1)} dB relative to the voice (evidence only, not in the score).</div>` : ""}
       ${w.music_without_speech_s ? `<div class="note">Plus ${f2(w.music_without_speech_s)} s of music with nobody speaking — not counted.</div>` : ""}</div>`;
     const step2 = ot.judged
       ? `<div class="step-block"><div class="step-title"><span class="step-num">2</span>Does the narration stay on topic?</div>
