@@ -66,8 +66,10 @@ does not depend on where the segment boundaries fall.
 and key terms are signaling, not redundancy. A window scores above 0 only if the narration
 actually restates an on-screen sentence, meaning it says more than half of the sentence's
 content words, and more of them than narration elsewhere in the video does by chance.
-Above that gate, word overlap (ROUGE-L) and meaning overlap (sentence embeddings) are each
-measured above chance and combined 0.6 / 0.4.
+Above that gate, two measures are taken, each above chance, and combined 0.6 / 0.4: the
+share of the on-screen words the narration says (in order), and how close in meaning each
+on-screen sentence is to the narration sentence that restates it. Captions that run one
+sentence across several screens are joined back into whole sentences first.
 
 **Coherence:** the share of spoken seconds with music under them, according to an AudioSet
 sound classifier (`MIT/ast-finetuned-audioset-10-10-0.4593`). Music with nobody speaking,

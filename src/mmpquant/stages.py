@@ -484,6 +484,9 @@ def _onscreen_params(cfg: Config) -> OnscreenParams:
         x_align_tol_px=float(cfg.get("onscreen.x_align_tol_px", 24.0)),
         dedup_similarity=float(cfg.get("onscreen.dedup_similarity", 0.88)),
         split_run_together_words=bool(cfg.get("onscreen.split_run_together_words", True)),
+        caption_stitching=bool(cfg.get("onscreen.caption_stitching.enabled", True)),
+        caption_max_gap_s=float(cfg.get("onscreen.caption_stitching.max_gap_s", 1.0)),
+        caption_max_pieces=int(cfg.get("onscreen.caption_stitching.max_pieces", 4)),
     )
 
 

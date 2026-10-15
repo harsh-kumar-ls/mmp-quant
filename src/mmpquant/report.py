@@ -366,8 +366,12 @@ def _methodology(payload: dict[str, Any]) -> list[str]:
         "                (otherwise the window scores 0 -- text on screen is not",
         "                redundancy by being there)",
         "",
-        f"window score  = 100 × ({w['verbatim']} × ROUGE-L F1 over content words, above chance",
-        f"{' ' * 24}+ {w['semantic']} × cosine similarity, above chance)",
+        f"window score  = 100 × ({w['verbatim']} × word match, above chance",
+        f"{' ' * 24}+ {w['semantic']} × meaning match, above chance)",
+        "  word match    = share of the restated on-screen content words the narration",
+        "                  says, in order (ROUGE-L LCS ÷ on-screen length)",
+        "  meaning match = cosine of each restated on-screen sentence with the narration",
+        "                  sentence (or pair) that matches it best, weighted by content words",
         "  above chance(x) = max(0, (x - c) / (1 - c)), c = median of the same measure",
         "                    against narration > 30 s away in the same video",
         "",
@@ -383,7 +387,8 @@ def _methodology(payload: dict[str, Any]) -> list[str]:
             "headlines are signaling under Mayer, not redundancy, and are removed from "
             "the compared text entirely so they cannot raise the score even indirectly. "
             "Classification turns on grammatical completeness — the presence of a "
-            "finite verb — not on length."
+            "finite verb — not on length. Captions that run one sentence across several "
+            "screens are followed through time and joined into whole sentences first."
         ),
         "",
         *_aggregation_note(payload),

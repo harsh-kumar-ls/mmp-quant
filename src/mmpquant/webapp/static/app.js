@@ -607,7 +607,7 @@ function windowCalculation(w, m, open) {
       const wv = m.weight_verbatim, ws = m.weight_semantic;
       body = `${texts}${step1}
         <div class="step-block"><div class="step-title"><span class="step-num">2</span>How closely does the narration match the restated sentence?</div>
-          <div class="note">Word match = ROUGE-L F1 over content words (order matters). Meaning = cosine similarity of sentence
+          <div class="note">Word match = share of the on-screen content words the narration says, in order. Meaning = cosine similarity of each on-screen sentence with the narration sentence that matches it best (sentence
             embeddings (${escapeHtml(m.embedding_model)}). Only what is above chance counts: (raw − chance) ÷ (1 − chance).</div>
           <div class="table-scroll"><table class="plain"><thead><tr><th>Measure</th><th class="num">Raw</th><th class="num">Chance</th><th>Above chance</th></tr></thead><tbody>
             ${chanceRow("Word match", w.verbatim_raw, w.verbatim_chance, w.verbatim)}

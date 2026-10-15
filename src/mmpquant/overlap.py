@@ -7,6 +7,8 @@ tested against hand-computed values without loading a video or a model.
 from __future__ import annotations
 
 import functools
+import itertools
+import re
 from collections.abc import Sequence
 from typing import Protocol
 
@@ -57,6 +59,42 @@ def rouge_l_f1(text_a: str, text_b: str, cfg: NormalisationConfig | None = None)
     precision = lcs / len(tokens_a)
     recall = lcs / len(tokens_b)
     return 2 * precision * recall / (precision + recall)
+
+
+def rouge_l_screen_coverage(
+    screen: str, narration: str, cfg: NormalisationConfig | None = None
+) -> float:
+    """Share of the on-screen tokens the narration says, in order: LCS / |screen|.
+
+    The redundancy word-match measure since 15 Oct 2026 (user decision). The
+    principle asks how much of the on-screen text the narration duplicates.
+    ROUGE-L F1 also divides by the narration's length, and the narration pool
+    is longer than the screen by construction (the window plus ±3 s, ~16 s of
+    speech against one screen of text) -- so a screen read aloud word for
+    word scored ~0.5-0.7, never 1 (Microlearning-Safety-Training, 15 Oct).
+    """
+    tokens_a = tokenise(normalise_for_verbatim(screen, cfg))
+    tokens_b = tokenise(normalise_for_verbatim(narration, cfg))
+    if not tokens_a or not tokens_b:
+        return 0.0
+    return lcs_length(tokens_a, tokens_b) / len(tokens_a)
+
+
+_SENTENCE_END = re.compile(r"(?<=[.!?])\s+")
+
+
+def narration_units(text: str) -> list[str]:
+    """Spoken sentences, and each pair of consecutive ones, from narration.
+
+    The unit an on-screen sentence is compared with by meaning (15 Oct 2026):
+    the narration sentence that restates it, not the whole window's speech.
+    Pairs are included because one caption sentence is often spoken across a
+    sentence break the speech recogniser inserted.
+    """
+    sents = [x.strip() for x in _SENTENCE_END.split(text.strip()) if x.strip()]
+    if len(sents) <= 1:
+        return [text.strip()] if text.strip() else []
+    return sents + [f"{a} {b}" for a, b in itertools.pairwise(sents)]
 
 
 # --------------------------------------------------------------------------- #

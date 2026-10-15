@@ -175,8 +175,8 @@ class TestMethodology:
         p = payload()
         p["result"]["params"]["weights"] = {"verbatim": 0.75, "semantic": 0.25}
         md = render_markdown(p)
-        assert "0.75 × ROUGE-L F1" in md
-        assert "0.25 × cosine" in md
+        assert "0.75 × word match" in md
+        assert "0.25 × meaning match" in md
 
     def test_thresholds_are_printed(self):
         md = render_markdown(payload())
