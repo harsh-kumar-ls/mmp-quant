@@ -92,6 +92,21 @@ scoring:
     min_narration_words: 1  # literal reading of the spec ("contains narration").
                             # NOTE: I recommend 3 — see PROGRESS.md open decision D4.
     embedding_model: sentence-transformers/all-MiniLM-L6-v2
+    # How closely a restated on-screen sentence is repeated (15 Oct 2026, user
+    # decision, prompted by Microlearning-Safety-Training: read aloud word for
+    # word, scored 41.55):
+    #   verbatim_measure: screen_coverage = share of the on-screen words the
+    #     narration says, in order (LCS / screen length). f1 = ROUGE-L F1, the
+    #     measure until then: it also divides by the narration's length, and the
+    #     narration pool (window ±3 s) is always longer than one screen, so a
+    #     word-for-word reading capped out near 0.6. F1 is still recorded per
+    #     window as verbatim_f1_raw.
+    #   semantic_measure: best_matching_sentence = each on-screen sentence vs the
+    #     narration sentence (or consecutive pair) that best matches it.
+    #     whole_window = vs the whole pooled narration, the measure until then.
+    # Corpus check before adopting: ranking nearly unchanged; zeros stay zero.
+    verbatim_measure: screen_coverage
+    semantic_measure: best_matching_sentence
     # Text on screen is not redundancy by being there (04-05 Oct 2026). A
     # window scores 0 unless the narration RESTATES an on-screen sentence: says
     # more than min_sentence_coverage of that sentence's content words (at
@@ -174,6 +189,15 @@ onscreen:
   dedup_similarity: 0.88   # character similarity above which two readings are
                            # treated as the same text read twice (animated text
                            # is captured mid-render and misread)
+  # Captions that run one sentence across several screens (15 Oct 2026,
+  # Microlearning-Safety-Training): each screen alone is a fragment ("on fire
+  # prevention and / emergency preparation.") and was classified a label. The
+  # caption stream is followed through time and fragments are joined into whole
+  # sentences -- see src/mmpquant/extract/captions.py for the guards.
+  caption_stitching:
+    enabled: true
+    max_gap_s: 1.0          # pieces must follow each other within this time
+    max_pieces: 4           # a stitched sentence spans at most this many screens
   split_run_together_words: true  # OCR sometimes drops spaces between correctly
                            # read words ("Heatcannotspontaneouslyflowfromacolderbody");
                            # restore them before classifying and comparing.

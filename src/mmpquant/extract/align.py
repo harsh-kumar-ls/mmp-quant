@@ -29,9 +29,17 @@ from __future__ import annotations
 import logging
 from dataclasses import dataclass
 
-from ..onscreen import collapse_near_duplicates, group_into_elements, prose_text
+from ..onscreen import (
+    KIND_SENTENCE,
+    TextElement,
+    collapse_near_duplicates,
+    group_into_elements,
+    group_lines,
+    prose_text,
+)
 from ..types import OcrBlock, OcrLine, Transcript, Window
 from ..wordsplit import split_run_together
+from .captions import StitchedSentence, caption_stream, stitch_sentences
 
 log = logging.getLogger(__name__)
 
@@ -76,6 +84,10 @@ class OnscreenParams:
     x_align_tol_px: float = 24.0
     dedup_similarity: float = 0.88
     split_run_together_words: bool = True
+    # Captions running one sentence across screens (15 Oct 2026, captions.py)
+    caption_stitching: bool = True
+    caption_max_gap_s: float = 1.0
+    caption_max_pieces: int = 4
 
 
 def window_bounds(duration: float, params: WindowingParams) -> list[tuple[float, float]]:
@@ -128,6 +140,7 @@ def build_windows(
     words = transcript.words
     bounds = window_bounds(duration, params)
     windows: list[Window] = []
+    stitched = _stitched_sentences(ocr_blocks, onscreen) if onscreen.caption_stitching else []
 
     for index, (start, end) in enumerate(bounds):
         asr_lo, asr_hi = start - params.asr_tolerance, end + params.asr_tolerance
@@ -143,6 +156,9 @@ def build_windows(
         ]
         ocr_text = _merge_block_text(ocr_blocks, block_indices)
         elements = _elements_for_window(ocr_blocks, block_indices, onscreen)
+        elements = _with_stitched(
+            elements, [s for s in stitched if s.start < ocr_hi and s.end > ocr_lo]
+        )
         prose = prose_text(elements)
 
         windows.append(
@@ -161,6 +177,68 @@ def build_windows(
         )
 
     return windows
+
+
+def _block_lines(block: OcrBlock, onscreen: OnscreenParams) -> tuple[OcrLine, ...]:
+    if not onscreen.split_run_together_words:
+        return block.lines
+    # OCR sometimes drops the spaces between correctly-read words; restore
+    # them before classification and comparison (defect 10.4, wordsplit.py).
+    return tuple(
+        OcrLine(split_run_together(line.text), line.confidence, line.bbox)
+        for line in block.lines
+    )
+
+
+def _stitched_sentences(
+    blocks: tuple[OcrBlock, ...], onscreen: OnscreenParams
+) -> list[StitchedSentence]:
+    """Sentences formed from captions that run across screens (captions.py)."""
+    texts = [
+        [(" ".join(line.text for line in group), _union_box(group))
+         for group in group_lines(_block_lines(b, onscreen),
+                                  line_gap_ratio=onscreen.line_gap_ratio,
+                                  x_align_tol_px=onscreen.x_align_tol_px)]
+        for b in blocks
+    ]
+    pieces = caption_stream(texts, [(b.start, b.end) for b in blocks],
+                            similarity=onscreen.dedup_similarity,
+                            max_gap_s=onscreen.caption_max_gap_s)
+    return stitch_sentences(pieces, max_gap_s=onscreen.caption_max_gap_s,
+                            max_pieces=onscreen.caption_max_pieces)
+
+
+def _union_box(lines) -> tuple[float, float, float, float] | None:
+    boxes = [line.bbox for line in lines if line.bbox]
+    if not boxes:
+        return None
+    return (min(b[0] for b in boxes), min(b[1] for b in boxes),
+            max(b[2] for b in boxes), max(b[3] for b in boxes))
+
+
+def _key(text: str) -> str:
+    return "".join(c for c in text.lower() if c.isalnum())
+
+
+def _with_stitched(elements: list, stitched: list[StitchedSentence]) -> list:
+    """Add stitched sentences as sentence elements, dropping any per-screen
+    sentence that is only a part of one (keep the longer, as dedupe does)."""
+    if not stitched:
+        return elements
+    keys = [_key(s.text) for s in stitched]
+    kept = [
+        e for e in elements
+        if not (e.kind == KIND_SENTENCE and any(_key(e.text) in k for k in keys))
+    ]
+    for s in stitched:
+        kept.append(TextElement(
+            lines=(OcrLine(s.text, 1.0, None),),
+            kind=KIND_SENTENCE,
+            bbox=None,
+            evidence={"reason": "stitched_across_screens", "pieces": list(s.pieces),
+                      "start": s.start, "end": s.end},
+        ))
+    return kept
 
 
 def _elements_for_window(
@@ -183,21 +261,11 @@ def _elements_for_window(
     "Gaussian Elimination *signed* Area" -- and scored as redundancy. Neither
     was a sentence, and they were never on screen together.
     """
-    def lines_of(block: OcrBlock) -> tuple[OcrLine, ...]:
-        if not onscreen.split_run_together_words:
-            return block.lines
-        # OCR sometimes drops the spaces between correctly-read words; restore
-        # them before classification and comparison (defect 10.4, wordsplit.py).
-        return tuple(
-            OcrLine(split_run_together(line.text), line.confidence, line.bbox)
-            for line in block.lines
-        )
-
     elements = [
         element
         for i in indices
         for element in group_into_elements(
-            lines_of(blocks[i]),
+            _block_lines(blocks[i], onscreen),
             min_prose_words=onscreen.min_prose_words,
             line_gap_ratio=onscreen.line_gap_ratio,
             x_align_tol_px=onscreen.x_align_tol_px,

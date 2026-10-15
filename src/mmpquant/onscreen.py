@@ -405,6 +405,28 @@ def _belongs_to_same_element(
     return horizontally_related
 
 
+def group_lines(
+    lines: tuple[OcrLine, ...] | list[OcrLine],
+    *,
+    line_gap_ratio: float = 1.6,
+    x_align_tol_px: float = 24.0,
+) -> list[list[OcrLine]]:
+    """Group OCR lines (in reading order) into the text blocks they form on
+    screen, by layout alone -- no classification."""
+    lines = [line for line in lines if line.text.strip()]
+    if not lines:
+        return []
+    groups: list[list[OcrLine]] = [[lines[0]]]
+    for prev, curr in itertools.pairwise(lines):
+        if _belongs_to_same_element(
+            prev, curr, line_gap_ratio=line_gap_ratio, x_align_tol_px=x_align_tol_px
+        ):
+            groups[-1].append(curr)
+        else:
+            groups.append([curr])
+    return groups
+
+
 def group_into_elements(
     lines: tuple[OcrLine, ...] | list[OcrLine],
     *,
@@ -417,19 +439,7 @@ def group_into_elements(
     Lines are expected in reading order (top-to-bottom, left-to-right), which is
     how the OCR backend returns them.
     """
-    lines = [line for line in lines if line.text.strip()]
-    if not lines:
-        return []
-
-    groups: list[list[OcrLine]] = [[lines[0]]]
-    for prev, curr in itertools.pairwise(lines):
-        if _belongs_to_same_element(
-            prev, curr, line_gap_ratio=line_gap_ratio, x_align_tol_px=x_align_tol_px
-        ):
-            groups[-1].append(curr)
-        else:
-            groups.append([curr])
-
+    groups = group_lines(lines, line_gap_ratio=line_gap_ratio, x_align_tol_px=x_align_tol_px)
     elements: list[TextElement] = []
     for group in groups:
         text = "\n".join(line.text for line in group)

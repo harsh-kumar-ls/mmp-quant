@@ -52,7 +52,13 @@ from typing import Any
 from spacy.lang.en.stop_words import STOP_WORDS  # a word list; loads no model
 
 from ..onscreen import content_lemmas, is_question, onscreen_sentences, question_lemmas
-from ..overlap import Embedder, clamp_similarity, rouge_l_f1
+from ..overlap import (
+    Embedder,
+    clamp_similarity,
+    narration_units,
+    rouge_l_f1,
+    rouge_l_screen_coverage,
+)
 from ..textnorm import NormalisationConfig, normalise_for_verbatim, word_count
 from ..types import Window, WindowScore
 from .base import PrincipleScorer, register
@@ -88,6 +94,8 @@ class RedundancyScorer(PrincipleScorer):
         min_sentence_coverage: float = 0.5,
         null_exclusion_s: float = 30.0,
         min_null_windows: int = 3,
+        verbatim_measure: str = "screen_coverage",
+        semantic_measure: str = "best_matching_sentence",
     ) -> None:
         total = weight_verbatim + weight_semantic
         if abs(total - 1.0) > 1e-6:
@@ -103,6 +111,13 @@ class RedundancyScorer(PrincipleScorer):
         self.min_sentence_coverage = min_sentence_coverage
         self.null_exclusion_s = null_exclusion_s
         self.min_null_windows = min_null_windows
+        if verbatim_measure not in ("screen_coverage", "f1"):
+            raise ValueError(f"unknown verbatim_measure {verbatim_measure!r}")
+        if semantic_measure not in ("best_matching_sentence", "whole_window"):
+            raise ValueError(f"unknown semantic_measure {semantic_measure!r}")
+        self.verbatim_measure = verbatim_measure
+        self.semantic_measure = semantic_measure
+        self._vec_cache: dict[str, Any] = {}
         # A static slide spans many windows, so the same (ocr, asr) text pair
         # recurs. Cache to avoid re-encoding identical strings.
         self._sem_cache: dict[tuple[str, str], float] = {}
@@ -126,6 +141,8 @@ class RedundancyScorer(PrincipleScorer):
             ),
             null_exclusion_s=float(cfg.get(r + "chance_correction.null_exclusion_s", 30.0)),
             min_null_windows=int(cfg.get(r + "chance_correction.min_null_windows", 3)),
+            verbatim_measure=str(cfg.get(r + "verbatim_measure", "screen_coverage")),
+            semantic_measure=str(cfg.get(r + "semantic_measure", "best_matching_sentence")),
         )
 
     def params(self) -> dict[str, Any]:
@@ -137,6 +154,8 @@ class RedundancyScorer(PrincipleScorer):
             "min_onscreen_words": self.min_onscreen_words,
             "min_narration_words": self.min_narration_words,
             "embedding_model": self.embedding_model_name,
+            "verbatim_measure": self.verbatim_measure,
+            "semantic_measure": self.semantic_measure,
             "text_normalisation": vars(self.norm),
             "chance_correction": {
                 "min_shared_content_words": self.min_shared_content_words,
@@ -280,17 +299,19 @@ class RedundancyScorer(PrincipleScorer):
         # everything else that happened to be on screen beside them.
         ocr_for_scoring = " ".join(r["sentence"] for r in restated)
         screen_cw = self._content_text(ocr_for_scoring)
-        verbatim_raw = rouge_l_f1(screen_cw, self._content_text(window.asr_text), self.norm)
-        semantic_raw = clamp_similarity(self._semantic(ocr_for_scoring, window.asr_text))
+        sentences = [r["sentence"] for r in restated]
+        verbatim_raw = self._verbatim(screen_cw, window.asr_text)
+        semantic_raw = self._meaning(sentences, ocr_for_scoring, window.asr_text)
         if has_null:
-            verbatim_null = statistics.median(
-                rouge_l_f1(screen_cw, self._content_text(n), self.norm) for n in elsewhere
-            )
+            verbatim_null = statistics.median(self._verbatim(screen_cw, n) for n in elsewhere)
             semantic_null = statistics.median(
-                clamp_similarity(self._semantic(ocr_for_scoring, n)) for n in elsewhere
+                self._meaning(sentences, ocr_for_scoring, n) for n in elsewhere
             )
         else:
             verbatim_null = semantic_null = 0.0
+        # Kept for audit and comparison: the measure used until 15 Oct 2026.
+        counts["verbatim_f1_raw"] = round(
+            rouge_l_f1(screen_cw, self._content_text(window.asr_text), self.norm), 4)
         verbatim = _above_chance(verbatim_raw, verbatim_null)
         semantic = _above_chance(semantic_raw, semantic_null)
         combined = self.weight_verbatim * verbatim + self.weight_semantic * semantic
@@ -382,6 +403,44 @@ class RedundancyScorer(PrincipleScorer):
                 "the audio track before treating this as a property of the video."
             )
         return None
+
+    def _verbatim(self, screen_cw: str, narration: str) -> float:
+        """Word match of the restated on-screen content words against narration."""
+        other = self._content_text(narration)
+        if self.verbatim_measure == "f1":
+            return rouge_l_f1(screen_cw, other, self.norm)
+        return rouge_l_screen_coverage(screen_cw, other, self.norm)
+
+    def _meaning(self, sentences: Sequence[str], joined: str, narration: str) -> float:
+        """Meaning match of the restated on-screen sentences against narration.
+
+        best_matching_sentence (15 Oct 2026, user decision): each on-screen
+        sentence is compared with the narration sentence (or consecutive pair)
+        that matches it best, and the results are averaged weighted by content
+        words -- so speech around it that the screen does not show does not
+        dilute the comparison. whole_window is the measure used until then.
+        """
+        if self.semantic_measure == "whole_window":
+            return clamp_similarity(self._semantic(joined, narration))
+        units = narration_units(narration)
+        if not units:
+            return 0.0
+        total = weight = 0.0
+        for s in sentences:
+            w = max(1, len(self._content_words(s)))
+            total += w * max(clamp_similarity(self._similarity(s, u)) for u in units)
+            weight += w
+        return total / weight if weight else 0.0
+
+    def _similarity(self, a: str, b: str) -> float:
+        """Cosine of two texts; cached per text when the embedder can encode."""
+        encode = getattr(self.embedder, "encode", None)
+        if encode is None:
+            return self._semantic(a, b)
+        for t in (a, b):
+            if t not in self._vec_cache:
+                self._vec_cache[t] = encode([t])[0]
+        return float(self._vec_cache[a] @ self._vec_cache[b])
 
     def _semantic(self, ocr_text: str, asr_text: str) -> float:
         key = (ocr_text, asr_text)
