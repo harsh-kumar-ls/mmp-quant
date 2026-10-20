@@ -1,0 +1,137 @@
+# Golden expectations: what the user knows to be true about specific videos.
+#
+# Development checks, NOT validation data. They catch the system producing
+# results the user can see are wrong (every item below comes from a problem
+# the user found by hand). The professor's manual scores are never used here
+# and must never be added here — tuning to them and then "validating" against
+# them would be circular.
+#
+# status: draft      written by Claude from the user's own statements; the user
+#                    has not yet confirmed the exact wording / threshold
+#         confirmed  the user has confirmed it (record the date)
+#
+# Every check runs on every `tools/loop_check.sh`. A failing check blocks
+# "done", whatever its status. Add one whenever a new problem is found by hand.
+
+checks:
+
+  # ---------------------------------------------------------------- redundancy
+  - id: R1
+    status: draft
+    source: "user, 05 Oct 2026: 'test 11 should be scored as 0' — on-screen text and narration never match"
+    type: score
+    principle: redundancy
+    video: Test_11
+    op: "=="
+    value: 0
+
+  - id: R2
+    status: draft
+    source: "user, 05 Oct 2026: 'in test 4 there is no sentence-level semantic redundancy, so our model should show 0'"
+    type: score
+    principle: redundancy
+    video: test4
+    op: "=="
+    value: 0
+
+  - id: R3
+    status: draft
+    source: "user, 04 Oct 2026: 'the goal statement shouldn't count as redundancy … just like a title' (Test_22 'Aim: …')"
+    type: never_sentence
+    video: Test_22
+    text_contains: "aim"
+
+  - id: R4
+    status: draft
+    source: "user, 15 Oct 2026: Microlearning (now Test_28) — 'in the whole video the narrator is just reading the on-screen text'"
+    type: highest
+    principle: redundancy
+    video: Test_28
+
+  - id: R5
+    status: draft
+    source: "user, 15 Oct 2026: Microlearning 'should be close to 90'. Where text is on screen it is read aloud; the whole-video score is lower because the intro/outro count 0 (user's 08 Oct averaging rule). Threshold 80 is Claude's draft — confirm."
+    type: score
+    principle: redundancy
+    video: Test_28
+    field: assessed_score
+    op: ">="
+    value: 80
+
+  - id: R6   
+    status: draft
+    source: "user, 15 Oct 2026: the narrator reads the captions throughout 0:10–2:50 — those windows should score high on average. Threshold 80 is Claude's draft — confirm."
+    type: window_mean
+    principle: redundancy
+    video: Test_28
+    from_s: 10
+    to_s: 170
+    op: ">="
+    value: 80
+
+  - id: R7
+    status: draft
+    source: "user, 05 Oct 2026: 'the answer that repeats the on-screen questions shouldn't be counted as redundancy' (Test_17: narration only answers 'What is the new volume of the solution?')"
+    type: question_not_restated
+    video: Test_17
+    question: "What is the new volume of the solution?"
+
+  - id: R8
+    status: confirmed
+    source: "user, 20 Oct 2026: Test_13 'All areas get scaled by det(A)' — 'this will not come under redundancy because this is more of a label or title thing. It's basically a highlighted point, so highlighted points don't come under redundancy.'"
+    type: text_never_counted
+    video: Test_13
+    text: "All areas get scaled by det(A)"
+
+  - id: R9
+    status: confirmed
+    source: "user, 20 Oct 2026: Test_25's centred heading 'THE ARTS ARE VICTIMS of this mentality' (bold, 'VICTIMS' in orange, ~2x the size of the other text) is also a highlighted point. Same day the user ruled that whiteboard bubble phrases (Test_24-27) and short slide statements (Test_18/19) are NOT highlighted points — they stay redundancy when read aloud."
+    type: text_never_counted
+    video: Test_25
+    text: "THE ARTS ARE VICTIMS"
+
+  # ----------------------------------------------------------------- coherence
+  - id: C1
+    status: draft
+    source: "user, 14 Oct 2026 (listening): test6, test_7 and Test_11 have background music; Test_14 at the end; test4 confirmed. User, 20 Oct 2026: 'Test 28 has background music' (louder in the first 7-8 s, quieter for the rest)"
+    type: music_present
+    videos: [test6, test_7, Test_11, Test_14, test4, Test_28]
+
+  - id: C2
+    status: draft
+    source: "user, 14 Oct 2026: 'test 11 only has background music till 1:00' (±5 s for the detector's 1 s frames and 3 s clips)"
+    type: music_within
+    video: Test_11
+    from_s: 0
+    to_s: 60
+    tolerance_s: 5
+
+  - id: C3
+    status: draft
+    source: "user, 14 Oct 2026: 'test 14 has background music from 2:30 - 2:52' (±5 s)"
+    type: music_within
+    video: Test_14
+    from_s: 150
+    to_s: 172
+    tolerance_s: 5
+
+  - id: C4
+    status: draft
+    source: "user, 14 Oct 2026 listening check named only those five videos. 'No music elsewhere' allows ≤ 1.0 on the music part (one borderline second, e.g. test_26 0.56) — Claude's draft, confirm. Test_28 was added after the listening check (20 Oct: the first run of this check caught that it shows music under 97% of its narration) — excluded until the user has listened."
+    type: no_music_elsewhere
+    music_videos: [test6, test_7, Test_11, Test_14, test4, Test_28]
+    max_part: 1.0
+
+  - id: C5
+    status: draft
+    source: "user, 14 Oct 2026: 'the intensity is higher in test 7 as compared to test 6 and test 11'"
+    type: louder
+    video: test_7
+    than: [test6, Test_11]
+
+# Open questions for the user (not checks until answered):
+#  Q2  Test_28 (Microlearning): the detector hears music under 97% of the
+#      narration (coherence 89.14). Listen: is there background music?
+#  Q1  Test_13 2:00–2:10 scores 61.98: the narration restates the on-screen
+#      sentence "All areas get scaled by det(A)". On 30 Sep you questioned
+#      Test_13's 2:00–2:30 — was that this window, and is this redundancy?

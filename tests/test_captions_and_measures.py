@@ -166,3 +166,48 @@ class TestOnlyCaptionLikeTextJoins:
                                 [(0.0, 2.0), (2.0, 60.0), (60.0, 62.0)], max_gap_s=1.0)
         assert [(p.start, p.end) for p in pieces if p.text == "Heat always flows"] == [
             (0.0, 2.0), (60.0, 62.0)]
+
+
+class TestHighlightedKeyLine:
+    """User's ruling, 20 Oct 2026: one short sentence set apart in large type
+    is a highlighted point (signaling), not redundancy. Whiteboard bubble
+    phrases and short slide statements are not."""
+
+    def _el(self, text, *, height=100, lines=1, reason="finite_verb"):
+        from mmpquant.onscreen import KIND_SENTENCE, TextElement
+        from mmpquant.types import OcrLine
+
+        per = height / lines
+        ls = tuple(OcrLine(f"{text} {i}", 0.99, (0, i * per, 800, (i + 1) * per))
+                   for i in range(lines)) if lines > 1 else (OcrLine(text, 0.99, (0, 0, 800, height)),)
+        return TextElement(lines=ls, kind=KIND_SENTENCE, bbox=(0, 0, 800, height),
+                           evidence={"reason": reason})
+
+    def _mark(self, *elements, usual=50):
+        from mmpquant.extract.align import OnscreenParams, _mark_highlighted
+
+        return _mark_highlighted(list(elements), usual, OnscreenParams())
+
+    def test_one_short_line_in_large_type_is_a_label(self):
+        [e] = self._mark(self._el("All areas get scaled by det(A)", height=100))
+        assert e.kind == "label" and e.evidence["reason"] == "highlighted_key_line"
+        assert e.evidence["size_ratio"] == 2.0
+
+    def test_normal_size_text_stays_a_sentence(self):
+        [e] = self._mark(self._el("All areas get scaled by det(A)", height=55))
+        assert e.kind == "sentence"
+
+    def test_several_lines_stay_a_sentence(self):
+        # whiteboard bubble phrases are drawn over several lines
+        [e] = self._mark(self._el("SCHOOLS ARE ORGANISED ON FACTORY LINES", height=200, lines=4))
+        assert e.kind == "sentence"
+
+    def test_a_long_line_stays_a_sentence(self):
+        long = "This is a long sentence of well over twelve words that keeps on going here"
+        [e] = self._mark(self._el(long, height=100))
+        assert e.kind == "sentence"
+
+    def test_stitched_captions_are_never_highlights(self):
+        [e] = self._mark(self._el("Every day we face small risks.", height=100,
+                                  reason="stitched_across_screens"))
+        assert e.kind == "sentence"

@@ -2,9 +2,17 @@
 
 ```
 data/
-  videos/            # input videos for `mmpquant validate`
-  manual_scores.csv  # professor's ground truth — NOT YET AVAILABLE
+  videos/                     # input videos
+  annotations/                # blank per-segment sheets for raters (`annotation-sheet`)
+  manual_scores.csv           # redundancy ground truth — NOT YET AVAILABLE
+  manual_coherence_scores.csv # coherence ground truth — NOT YET AVAILABLE
 ```
+
+`mmpquant validate` (16 Oct 2026) accepts, without code changes: one score per video
+(`video_id` + `manual_score` / `score` / `<rater>_score` columns), one score per segment
+(add `segment_index`), several raters (one `_score` column each; ground truth = their
+mean, agreement reported), or a folder of filled-in annotation sheets. Blank = not rated,
+never 0. Paths are set in `config.yaml` → `validation.ground_truth`.
 
 ## manual_scores.csv
 

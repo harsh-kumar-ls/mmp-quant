@@ -198,11 +198,32 @@ onscreen:
     enabled: true
     max_gap_s: 1.0          # pieces must follow each other within this time
     max_pieces: 4           # a stitched sentence spans at most this many screens
+  # Highlighted key lines are signaling, not redundancy (user's ruling, 20 Oct
+  # 2026): one short sentence set apart in large type (Test_13 "All areas get
+  # scaled by det(A)", Test_25 "THE ARTS ARE VICTIMS"). Whiteboard bubble phrases
+  # and short slide statements are NOT highlighted points (same ruling).
+  highlighted_key_line:
+    enabled: true
+    max_words: 12           # a key line is short
+    min_size_ratio: 1.5     # x the video's usual (median) text height. On the
+                            # 20 Oct corpus any value 1.1-1.9 selects the same lines.
   split_run_together_words: true  # OCR sometimes drops spaces between correctly
                            # read words ("Heatcannotspontaneouslyflowfromacolderbody");
                            # restore them before classifying and comparing.
                            # See src/mmpquant/wordsplit.py for the acceptance rule.
 
+
+validation:
+  # Build order step 4 (16 Oct 2026). The method is fixed here BEFORE any manual
+  # score exists; change it only with a dated note, never after seeing results.
+  ground_truth:                       # a CSV, or a directory of CSVs (filled
+    redundancy: data/manual_scores.csv        # annotation sheets also work)
+    coherence: data/manual_coherence_scores.csv
+  tune_fraction: 0.6        # share of VIDEOS used to choose between the
+                            # pre-registered variants; the rest are held out
+  seed: 0                   # split and bootstrap; recorded in every report
+  n_resamples: 10000        # bootstrap resamples for the 95% interval
+  out_dir: runs/validation  # one timestamped folder per run
 
 text_normalisation:
   # Applied to BOTH OCR and ASR text before verbatim (ROUGE-L) comparison.
