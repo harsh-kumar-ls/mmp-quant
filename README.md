@@ -11,10 +11,10 @@ A B.Tech research project. Every score comes with its evidence (the actual on-sc
 text and narration, the seconds of music, and the arithmetic), so a reader can check
 any number by hand.
 
-**Status:** the extraction pipeline, both scorers, the Markdown report and a local web UI are
-built and tested. The validation harness (`mmpquant validate`, correlation against human
-ratings) is deliberately not built yet: it waits for the real manual scores, because a
-stub fed with placeholder scores would produce numbers that look real and are not.
+**Status:** the extraction pipeline, both scorers, the Markdown report, a local web UI and
+the validation harness (`mmpquant validate`) are built and tested. Validation itself waits
+for the real manual scores: the harness has only been tested on synthetic score sets with
+known answers, inside `tests/`.
 
 ## Setup
 
@@ -38,7 +38,15 @@ mmpquant config-check                 # validate config.yaml
 mmpquant score  path/to/video.mp4     # extract, score both principles, write the report
 mmpquant report runs/<video_id>       # re-render report.md from a run
 mmpquant serve                        # web UI at http://127.0.0.1:8000
+mmpquant validate                     # system vs manual scores (when they exist)
 ```
+
+`validate` reads the manual scores named in `config.yaml` (a CSV, or a folder of filled-in
+annotation sheets; one score per video or per segment; one or more raters), joins them with
+each video's run, and reports Spearman with a 95% bootstrap interval on held-out videos,
+nested leave-one-video-out beside it, rater agreement, and the largest disagreements. The
+method was fixed before any manual score was seen: the split is by video and seeded, and
+the only comparisons are the pre-registered variants of each score.
 
 Each run writes to `runs/<video_id>/`:
 

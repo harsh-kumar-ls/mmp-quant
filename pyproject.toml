@@ -36,7 +36,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest>=8.2", "pytest-cov>=5.0", "ruff>=0.5"]
+dev = ["pytest>=8.2", "pytest-cov>=5.0", "ruff>=0.5", "playwright>=1.47"]
 # Local single-user web UI: upload a video, watch it score, read the report.
 # Not part of the research pipeline itself — `mmpquant score`/`validate` never
 # depend on this group, so the CLI and the thesis numbers it produces are
@@ -51,7 +51,10 @@ packages = ["src/mmpquant"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "-q"
+# Browser tests (tests/e2e) need runs/ and a Playwright browser; they run in
+# tools/loop_check.sh via `pytest -m e2e`, not in the default fast run.
+addopts = "-q -m 'not e2e'"
+markers = ["e2e: browser tests of the web UI (pytest -m e2e)"]
 
 [tool.ruff]
 line-length = 100

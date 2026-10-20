@@ -27,9 +27,10 @@ sensitivity analysis and should be reported as such if used.
 from __future__ import annotations
 
 import logging
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 
 from ..onscreen import (
+    KIND_LABEL,
     KIND_SENTENCE,
     TextElement,
     collapse_near_duplicates,
@@ -88,6 +89,10 @@ class OnscreenParams:
     caption_stitching: bool = True
     caption_max_gap_s: float = 1.0
     caption_max_pieces: int = 4
+    # Highlighted key lines are signaling, not redundancy (20 Oct 2026)
+    highlighted_key_line: bool = True
+    highlight_max_words: int = 12
+    highlight_min_size_ratio: float = 1.5
 
 
 def window_bounds(duration: float, params: WindowingParams) -> list[tuple[float, float]]:
@@ -141,6 +146,7 @@ def build_windows(
     bounds = window_bounds(duration, params)
     windows: list[Window] = []
     stitched = _stitched_sentences(ocr_blocks, onscreen) if onscreen.caption_stitching else []
+    usual_height = _median_line_height(ocr_blocks)
 
     for index, (start, end) in enumerate(bounds):
         asr_lo, asr_hi = start - params.asr_tolerance, end + params.asr_tolerance
@@ -159,6 +165,8 @@ def build_windows(
         elements = _with_stitched(
             elements, [s for s in stitched if s.start < ocr_hi and s.end > ocr_lo]
         )
+        if onscreen.highlighted_key_line:
+            elements = _mark_highlighted(elements, usual_height, onscreen)
         prose = prose_text(elements)
 
         windows.append(
@@ -206,6 +214,48 @@ def _stitched_sentences(
                             max_gap_s=onscreen.caption_max_gap_s)
     return stitch_sentences(pieces, max_gap_s=onscreen.caption_max_gap_s,
                             max_pieces=onscreen.caption_max_pieces)
+
+
+def _median_line_height(blocks: tuple[OcrBlock, ...]) -> float | None:
+    """The video's usual text size: median height of every OCR line with a box."""
+    import statistics
+
+    heights = [ln.bbox[3] - ln.bbox[1] for b in blocks for ln in b.lines
+               if ln.bbox and ln.bbox[3] > ln.bbox[1]]
+    return statistics.median(heights) if heights else None
+
+
+def _mark_highlighted(elements: list, usual_height: float | None,
+                      onscreen: OnscreenParams) -> list:
+    """Highlighted key lines become labels (user's ruling, 20 Oct 2026).
+
+    A highlighted point -- one short statement set apart in large type, like
+    Test_13's "All areas get scaled by det(A)" under the animation, or Test_25's
+    centred heading "THE ARTS ARE VICTIMS" -- is signaling, not redundancy, even
+    when the narration says it (cf. Mayer & Johnson 2008: brief on-screen key
+    phrases beside narration help rather than hurt). Measured as: a sentence
+    element that is ONE line, at most `highlight_max_words` words, at least
+    `highlight_min_size_ratio` x the video's usual (median) line height, and not
+    a stitched caption. The user ruled the same day that whiteboard bubble
+    phrases and short slide statements are NOT highlighted points; none of
+    those is a single line in large type, so the rule leaves them alone. On the
+    20 Oct corpus any ratio from 1.1 to 1.9 selects the same two lines.
+    """
+    if not usual_height:
+        return elements
+    out = []
+    for e in elements:
+        n_lines = len(e.lines)
+        if (e.kind == KIND_SENTENCE and e.bbox and n_lines == 1
+                and e.evidence.get("reason") != "stitched_across_screens"
+                and e.word_count <= onscreen.highlight_max_words):
+            ratio = (e.bbox[3] - e.bbox[1]) / usual_height
+            if ratio >= onscreen.highlight_min_size_ratio:
+                e = replace(e, kind=KIND_LABEL, evidence={
+                    **e.evidence, "reason": "highlighted_key_line",
+                    "size_ratio": round(ratio, 2)})
+        out.append(e)
+    return out
 
 
 def _union_box(lines) -> tuple[float, float, float, float] | None:

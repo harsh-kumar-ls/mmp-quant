@@ -163,6 +163,7 @@ def run_pipeline(
     *,
     no_resume: bool = False,
     on_stage: Callable[[str], None] | None = None,
+    embedder: SentenceTransformerEmbedder | None = None,
 ) -> PipelineResult:
     """Run extraction + scoring + segmenting, write result.json and report.md.
 
@@ -184,9 +185,12 @@ def run_pipeline(
     extraction = run_extraction(video, outdir, cfg, resume=not no_resume, on_stage=stage)
 
     stage("scoring")
-    embedder = SentenceTransformerEmbedder(
-        str(cfg.get("scoring.redundancy.embedding_model"))
-    )
+    # `embedder` lets a caller scoring many videos (the regression check)
+    # load the sentence model once instead of once per video.
+    if embedder is None or embedder.model_name != str(cfg.get("scoring.redundancy.embedding_model")):
+        embedder = SentenceTransformerEmbedder(
+            str(cfg.get("scoring.redundancy.embedding_model"))
+        )
     scorer = RedundancyScorer.from_config(cfg, embedder)
     result = scorer.score(extraction.windows, extra_warnings=extraction.warnings)
 

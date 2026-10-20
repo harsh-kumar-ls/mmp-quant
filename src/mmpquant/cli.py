@@ -213,14 +213,155 @@ def config_check(
 
 
 @app.command()
-def validate() -> None:
-    """Not implemented — build order step 4."""
-    raise typer.BadParameter(
-        "`validate` is not implemented yet (build order step 4). It requires "
-        "data/manual_scores.csv, which does not exist. This command is left "
-        "unimplemented on purpose: a stub that reads placeholder scores would "
-        "produce correlation numbers that look real and are not."
+def validate(
+    principle: str = typer.Option("all", "--principle", "-p",
+                                  help="redundancy, coherence, or all"),
+    ground_truth: Path | None = typer.Option(
+        None, "--ground-truth", "-g",
+        help="manual scores: a CSV or a folder of CSVs (default: from config.yaml)"),
+    config: Path = typer.Option(Path("config.yaml"), "--config", "-c"),
+    allow_mixed_config: bool = typer.Option(
+        False, "--allow-mixed-config",
+        help="proceed even if some runs were scored with a different config (recorded)"),
+) -> None:
+    """Compare system scores with the professor's manual scores.
+
+    Reads each video's existing run (score videos first). Writes a report,
+    validation.json, residuals.csv and a scatter plot per principle.
+    """
+    from datetime import datetime
+
+    from .validation.ground_truth import GroundTruthError, load_ground_truth
+    from .validation.harness import Settings, ValidationError, run_validation
+
+    cfg = Config.load(config)
+    principles = ["redundancy", "coherence"] if principle == "all" else [principle]
+    unknown = set(principles) - {"redundancy", "coherence"}
+    if unknown:
+        raise typer.BadParameter(f"unknown principle(s): {sorted(unknown)}")
+    settings = Settings(
+        tune_fraction=float(cfg.get("validation.tune_fraction", 0.6)),
+        seed=int(cfg.get("validation.seed", 0)),
+        n_resamples=int(cfg.get("validation.n_resamples", 10000)),
+        allow_mixed_config=allow_mixed_config,
     )
+    stamp = datetime.now().astimezone().strftime("%Y%m%d-%H%M%S")
+    failed = False
+    for name in principles:
+        path = ground_truth or Path(str(cfg.get(f"validation.ground_truth.{name}")))
+        if not path.exists():
+            console.print(
+                f"[yellow]{name}: no manual scores at {path}[/yellow] — validation needs the "
+                "professor's scores. Nothing is computed from placeholder data.")
+            failed = True
+            continue
+        try:
+            gt = load_ground_truth(path)
+            out = Path(str(cfg.get("validation.out_dir", "runs/validation"))) / f"{name}-{stamp}"
+            r = run_validation(name, gt, Path(str(cfg.get("output.dir", "runs"))), out,
+                               current_config=cfg.raw, settings=settings)
+        except (GroundTruthError, ValidationError) as exc:
+            console.print(f"[bold red]{name}: {exc}[/bold red]")
+            failed = True
+            continue
+        if r["is_dummy_ground_truth"]:
+            console.print("[bold red]TEST DATA — NOT A RESULT: the manual-score file is "
+                          "marked dummy/synthetic.[/bold red]")
+        h, loo = r["held_out"], r["nested_loo"]
+        console.print(
+            f"[bold]{name}[/bold] ({r['level']} level): held-out Spearman "
+            f"[bold]{h['spearman']}[/bold] (95% CI {h['spearman_ci95'][0]} to "
+            f"{h['spearman_ci95'][1]}, {h['n_videos']} videos, variant {h['variant']}); "
+            f"leave-one-video-out {loo['spearman']}")
+        console.print(f"[dim]report: {out / 'report.md'}[/dim]")
+    if failed:
+        raise typer.Exit(code=1)
+
+
+@app.command()
+def regress(
+    from_runs: bool = typer.Option(
+        False, "--from-runs", help="check the existing runs/ as they are (no re-scoring)"),
+    accept: bool = typer.Option(
+        False, "--accept",
+        help="make these scores the accepted baseline (only after reviewing the changes)"),
+    videos: list[str] = typer.Option(None, "--video", "-v", help="limit to these videos"),
+    use_last: bool = typer.Option(
+        False, "--use-last",
+        help="use the results of the last re-score (runs/_regress) instead of re-scoring"),
+    config: Path = typer.Option(Path("config.yaml"), "--config", "-c"),
+) -> None:
+    """Re-score every video and check it against the user's expectations and
+    the last accepted scores. Exit 0 = all clear, 1 = an expectation failed or
+    a video could not be scored, 2 = scores changed and need review."""
+    from . import regression as rg
+
+    _setup_logging(False)
+    cfg = Config.load(config)
+    runs_dir = Path(str(cfg.get("output.dir", "runs")))
+    scratch_root = runs_dir / "_regress"
+    scratch = scratch_root / "runs"
+    found = {p.stem: p for p in sorted(Path("data/videos").iterdir())
+             if p.suffix.lower() in {".mp4", ".mov", ".mkv", ".webm", ".m4v", ".avi"}}
+    if videos:
+        found = {k: v for k, v in found.items() if k in set(videos)}
+    problems: dict[str, str] = {}
+    if from_runs:
+        results = rg.load_results(runs_dir, list(found))
+        problems = {v: "no run" for v in found if v not in results}
+    elif use_last:
+        # Scoring is reproducible (20 Oct: a full re-score matched the baseline
+        # exactly), so the last re-score can be accepted without repeating it.
+        results = rg.load_results(scratch, list(found))
+        problems = {v: "not in the last re-score" for v in found if v not in results}
+    else:
+        console.print(f"re-scoring {len(found)} videos from cached extraction "
+                      f"(one process, models loaded once) into {scratch} …")
+        problems = rg.rescore_all(found, runs_dir, scratch, cfg,
+                                  log=lambda m: console.print(f"[dim]{m}[/dim]"))
+        results = rg.load_results(scratch, list(found))
+
+    checks = rg.check_expectations(results)
+    current = rg.snapshot(results)
+    baseline = json.loads(rg.BASELINE.read_text()) if rg.BASELINE.exists() else None
+    if baseline is not None and videos:
+        baseline = {k: v for k, v in baseline.items() if k in current or k in set(videos)}
+    changes = rg.diff(baseline, current) if baseline is not None else []
+    scratch_root.mkdir(parents=True, exist_ok=True)
+    report = scratch_root / "report.md"
+    report.write_text(rg.render(checks, changes, problems, current, baseline is not None))
+
+    failed = [c for c in checks if not c.passed]
+    for c in checks:
+        mark = "[green]PASS[/green]" if c.passed else "[bold red]FAIL[/bold red]"
+        console.print(f"{mark} {c.id} [dim]({c.status})[/dim] {c.detail}")
+    for v, why in problems.items():
+        console.print(f"[yellow]not scored[/yellow] {v}: {why}")
+    if baseline is None:
+        console.print("[yellow]no accepted baseline yet[/yellow]")
+    elif changes:
+        console.print(f"[bold yellow]{len(changes)} score change(s) vs the accepted "
+                      f"baseline[/bold yellow] — review {report}")
+    else:
+        console.print("[green]no score changes vs the accepted baseline[/green]")
+
+    if accept:
+        if failed or problems:
+            console.print("[bold red]not accepted:[/bold red] expectations fail or videos "
+                          "were not scored — fix those first.")
+            raise typer.Exit(code=1)
+        if not from_runs:
+            rg.accept(scratch, runs_dir, list(results))
+        merged = {**(json.loads(rg.BASELINE.read_text()) if rg.BASELINE.exists() else {}),
+                  **current}
+        rg.BASELINE.write_text(json.dumps(merged, indent=1))
+        console.print(f"[green]accepted[/green]: baseline updated ({len(current)} videos)")
+        raise typer.Exit(code=0)
+    console.print(f"[dim]report: {report}[/dim]")
+    if failed or problems:
+        raise typer.Exit(code=1)
+    if changes:
+        raise typer.Exit(code=2)
 
 
 @app.command()

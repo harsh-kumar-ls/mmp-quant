@@ -487,6 +487,10 @@ def _onscreen_params(cfg: Config) -> OnscreenParams:
         caption_stitching=bool(cfg.get("onscreen.caption_stitching.enabled", True)),
         caption_max_gap_s=float(cfg.get("onscreen.caption_stitching.max_gap_s", 1.0)),
         caption_max_pieces=int(cfg.get("onscreen.caption_stitching.max_pieces", 4)),
+        highlighted_key_line=bool(cfg.get("onscreen.highlighted_key_line.enabled", True)),
+        highlight_max_words=int(cfg.get("onscreen.highlighted_key_line.max_words", 12)),
+        highlight_min_size_ratio=float(
+            cfg.get("onscreen.highlighted_key_line.min_size_ratio", 1.5)),
     )
 
 
