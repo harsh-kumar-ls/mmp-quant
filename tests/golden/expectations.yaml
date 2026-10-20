@@ -17,7 +17,7 @@ checks:
 
   # ---------------------------------------------------------------- redundancy
   - id: R1
-    status: draft
+    status: confirmed   # by the user, 20 Oct 2026
     source: "user, 05 Oct 2026: 'test 11 should be scored as 0' — on-screen text and narration never match"
     type: score
     principle: redundancy
@@ -26,7 +26,7 @@ checks:
     value: 0
 
   - id: R2
-    status: draft
+    status: confirmed   # by the user, 20 Oct 2026
     source: "user, 05 Oct 2026: 'in test 4 there is no sentence-level semantic redundancy, so our model should show 0'"
     type: score
     principle: redundancy
@@ -35,21 +35,21 @@ checks:
     value: 0
 
   - id: R3
-    status: draft
+    status: confirmed   # by the user, 20 Oct 2026
     source: "user, 04 Oct 2026: 'the goal statement shouldn't count as redundancy … just like a title' (Test_22 'Aim: …')"
     type: never_sentence
     video: Test_22
     text_contains: "aim"
 
   - id: R4
-    status: draft
+    status: confirmed   # by the user, 20 Oct 2026
     source: "user, 15 Oct 2026: Microlearning (now Test_28) — 'in the whole video the narrator is just reading the on-screen text'"
     type: highest
     principle: redundancy
     video: Test_28
 
   - id: R5
-    status: draft
+    status: confirmed   # by the user, 20 Oct 2026
     source: "user, 15 Oct 2026: Microlearning 'should be close to 90'. Where text is on screen it is read aloud; the whole-video score is lower because the intro/outro count 0 (user's 08 Oct averaging rule). Threshold 80 is Claude's draft — confirm."
     type: score
     principle: redundancy
@@ -58,8 +58,8 @@ checks:
     op: ">="
     value: 80
 
-  - id: R6   
-    status: draft
+  - id: R6
+    status: confirmed   # by the user, 20 Oct 2026
     source: "user, 15 Oct 2026: the narrator reads the captions throughout 0:10–2:50 — those windows should score high on average. Threshold 80 is Claude's draft — confirm."
     type: window_mean
     principle: redundancy
@@ -70,7 +70,7 @@ checks:
     value: 80
 
   - id: R7
-    status: draft
+    status: confirmed   # by the user, 20 Oct 2026
     source: "user, 05 Oct 2026: 'the answer that repeats the on-screen questions shouldn't be counted as redundancy' (Test_17: narration only answers 'What is the new volume of the solution?')"
     type: question_not_restated
     video: Test_17
@@ -92,13 +92,13 @@ checks:
 
   # ----------------------------------------------------------------- coherence
   - id: C1
-    status: draft
+    status: confirmed   # by the user, 20 Oct 2026
     source: "user, 14 Oct 2026 (listening): test6, test_7 and Test_11 have background music; Test_14 at the end; test4 confirmed. User, 20 Oct 2026: 'Test 28 has background music' (louder in the first 7-8 s, quieter for the rest)"
     type: music_present
     videos: [test6, test_7, Test_11, Test_14, test4, Test_28]
 
   - id: C2
-    status: draft
+    status: confirmed   # by the user, 20 Oct 2026
     source: "user, 14 Oct 2026: 'test 11 only has background music till 1:00' (±5 s for the detector's 1 s frames and 3 s clips)"
     type: music_within
     video: Test_11
@@ -107,7 +107,7 @@ checks:
     tolerance_s: 5
 
   - id: C3
-    status: draft
+    status: confirmed   # by the user, 20 Oct 2026
     source: "user, 14 Oct 2026: 'test 14 has background music from 2:30 - 2:52' (±5 s)"
     type: music_within
     video: Test_14
@@ -116,14 +116,15 @@ checks:
     tolerance_s: 5
 
   - id: C4
-    status: draft
+    status: draft   # 20 Oct 2026: user has listened only to the six music videos;
+                    # the rest are unverified by ear. If C4 ever fails, listen before changing code.
     source: "user, 14 Oct 2026 listening check named only those five videos. 'No music elsewhere' allows ≤ 1.0 on the music part (one borderline second, e.g. test_26 0.56) — Claude's draft, confirm. Test_28 was added after the listening check (20 Oct: the first run of this check caught that it shows music under 97% of its narration) — excluded until the user has listened."
     type: no_music_elsewhere
     music_videos: [test6, test_7, Test_11, Test_14, test4, Test_28]
     max_part: 1.0
 
   - id: C5
-    status: draft
+    status: confirmed   # by the user, 20 Oct 2026
     source: "user, 14 Oct 2026: 'the intensity is higher in test 7 as compared to test 6 and test 11'"
     type: louder
     video: test_7
