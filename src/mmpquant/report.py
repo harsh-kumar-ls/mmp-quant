@@ -352,6 +352,8 @@ def _methodology(payload: dict[str, Any]) -> list[str]:
     rel = payload.get("ocr_recognition_reliability", {})
     w = p["weights"]
     norm = p.get("text_normalisation", {})
+    tol = p.get("align_tolerance_s", cfg.get("alignment", {}).get("tolerance_s", 3))
+    reach = p.get("nearby_reach_s", 10)
 
     lines = [
         "## Methodology appendix",
@@ -361,19 +363,26 @@ def _methodology(payload: dict[str, Any]) -> list[str]:
         "### Score",
         "",
         "```",
-        "gate          : the narration must say >= 2 of the on-screen content words,",
-        "                and more of them than narration elsewhere in the video does",
-        "                (otherwise the window scores 0 -- text on screen is not",
-        "                redundancy by being there)",
+        "each on-screen sentence is compared with the narration spoken while it",
+        f"                is on screen (at most {reach:g} s beyond the window either side), ± {tol} s",
+        "gate          : that narration must say >= 2 of the sentence's content words,",
+        "                more than half of them, and more than narration elsewhere in",
+        "                the video does (otherwise the sentence scores 0 -- text on",
+        "                screen is not redundancy by being there)",
         "",
-        f"window score  = 100 × ({w['verbatim']} × word match, above chance",
-        f"{' ' * 24}+ {w['semantic']} × meaning match, above chance)",
-        "  word match    = share of the restated on-screen content words the narration",
-        "                  says, in order (ROUGE-L LCS ÷ on-screen length)",
-        "  meaning match = cosine of each restated on-screen sentence with the narration",
-        "                  sentence (or pair) that matches it best, weighted by content words",
+        f"sentence score = 100 × ({w['verbatim']} × word match, above chance",
+        f"{' ' * 25}+ {w['semantic']} × meaning match, above chance)",
+        "  word match    = share of the sentence's content words the narration says,",
+        "                  in order (ROUGE-L LCS ÷ on-screen length)",
+        "  meaning match = cosine of the sentence with the narration sentence (or",
+        "                  same-length span) that matches it best",
         "  above chance(x) = max(0, (x - c) / (1 - c)), c = median of the same measure",
         "                    against narration > 30 s away in the same video",
+        "",
+        "window score  = mean, over the window's half-seconds with a sentence on screen,",
+        "                of the score of what is on screen then (sentences shown together",
+        "                weighted by content words); a sentence counts for the time it is",
+        "                visible, and moments with no sentence are left out",
         "",
         "segment score = sum(window score × duration) ÷ duration of all windows in the",
         "                segment; a window with nothing to assess counts as 0",

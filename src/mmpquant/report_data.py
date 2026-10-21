@@ -42,9 +42,11 @@ def _window_breakdown(w: dict[str, Any]) -> dict[str, Any]:
     """Everything needed to recompute one window's score by hand.
 
     Feeds the web UI's segment pop-up: the on-screen text (what was compared,
-    and what was set aside as labels), the narration, every sentence tested by
-    the gate with its coverage and chance level, and the raw / chance /
-    above-chance values of both overlap measures.
+    and what was set aside as labels), the narration word by word with its
+    times, and every sentence tested -- when it was on screen, the stretch of
+    narration it was compared with, its coverage and chance level, its raw /
+    chance / above-chance overlap values, its score and its share of the
+    window's time-weighted average (21 Oct 2026).
     """
     c = w.get("components", {})
     ev = w.get("evidence") or {}
@@ -70,14 +72,17 @@ def _window_breakdown(w: dict[str, Any]) -> dict[str, Any]:
         "labels_excluded": labels[:20],
         "n_labels_excluded": len(labels),
         "narration": w.get("asr_text", ""),
+        # every word in the window's narration pool, with its time; words
+        # spoken in the +-tolerance margin outside the window are marked
+        "narration_timed": [
+            {"start": a, "end": b, "text": t, "in_window": w["start"] <= (a + b) / 2 < w["end"]}
+            for a, b, t in w.get("asr_words") or []
+        ],
         "sentence_checks": ev.get("sentence_checks") or [],
         "null_windows": ev.get("null_windows"),
-        "verbatim_raw": c.get("verbatim_raw"),
-        "verbatim_chance": c.get("verbatim_chance"),
         "verbatim": c.get("verbatim"),
-        "semantic_raw": c.get("semantic_raw"),
-        "semantic_chance": c.get("semantic_chance"),
         "semantic": c.get("semantic"),
+        "screen_time_share": c.get("screen_time_share"),
         "onscreen_sentence_words": c.get("ocr_sentence_word_count"),
         "narration_words": c.get("asr_word_count"),
     }
@@ -268,6 +273,7 @@ def build_report_data(payload: dict[str, Any], *, top_n: int = 3) -> dict[str, A
                 "min_shared_content_words"),
             "null_exclusion_s": (params.get("chance_correction") or {}).get("null_exclusion_s"),
             "alignment_tolerance_s": cfg.get("alignment", {}).get("tolerance_s"),
+            "nearby_reach_s": params.get("nearby_reach_s"),
             "frame_fps": cfg.get("media", {}).get("frame_fps"),
             "asr_backend": cfg.get("asr", {}).get("backend"),
             "ocr_backend": cfg.get("ocr", {}).get("backend"),

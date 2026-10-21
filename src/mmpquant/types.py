@@ -164,6 +164,9 @@ class Window:
     # `ocr_text` is retained in full as the audit record of what was read.
     ocr_sentence_text: str = ""
     ocr_elements: tuple[dict[str, Any], ...] = ()
+    # Narration words in the pool with their times (start, end, text), so the
+    # alignment can be audited word by word (21 Oct 2026).
+    asr_words: tuple[tuple[float, float, str], ...] = ()
 
     @property
     def duration(self) -> float:
@@ -182,6 +185,7 @@ class Window:
             "asr_pool_start": self.asr_pool_start,
             "asr_pool_end": self.asr_pool_end,
             "ocr_block_indices": list(self.ocr_block_indices),
+            "asr_words": [list(w) for w in self.asr_words],
         }
 
 

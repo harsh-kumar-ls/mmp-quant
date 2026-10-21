@@ -182,6 +182,8 @@ def build_windows(
                 asr_pool_start=asr_lo,
                 asr_pool_end=asr_hi,
                 ocr_block_indices=tuple(block_indices),
+                asr_words=tuple((round(w.start, 2), round(w.end, 2), w.text.strip())
+                                for w in window_words),
             )
         )
 
@@ -293,12 +295,14 @@ def _with_stitched(elements: list, stitched: list[StitchedSentence],
     ]
     for s in stitched:
         visible = s.visible_text(lo, hi) or s.text
+        spans = [[a, b] for a, b in (s.spans or ((s.start, s.end),)) if a < hi and b > lo]
         kept.append(TextElement(
             lines=(OcrLine(visible, 1.0, None),),
             kind=KIND_SENTENCE,
             bbox=None,
             evidence={"reason": "stitched_across_screens", "pieces": list(s.pieces),
-                      "full_sentence": s.text, "start": s.start, "end": s.end},
+                      "full_sentence": s.text, "start": s.start, "end": s.end,
+                      "spans": spans},
         ))
     return kept
 
@@ -324,7 +328,8 @@ def _elements_for_window(
     was a sentence, and they were never on screen together.
     """
     elements = [
-        element
+        replace(element, evidence={**element.evidence,
+                                   "spans": [[blocks[i].start, blocks[i].end]]})
         for i in indices
         for element in group_into_elements(
             _block_lines(blocks[i], onscreen),

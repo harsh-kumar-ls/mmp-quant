@@ -107,6 +107,11 @@ scoring:
     # Corpus check before adopting: ranking nearly unchanged; zeros stay zero.
     verbatim_measure: screen_coverage
     semantic_measure: best_matching_sentence
+    # The NEARBY rule (user's decision, 22 Oct 2026): a sentence on screen in a
+    # window is compared with the narration spoken while it is on screen, up
+    # to this far beyond the window on either side (then +- alignment
+    # tolerance). Default = one window. 0 = only the part shown in the window.
+    nearby_reach_s: 10
     # Text on screen is not redundancy by being there (04-05 Oct 2026). A
     # window scores 0 unless the narration RESTATES an on-screen sentence: says
     # more than min_sentence_coverage of that sentence's content words (at

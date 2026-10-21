@@ -12,6 +12,7 @@ where the runs are not available (e.g. a fresh clone: runs/ is not in git).
 from __future__ import annotations
 
 import json
+import re
 import shutil
 import socket
 import threading
@@ -24,6 +25,7 @@ pytestmark = pytest.mark.e2e
 
 RUNS = Path("runs")
 REDUNDANCY_VIDEO, COHERENCE_VIDEO = "Test_16", "test6"
+TIMING_VIDEO = "animation_london_subtitled"  # the user's 21 Oct timing case
 
 playwright = pytest.importorskip("playwright.sync_api")
 
@@ -44,9 +46,10 @@ def site(tmp_path_factory):
     from mmpquant.webapp import server
 
     runs = tmp_path_factory.mktemp("runs")
-    for v in (REDUNDANCY_VIDEO, COHERENCE_VIDEO):
-        (runs / v).mkdir()
-        shutil.copy(RUNS / v / "result.json", runs / v / "result.json")
+    for v in (REDUNDANCY_VIDEO, COHERENCE_VIDEO, TIMING_VIDEO):
+        if (RUNS / v / "result.json").exists():
+            (runs / v).mkdir()
+            shutil.copy(RUNS / v / "result.json", runs / v / "result.json")
     old_runs = server.RUNS_DIR
     server.RUNS_DIR = runs
     port = _free_port()
@@ -160,3 +163,40 @@ class TestPhoneWidth:
         box = page.locator(".drawer").bounding_box()
         assert box["width"] <= 375 + 1
         assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth + 1")
+
+
+class TestTiming:
+    """21 Oct 2026 (user: "catching the narration timestamp and the on-screen
+    text with timestamp is the most crucial part of our project")."""
+
+    def _window(self, page, site, start):
+        if not (site["runs"] / TIMING_VIDEO / "result.json").exists():
+            pytest.skip(f"runs/{TIMING_VIDEO} not available")
+        windows = _result(site, TIMING_VIDEO)["result"]["windows"]
+        w = next(x for x in windows if x["start"] == start)
+        checks = (w.get("evidence") or {}).get("sentence_checks") or []
+        if not any("time_weight" in c for c in checks):
+            pytest.fail(f"runs/{TIMING_VIDEO} predates the time-weighted score: re-score it")
+        _open(page, TIMING_VIDEO)
+        page.locator('.chart-row[data-segment="0"]').click()
+        win = page.locator("details.win").filter(
+            has=page.locator(".win-time", has_text=re.compile(rf"^0:{int(start):02d}")))
+        win.first.evaluate("d => d.open = true")
+        return w, win.first
+
+    def test_words_spoken_outside_the_window_are_shown_faded(self, page, site):
+        _, win = self._window(page, site, 0.0)
+        voice = win.locator(".evidence-col.voice")
+        # "It's 135 metres" is spoken at 0:11 -- in the margin, not in 0:00-0:10
+        assert voice.locator(".w-outside", has_text="135").count() == 1
+        assert voice.locator(".w-in", has_text="135").count() == 0
+        assert voice.locator(".tstamp").count() >= 1
+
+    def test_each_sentence_counts_for_its_time_on_screen(self, page, site):
+        w, win = self._window(page, site, 10.0)
+        big = win.locator("tr", has_text="The big wheel").last
+        high = win.locator("tr", has_text="135m high").last
+        assert "1.5 s in this window" in big.inner_text()
+        assert "5.5 s in this window" in high.inner_text()
+        formula = win.locator(".formula").inner_text()
+        assert formula.strip().endswith(f"= {w['score']:.2f}")

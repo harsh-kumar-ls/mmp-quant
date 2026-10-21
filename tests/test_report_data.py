@@ -112,14 +112,20 @@ class TestSegmentBreakdownForTheWebPopup:
     def test_breakdown_carries_text_and_numbers(self):
         p = payload()
         w = p["result"]["windows"][0]
-        w["components"].update(verbatim_raw=0.6, verbatim_chance=0.2, semantic_raw=0.8,
-                               semantic_chance=0.6)
+        w["components"].update(screen_time_share=0.7)
         w["evidence"] = {"gate": "passed", "null_windows": 5, "sentence_checks": [
             {"sentence": "S", "is_question": False, "content_words": ["a", "b"],
-             "shared_words": ["a", "b"], "coverage": 1.0, "chance": 0.0, "passed": True}]}
+             "shared_words": ["a", "b"], "coverage": 1.0, "chance": 0.0, "passed": True,
+             "verbatim_raw": 0.6, "verbatim_chance": 0.2, "time_weight": 1.0}]}
+        w["asr_words"] = [[w["start"] - 1.0, w["start"] - 0.5, "before"],
+                          [w["start"] + 1.0, w["start"] + 1.5, "inside"]]
         b = build_report_data(p)["segments"][0]["windows"][0]
         assert b["narration"].startswith("the mitochondrion")
-        assert b["verbatim_raw"] == 0.6 and b["semantic_chance"] == 0.6
+        assert b["screen_time_share"] == 0.7
+        assert b["sentence_checks"][0]["verbatim_chance"] == 0.2
+        # 21 Oct 2026: words with times; the +-3 s margin is marked as outside
+        assert [(x["text"], x["in_window"]) for x in b["narration_timed"]] == [
+            ("before", False), ("inside", True)]
         assert b["sentence_checks"][0]["passed"] is True
         assert b["gate"] == "passed"
 
