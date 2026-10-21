@@ -597,6 +597,62 @@ def content_lemmas(text: str) -> frozenset[str]:
 
 
 @functools.lru_cache(maxsize=50_000)
+def content_forms(text: str) -> frozenset[tuple[str, str]]:
+    """(lemma, surface) for every content word -- same filtering as
+    `content_lemmas`. Lets a word count as said when EITHER form matches:
+    the tagger lemmatises one word differently by context ("not prepared":
+    adjective -> "prepared" in the narration, verb -> "prepare" on screen),
+    and Test_28 lost a word read aloud verbatim to that (21 Oct 2026)."""
+    from spacy.lang.en.stop_words import STOP_WORDS
+
+    from .textnorm import normalise_for_verbatim
+
+    nlp = _nlp()
+    tokens = nlp(normalise_for_verbatim(text)) if nlp is not None else []
+    out = set()
+    for t in tokens:
+        lemma, surface = t.lemma_.lower(), t.text.lower()
+        if t.text in STOP_WORDS or lemma in STOP_WORDS:
+            continue
+        if len(lemma) >= 3 or (len(lemma) >= 2 and any(c.isdigit() for c in lemma)):
+            out.add((lemma, surface))
+    return frozenset(out)
+
+
+def said_forms(text: str) -> frozenset[str]:
+    """Every lemma and every surface form of the content words in `text`,
+    plus each pair of adjacent words written as one (21 Oct 2026): the speech
+    recogniser splits compounds the screen writes as one word -- "micro
+    -learning" for "Microlearning" (user: "the transcript is reading it
+    wrong"), "work places" for "workplaces"."""
+    from .textnorm import normalise_for_verbatim
+
+    tokens = [t for t in normalise_for_verbatim(text).split() if t.isalpha()]
+    joined = {a + b for a, b in itertools.pairwise(tokens) if len(a) >= 2 and len(b) >= 2}
+    return frozenset(f for pair in content_forms(text) for f in pair) | joined
+
+
+def question_said_forms(text: str) -> frozenset[str]:
+    """`said_forms` of only the sentences asked as questions (see question_lemmas)."""
+    nlp = _nlp()
+    sents = [s.text.strip() for s in nlp(text).sents] if nlp is not None else [text]
+    out: set[str] = set()
+    for s in sents:
+        if s.endswith("?"):
+            out |= said_forms(s)
+    return frozenset(out)
+
+
+def shared_content(sentence: str, said: frozenset[str]) -> tuple[frozenset[str], frozenset[str]]:
+    """(the sentence's content lemmas, those said): a word counts as said if
+    its lemma or its surface form is among the narration's forms."""
+    pairs = content_forms(sentence)
+    words = frozenset(lemma for lemma, _ in pairs)
+    shared = frozenset(lemma for lemma, surface in pairs if lemma in said or surface in said)
+    return words, shared
+
+
+@functools.lru_cache(maxsize=50_000)
 def onscreen_sentences(text: str, min_content_words: int = 2) -> tuple[str, ...]:
     """The individual sentences in a block of on-screen text.
 

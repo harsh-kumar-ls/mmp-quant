@@ -33,6 +33,7 @@ dependencies = [
     "pandas>=2.2",
     "scipy>=1.13",
     "matplotlib>=3.8",
+    "openpyxl>=3.1",   # rating workbooks for the professor (rating-workbook / validate)
 ]
 
 [project.optional-dependencies]

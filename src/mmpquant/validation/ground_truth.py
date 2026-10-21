@@ -8,7 +8,11 @@ rather than guessing:
     (`manual_score`, `score`, or `<rater>_score`) -> one score per video;
   * the same with a `segment_index` column -> one score per 30 s segment;
   * a directory of CSVs -- e.g. the blank sheets written by
-    `mmpquant annotation-sheet` (`data/annotations/*_sheet.csv`), once filled in.
+    `mmpquant annotation-sheet` (`data/annotations/*_sheet.csv`), once filled in;
+  * rating workbooks (`mmpquant rating-workbook`, 20 Oct 2026): one .xlsx per
+    rater (ratings_<name>.xlsx), each with a `<principle>_score` column on the
+    'Ratings' sheet (per segment) and the 'Video overall' sheet (per video).
+    The rater is named after the file; several files = several raters.
 
 Several score columns are several raters: the ground truth is their mean, and
 their agreement with each other is reported (the honest ceiling for the
@@ -52,18 +56,22 @@ class GroundTruth:
 
 def _files(path: Path) -> list[Path]:
     if path.is_dir():
-        files = sorted(path.glob("*.csv"))
+        files = sorted(path.glob("*.xlsx")) or sorted(path.glob("*.csv"))
         if not files:
-            raise GroundTruthError(f"no .csv files in {path}")
+            raise GroundTruthError(f"no .csv or .xlsx files in {path}")
         return files
     if not path.exists():
         raise FileNotFoundError(path)
     return [path]
 
 
-def load_ground_truth(path: str | Path) -> GroundTruth:
+def load_ground_truth(path: str | Path, principle: str | None = None,
+                      level: str | None = None) -> GroundTruth:
     path = Path(path)
     files = _files(path)
+    workbooks = [f for f in files if f.suffix.lower() == ".xlsx" and not f.name.startswith("~$")]
+    if workbooks:
+        return _load_workbooks(workbooks, principle, level, is_dummy=bool(_DUMMY.search(path.name)))
     digest = hashlib.sha256()
     frames, is_dummy = [], _DUMMY.search(path.name) is not None
     for f in files:
@@ -95,6 +103,12 @@ def load_ground_truth(path: str | Path) -> GroundTruth:
         raise GroundTruthError(
             "no score column: expected 'manual_score', 'score' or '<rater>_score'")
 
+    return _finish(df, level, keys, raters, [str(f) for f in files], digest.hexdigest(),
+                   is_dummy)
+
+
+def _finish(df, level, keys, raters, sources, sha, is_dummy) -> GroundTruth:
+    """Validate scores, drop unrated rows, average raters (shared by both readers)."""
     df[KEY_VIDEO] = df[KEY_VIDEO].str.strip()
     if level == "segment":
         seg = pd.to_numeric(df[KEY_SEGMENT], errors="coerce")
@@ -130,6 +144,50 @@ def load_ground_truth(path: str | Path) -> GroundTruth:
                      "truth is the mean of the raters who scored them")
     return GroundTruth(
         level=level, table=df[keys + raters + ["manual", "n_raters"]].reset_index(drop=True),
-        raters=raters, sources=[str(f) for f in files], sha256=digest.hexdigest(),
+        raters=raters, sources=sources, sha256=sha,
         is_dummy=is_dummy, n_unrated_rows=n_unrated, notes=notes,
     )
+
+
+def _load_workbooks(files: list[Path], principle: str | None, level: str | None,
+                    *, is_dummy: bool) -> GroundTruth:
+    """One rating workbook per rater -> one score column per rater."""
+    from ..rating_workbook import RATINGS_SHEET, VIDEO_SHEET
+
+    if principle is None:
+        raise GroundTruthError("rating workbooks hold both principles: say which one")
+    level = level or "segment"
+    sheet = RATINGS_SHEET if level == "segment" else VIDEO_SHEET
+    keys = [KEY_VIDEO] if level == "video" else [KEY_VIDEO, KEY_SEGMENT]
+    column = f"{principle}_score"
+    digest = hashlib.sha256()
+    merged, raters = None, []
+    for f in files:
+        digest.update(f.read_bytes())
+        rater = re.sub(r"^ratings?_", "", f.stem.lower()) or f.stem.lower()
+        if _DUMMY.search(f.name):
+            is_dummy = True
+        try:
+            df = pd.read_excel(f, sheet_name=sheet, dtype=str)
+        except ValueError as exc:
+            raise GroundTruthError(f"{f.name}: no '{sheet}' sheet ({exc})") from exc
+        df.columns = [str(c).strip().lower() for c in df.columns]
+        missing = [c for c in keys + [column] if c not in df.columns]
+        if missing:
+            raise GroundTruthError(f"{f.name} ('{sheet}'): missing columns {missing}")
+        name = f"{rater}_score"
+        if name in raters:
+            raise GroundTruthError(f"two workbooks for rater '{rater}'")
+        raters.append(name)
+        part = df[keys + [column]].rename(columns={column: name})
+        part = part[part[KEY_VIDEO].notna()]
+        if part.duplicated(keys).any():
+            raise GroundTruthError(f"{f.name}: duplicate rows")
+        if level == "segment":
+            part[KEY_SEGMENT] = pd.to_numeric(part[KEY_SEGMENT], errors="coerce").astype("Int64")
+        merged = part if merged is None else merged.merge(part, on=keys, how="outer")
+    merged = merged.astype({KEY_VIDEO: str})
+    if level == "segment":
+        merged[KEY_SEGMENT] = merged[KEY_SEGMENT].astype(str)
+    return _finish(merged, level, keys, raters, [str(f) for f in files], digest.hexdigest(),
+                   is_dummy)

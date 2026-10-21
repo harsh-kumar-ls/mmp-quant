@@ -202,6 +202,75 @@ def annotation_sheet(
     )
 
 
+@app.command("rating-workbook")
+def rating_workbook(
+    output: Path = typer.Option(Path("rating_package/ratings_template.xlsx"), "--output", "-o"),
+    config: Path = typer.Option(Path("config.yaml"), "--config", "-c"),
+    scale_min: int = typer.Option(1, "--scale-min"),
+    scale_max: int = typer.Option(5, "--scale-max"),
+    selection: Path | None = typer.Option(
+        None, "--selection", help="only the videos in this selection table (select-for-rating)"),
+) -> None:
+    """Write the blank rating workbook for raters: every 30 s segment of every
+    video in data/videos (or only the selected ones), plus one row per video.
+    Carries no system scores."""
+    from .extract import media
+    from .rating_workbook import build_workbook
+
+    cfg = Config.load(config)
+    exts = {".mp4", ".mov", ".mkv", ".webm", ".m4v", ".avi"}
+    keep = None
+    if selection is not None:
+        import csv as _csv
+
+        keep = {r["video_id"] for r in _csv.DictReader(selection.open())}
+    vids = [(p.stem, media.duration_seconds(p)) for p in sorted(Path("data/videos").iterdir())
+            if p.suffix.lower() in exts and (keep is None or p.stem in keep)]
+    if keep is not None and len(vids) != len(keep):
+        raise typer.BadParameter(f"selected videos missing from data/videos: "
+                                 f"{sorted(keep - {v for v, _ in vids})}")
+    out = build_workbook(vids, output, segment_length_s=float(cfg.get("segments.length_s")),
+                         scale=(scale_min, scale_max))
+    console.print(f"[green]wrote[/green] {out} — {len(vids)} videos, scale "
+                  f"{scale_min}-{scale_max}, no system scores")
+
+
+@app.command("select-for-rating")
+def select_for_rating(
+    output: Path = typer.Option(Path("rating_package/selection.csv"), "--output", "-o"),
+    max_duration: float = typer.Option(200.0, "--max-duration", help="seconds (3:20)"),
+    config: Path = typer.Option(Path("config.yaml"), "--config", "-c"),
+) -> None:
+    """Choose the 10 videos for the professor by the pre-registered rule
+    (PROGRESS.md, 20 Oct 2026). The table holds system scores: student only."""
+    from .selection import load_candidates, load_styles, select, write_table
+
+    cfg = Config.load(config)
+    exts = {".mp4", ".mov", ".mkv", ".webm", ".m4v", ".avi"}
+    videos = [p.stem for p in sorted(Path("data/videos").iterdir()) if p.suffix.lower() in exts]
+    cands, skipped = load_candidates(Path(str(cfg.get("output.dir", "runs"))), videos,
+                                     load_styles(Path("data/video_styles.csv")), max_duration)
+    sel = select(cands)
+    table = Table(title=f"Selected for rating ({len(cands)} eligible, total distance "
+                        f"{sel.cost:.1f})")
+    for col in ("target", "video", "style", "length", "redundancy", "coherence", "loudness"):
+        table.add_column(col)
+    for t, c in sel.slots:
+        table.add_row(str(t), c.video_id, c.style,
+                      f"{int(c.duration_s) // 60}:{int(c.duration_s) % 60:02d}",
+                      f"{c.redundancy:.2f}", f"{c.coherence:.2f}",
+                      "" if c.loudness_db is None else f"{c.loudness_db:.1f} dB")
+    console.print(table)
+    for line in sel.swaps:
+        console.print(f"[dim]swap: {line}[/dim]")
+    for d in sel.unmet:
+        console.print(f"[bold yellow]constraint not met:[/bold yellow] {d}")
+    for v, why in skipped.items():
+        console.print(f"[dim]not eligible: {v} — {why}[/dim]")
+    console.print(f"[green]wrote[/green] {write_table(sel, output)} "
+                  "[dim](has system scores — do not send to the professor)[/dim]")
+
+
 @app.command("config-check")
 def config_check(
     config: Path = typer.Option(Path("config.yaml"), "--config", "-c"),
@@ -223,6 +292,9 @@ def validate(
     allow_mixed_config: bool = typer.Option(
         False, "--allow-mixed-config",
         help="proceed even if some runs were scored with a different config (recorded)"),
+    level: str = typer.Option(
+        "segment", "--level",
+        help="for rating workbooks: 'segment' (Ratings sheet) or 'video' (Video overall)"),
 ) -> None:
     """Compare system scores with the professor's manual scores.
 
@@ -256,7 +328,7 @@ def validate(
             failed = True
             continue
         try:
-            gt = load_ground_truth(path)
+            gt = load_ground_truth(path, principle=name, level=level)
             out = Path(str(cfg.get("validation.out_dir", "runs/validation"))) / f"{name}-{stamp}"
             r = run_validation(name, gt, Path(str(cfg.get("output.dir", "runs"))), out,
                                current_config=cfg.raw, settings=settings)
@@ -321,7 +393,7 @@ def regress(
                                   log=lambda m: console.print(f"[dim]{m}[/dim]"))
         results = rg.load_results(scratch, list(found))
 
-    checks = rg.check_expectations(results)
+    checks = rg.check_expectations(results, only=set(found) if videos else None)
     current = rg.snapshot(results)
     baseline = json.loads(rg.BASELINE.read_text()) if rg.BASELINE.exists() else None
     if baseline is not None and videos:

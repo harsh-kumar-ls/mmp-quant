@@ -45,13 +45,21 @@ no narration exists anywhere, which makes the principle unevaluable.
 
 from __future__ import annotations
 
+import re
 import statistics
 from collections.abc import Sequence
 from typing import Any
 
 from spacy.lang.en.stop_words import STOP_WORDS  # a word list; loads no model
 
-from ..onscreen import content_lemmas, is_question, onscreen_sentences, question_lemmas
+from ..onscreen import (
+    content_lemmas,
+    is_question,
+    onscreen_sentences,
+    question_said_forms,
+    said_forms,
+    shared_content,
+)
 from ..overlap import (
     Embedder,
     clamp_similarity,
@@ -62,6 +70,8 @@ from ..overlap import (
 from ..textnorm import NormalisationConfig, normalise_for_verbatim, word_count
 from ..types import Window, WindowScore
 from .base import PrincipleScorer, register
+
+_SENTENCE_SPLIT = re.compile(r"(?<=[.!?])\s+")
 
 
 def _above_chance(value: float, chance: float) -> float:
@@ -230,7 +240,7 @@ class RedundancyScorer(PrincipleScorer):
         # from the journal name and "cockroaches" from the abstract. It scored
         # 21.27 on words alone; no sentence on screen is restated (best: 12%).
         sentences = self._screen_sentences(window)
-        narration = content_lemmas(window.asr_text)
+        narration = said_forms(window.asr_text)
         has_null = len(elsewhere) >= self.min_null_windows
         restated = []
         # Every sentence tested, passed or not, so a reader can follow the
@@ -238,7 +248,6 @@ class RedundancyScorer(PrincipleScorer):
         # segment breakdown shows these step by step).
         checks = []
         for sentence in sentences:
-            words = content_lemmas(sentence)
             # An on-screen question is restated only by being asked aloud
             # (user's ruling, 05 Oct 2026). Answering it repeats its words --
             # "What is the new volume of the solution?" / "So that's the new
@@ -246,13 +255,16 @@ class RedundancyScorer(PrincipleScorer):
             # different things, and the answer is not redundancy. So a question
             # is compared only with narration spoken as a question.
             if is_question(sentence):
-                said, said_elsewhere = question_lemmas(window.asr_text), question_lemmas
+                said, said_elsewhere = question_said_forms(window.asr_text), question_said_forms
             else:
-                said, said_elsewhere = narration, content_lemmas
-            shared = words & said
+                said, said_elsewhere = narration, said_forms
+            words, shared = shared_content(sentence, said)
+            if not words:
+                continue
             coverage = len(shared) / len(words)
             chance = (
-                statistics.median(len(words & said_elsewhere(n)) / len(words) for n in elsewhere)
+                statistics.median(len(shared_content(sentence, said_elsewhere(n))[1]) / len(words)
+                                  for n in elsewhere)
                 if has_null
                 else 0.0
             )
@@ -300,10 +312,11 @@ class RedundancyScorer(PrincipleScorer):
         ocr_for_scoring = " ".join(r["sentence"] for r in restated)
         screen_cw = self._content_text(ocr_for_scoring)
         sentences = [r["sentence"] for r in restated]
-        verbatim_raw = self._verbatim(screen_cw, window.asr_text)
+        verbatim_raw = self._verbatim_sentences(sentences, screen_cw, window.asr_text)
         semantic_raw = self._meaning(sentences, ocr_for_scoring, window.asr_text)
         if has_null:
-            verbatim_null = statistics.median(self._verbatim(screen_cw, n) for n in elsewhere)
+            verbatim_null = statistics.median(
+                self._verbatim_sentences(sentences, screen_cw, n) for n in elsewhere)
             semantic_null = statistics.median(
                 self._meaning(sentences, ocr_for_scoring, n) for n in elsewhere
             )
@@ -335,10 +348,24 @@ class RedundancyScorer(PrincipleScorer):
 
     def _screen_sentences(self, window: Window) -> tuple[str, ...]:
         """Every on-screen sentence in the window, one per bullet/sentence."""
-        texts = [e["text"] for e in window.ocr_elements if e.get("kind") == "sentence"]
-        if not texts and window.ocr_sentence_text.strip():
-            texts = [window.ocr_sentence_text]  # windows built without elements
         out: list[str] = []
+        texts = []
+        for e in window.ocr_elements:
+            if e.get("kind") != "sentence":
+                continue
+            if e.get("reason") == "stitched_across_screens":
+                # Already classified as a whole sentence; its text here is the
+                # part visible in this window, which may be a fragment and must
+                # not be re-classified (21 Oct 2026). It is still split at
+                # sentence ends, since a window can show the end of one caption
+                # sentence and the start of the next.
+                for piece in _SENTENCE_SPLIT.split(" ".join(e["text"].split())):
+                    if len(content_lemmas(piece)) >= self.min_shared_content_words:
+                        out.append(piece.strip())
+                continue
+            texts.append(e["text"])
+        if not texts and not out and window.ocr_sentence_text.strip():
+            texts = [window.ocr_sentence_text]  # windows built without elements
         for t in texts:
             out.extend(onscreen_sentences(t, self.min_shared_content_words))
         return tuple(dict.fromkeys(out))
@@ -404,6 +431,24 @@ class RedundancyScorer(PrincipleScorer):
             )
         return None
 
+    def _verbatim_sentences(self, sentences: Sequence[str], joined_cw: str,
+                            narration: str) -> float:
+        """Screen coverage measured sentence by sentence, weighted by length
+        (21 Oct 2026). Joining the restated sentences first made the score depend
+        on the ORDER they sit on screen: LCS needs the same order, and four
+        sentences all read aloud scored 0.65 because the screen listed them in a
+        different order from the speech (Test_28, 0:20). F1 keeps the joined form."""
+        if self.verbatim_measure == "f1":
+            return self._verbatim(joined_cw, narration)
+        total = weight = 0.0
+        for sentence in sentences:
+            cw = self._content_text(sentence)
+            n = len(cw.split())
+            if n:
+                total += n * self._verbatim(cw, narration)
+                weight += n
+        return total / weight if weight else 0.0
+
     def _verbatim(self, screen_cw: str, narration: str) -> float:
         """Word match of the restated on-screen content words against narration."""
         other = self._content_text(narration)
@@ -425,12 +470,34 @@ class RedundancyScorer(PrincipleScorer):
         units = narration_units(narration)
         if not units:
             return 0.0
+        words = narration.split()
         total = weight = 0.0
         for s in sentences:
             w = max(1, len(self._content_words(s)))
-            total += w * max(clamp_similarity(self._similarity(s, u)) for u in units)
+            # Spoken sentences (and pairs), plus every stretch of narration as
+            # long as the on-screen text (21 Oct 2026): a caption fragment on
+            # screen ("on fire prevention and emergency preparation.") is
+            # restated by PART of a spoken sentence, and comparing it with the
+            # whole sentence understated it (0.84 for words read verbatim,
+            # Test_28 1:50). The chance level is computed the same way.
+            n = len(s.split())
+            spans = [" ".join(words[i:i + n]) for i in range(max(1, len(words) - n + 1))]
+            best = max(self._similarities(s, list(dict.fromkeys(units + spans))))
+            total += w * clamp_similarity(best)
             weight += w
         return total / weight if weight else 0.0
+
+    def _similarities(self, a: str, others: Sequence[str]) -> list[float]:
+        """Cosine of `a` with each of `others`, encoding uncached texts in one batch."""
+        encode = getattr(self.embedder, "encode", None)
+        if encode is None:
+            return [self._semantic(a, b) for b in others]
+        todo = [t for t in dict.fromkeys([a, *others]) if t not in self._vec_cache]
+        if todo:
+            for t, v in zip(todo, encode(todo), strict=True):
+                self._vec_cache[t] = v
+        va = self._vec_cache[a]
+        return [float(va @ self._vec_cache[b]) for b in others]
 
     def _similarity(self, a: str, b: str) -> float:
         """Cosine of two texts; cached per text when the embedder can encode."""

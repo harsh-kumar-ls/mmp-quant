@@ -51,6 +51,10 @@ _WEB = re.compile(r"https?://|www\.|\b[\w-]+\.(com|org|net|io|edu|in|co|ly)\b", 
 # Notation (an equation is not running prose) and long digit strings (OCR
 # noise from a graphic): neither occurs in a spoken-style caption.
 _NOTATION = re.compile(r"[=→←↔≠≤≥∑∫√^]|\d{6,}")
+# A numbered list ("1. Applied Educational Theory 2. Classroom Management") is a
+# list, not running prose -- same principle as bullets (21 Oct 2026: it was
+# joined to the next caption sentence in slides_pedagogy_explained).
+_ENUMERATOR = re.compile(r"(?:^|\s)\d{1,2}[.)]\s+\S")
 MIN_REAL_WORD_SHARE = 0.9
 
 Box = tuple[float, float, float, float] | None
@@ -72,6 +76,16 @@ class StitchedSentence:
     end: float
     pieces: tuple[str, ...]
     block_indices: tuple[int, ...]
+    # (start, end) of each piece, aligned with `pieces`: which part of the
+    # sentence was on screen when (21 Oct 2026, see align._with_stitched).
+    spans: tuple[tuple[float, float], ...] = ()
+
+    def visible_text(self, lo: float, hi: float) -> str:
+        """The part of the sentence on screen during [lo, hi)."""
+        if not self.spans:
+            return self.text
+        return " ".join(p for p, (a, b) in zip(self.pieces, self.spans, strict=True)
+                        if a < hi and b > lo)
 
 
 def _key(text: str) -> str:
@@ -87,7 +101,7 @@ def is_caption_like(text: str) -> bool:
     """Typed running prose: not a title, a list item, a watermark, notation or
     misread chalk."""
     if (_is_all_caps(text) or _BULLET.search(text) or _WEB.search(text)
-            or _NOTATION.search(text)):
+            or _NOTATION.search(text) or len(_ENUMERATOR.findall(text)) >= 2):
         return False
     real, total = real_word_share(text)
     return total > 0 and real / total >= MIN_REAL_WORD_SHARE
@@ -194,5 +208,6 @@ def _sentences(buffer: Sequence[CaptionPiece]) -> list[StitchedSentence]:
             end=max(p.end for p in used),
             pieces=tuple(p.text for p in used),
             block_indices=tuple(sorted({b for p in used for b in p.block_indices})),
+            spans=tuple((p.start, p.end) for p in used),
         ))
     return out

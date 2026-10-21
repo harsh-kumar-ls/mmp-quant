@@ -211,3 +211,80 @@ class TestHighlightedKeyLine:
         [e] = self._mark(self._el("Every day we face small risks.", height=100,
                                   reason="stitched_across_screens"))
         assert e.kind == "sentence"
+
+
+class TestOnlyTheVisiblePartIsCompared:
+    """21 Oct 2026 (expectation R10b): a stitched sentence is classified whole,
+    but each window compares only the part of it on screen in that window."""
+
+    def test_visible_text_is_the_pieces_on_screen_then(self):
+        pieces = stream(["But when people are not"], ["prepared, these everyday"],
+                        ["risks can quickly turn into serious emergencies."])
+        [s] = stitch_sentences(pieces)
+        assert s.visible_text(0.0, 4.0) == "But when people are not prepared, these everyday"
+        assert s.visible_text(4.0, 6.0) == "risks can quickly turn into serious emergencies."
+        assert s.visible_text(0.0, 6.0) == s.text
+
+    def test_scorer_does_not_reclassify_a_visible_fragment(self):
+        from mmpquant.scoring.redundancy import RedundancyScorer
+        from mmpquant.types import Window
+
+        w = Window(index=0, start=0, end=10, asr_text="but when people are not prepared these everyday",
+                   ocr_text="", asr_pool_start=-3, asr_pool_end=13,
+                   ocr_sentence_text="But when people are not prepared, these everyday",
+                   ocr_elements=({"text": "But when people are not prepared, these everyday",
+                                  "kind": "sentence", "reason": "stitched_across_screens"},))
+        ws = RedundancyScorer(embedder=JaccardEmbedder()).score_window(w)
+        assert ws.evidence["gate"] == "passed"
+        assert ws.components["verbatim_raw"] == pytest.approx(1.0)
+
+
+class TestMatchingFixes21Oct:
+    """Three measurement faults found through expectation R10b (Test_28)."""
+
+    def test_a_word_counts_as_said_if_lemma_or_surface_matches(self):
+        from mmpquant.onscreen import said_forms, shared_content
+
+        said = said_forms("But when people are not prepared, these everyday risks grow.")
+        words, shared = shared_content("But when people are not prepared, these everyday", said)
+        assert words == shared  # "prepared" matches whatever the tagger made of it
+
+    def test_word_match_does_not_depend_on_the_order_sentences_sit_on_screen(self):
+        from mmpquant.scoring.redundancy import RedundancyScorer
+
+        a = "The challenge is that traditional safety training can feel overwhelming."
+        b = "Risks can quickly turn into serious emergencies."
+        narration = f"{b} {a}"   # spoken in the other order
+        sc = RedundancyScorer(embedder=JaccardEmbedder())
+        assert sc._verbatim_sentences([a, b], "", narration) == pytest.approx(1.0)
+
+    def test_percent_sign_reads_as_percent(self):
+        from mmpquant.textnorm import normalise_for_verbatim
+
+        assert normalise_for_verbatim("by up to 17%") == normalise_for_verbatim("by up to 17 percent")
+
+
+def test_a_numbered_list_is_not_caption_text():
+    from mmpquant.extract.captions import is_caption_like
+
+    assert not is_caption_like("PEDAGOGY 1. Applied Educational Theory 2. Classroom Management")
+    assert is_caption_like("Choosing the right assessment method is part of pedagogy.")
+
+
+class TestSplitCompounds:
+    """21 Oct 2026, user: Test_28's narrator says 'microlearning'; the
+    transcript wrote 'micro -learning' — a transcription fault."""
+
+    def test_gate_counts_a_compound_the_recogniser_split(self):
+        from mmpquant.onscreen import said_forms, shared_content
+
+        said = said_forms("The micro -learning safety everywhere course")
+        _words, shared = shared_content("The Microlearning Safety Everywhere course", said)
+        assert "microlearning" in shared
+
+    def test_word_match_joins_the_split_halves_only_when_the_screen_has_the_compound(self):
+        from mmpquant.overlap import rouge_l_screen_coverage
+
+        assert rouge_l_screen_coverage("microlearning safety", "micro -learning safety") == 1.0
+        # "real - life" on screen stays two words; the transcript's "real -life" must still match
+        assert rouge_l_screen_coverage("real - life safety", "real -life safety") == 1.0

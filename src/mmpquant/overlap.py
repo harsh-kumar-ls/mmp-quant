@@ -74,10 +74,28 @@ def rouge_l_screen_coverage(
     word scored ~0.5-0.7, never 1 (Microlearning-Safety-Training, 15 Oct).
     """
     tokens_a = tokenise(normalise_for_verbatim(screen, cfg))
-    tokens_b = tokenise(normalise_for_verbatim(narration, cfg))
+    tokens_b = join_split_compounds(tokenise(normalise_for_verbatim(narration, cfg)), tokens_a)
     if not tokens_a or not tokens_b:
         return 0.0
     return lcs_length(tokens_a, tokens_b) / len(tokens_a)
+
+
+def join_split_compounds(narration: list[str], screen: list[str]) -> list[str]:
+    """Merge two adjacent narration tokens when the screen writes them as one
+    word ("micro" "learning" -> "microlearning"; 21 Oct 2026, a
+    speech-recogniser split). A pair is merged only if the joined form is on
+    screen, so "real -life" (screen: "real - life") stays two words."""
+    on_screen = set(screen)
+    out: list[str] = []
+    i = 0
+    while i < len(narration):
+        if i + 1 < len(narration) and narration[i] + narration[i + 1] in on_screen:
+            out.append(narration[i] + narration[i + 1])
+            i += 2
+        else:
+            out.append(narration[i])
+            i += 1
+    return out
 
 
 _SENTENCE_END = re.compile(r"(?<=[.!?])\s+")
