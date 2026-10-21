@@ -225,3 +225,68 @@ class TestCommandLine:
         result = CliRunner().invoke(app, ["validate", "-g", str(tmp_path / "none.csv")])
         assert result.exit_code == 1
         assert "Nothing is computed from placeholder data" in result.output
+
+
+class TestRatingWorkbooks:
+    """20 Oct 2026: one Excel workbook per rater (ratings_<name>.xlsx)."""
+
+    def _workbook(self, path, scores, *, overall=None):
+        """Build a blank workbook, then fill it with SYNTHETIC test scores."""
+        from openpyxl import load_workbook
+
+        from mmpquant.rating_workbook import build_workbook
+
+        build_workbook([(f"v{i}", 60.0) for i in range(len(scores))], path, segment_length_s=30)
+        wb = load_workbook(path)
+        ws = wb["Ratings"]
+        for row in ws.iter_rows(min_row=2):
+            vid = int(row[0].value[1:])
+            row[5].value = scores[vid]          # redundancy_score
+            row[6].value = 5 - scores[vid] // 25 if scores[vid] is not None else None
+        if overall:
+            for row in wb["Video overall"].iter_rows(min_row=2):
+                row[2].value = overall[int(row[0].value[1:])]
+        wb.save(path)
+        return path
+
+    def test_blank_workbook_has_no_system_scores_and_every_segment(self, tmp_path):
+        from openpyxl import load_workbook
+
+        from mmpquant.rating_workbook import build_workbook
+
+        p = build_workbook([("a", 65.0), ("b", 30.0)], tmp_path / "t.xlsx", segment_length_s=30)
+        wb = load_workbook(p)
+        assert wb.sheetnames == ["Read me", "Ratings", "Video overall"]
+        rows = list(wb["Ratings"].iter_rows(min_row=2, values_only=True))
+        assert [(r[0], r[1]) for r in rows] == [("a", 0), ("a", 1), ("a", 2), ("b", 0)]
+        headers = [c.value for c in wb["Ratings"][1]]
+        assert not any("system" in str(h) for h in headers)
+
+    def test_two_raters_round_trip_through_validation(self, tmp_path, corpus):
+        runs, system = corpus
+        folder = tmp_path / "ratings"
+        folder.mkdir()
+        self._workbook(folder / "ratings_alice.xlsx", system)
+        self._workbook(folder / "ratings_bob.xlsx", [s + 1 for s in system])
+        gt = load_ground_truth(folder, principle="redundancy")
+        assert gt.raters == ["alice_score", "bob_score"] and gt.level == "segment"
+        r = run_validation("redundancy", gt, runs, tmp_path / "out",
+                           current_config=CFG, settings=FAST)
+        assert r["exploratory_all_videos"]["whole_video"]["spearman"] == 1.0
+        assert r["inter_rater"][0]["spearman"] == 1.0
+
+    def test_video_overall_sheet_gives_video_level(self, tmp_path, corpus):
+        _runs, system = corpus
+        folder = tmp_path / "ratings"
+        folder.mkdir()
+        self._workbook(folder / "ratings_alice.xlsx", system, overall=system)
+        gt = load_ground_truth(folder, principle="redundancy", level="video")
+        assert gt.level == "video" and len(gt.table) == len(system)
+
+    def test_workbooks_need_a_principle(self, tmp_path, corpus):
+        _runs, system = corpus
+        folder = tmp_path / "ratings"
+        folder.mkdir()
+        self._workbook(folder / "ratings_alice.xlsx", system)
+        with pytest.raises(GroundTruthError, match="say which one"):
+            load_ground_truth(folder)

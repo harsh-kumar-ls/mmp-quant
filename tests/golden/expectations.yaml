@@ -42,11 +42,35 @@ checks:
     text_contains: "aim"
 
   - id: R4
-    status: confirmed   # by the user, 20 Oct 2026
-    source: "user, 15 Oct 2026: Microlearning (now Test_28) — 'in the whole video the narrator is just reading the on-screen text'"
-    type: highest
+    status: confirmed   # by the user, 21 Oct 2026 (replaces "most redundant video")
+    source: "user, 21 Oct 2026: 'In test 28, after 15 seconds, each word is repeated and narrated, which is written on screen. I think it should score above 70.' (Until 21 Oct R4 said Test_28 is the most redundant video; a subtitled video, animation_london_subtitled, now scores higher, which the user accepted.)"
+    type: score
     principle: redundancy
     video: Test_28
+    op: ">"
+    value: 70
+
+  - id: R10a
+    status: confirmed   # by the user, 21 Oct 2026
+    source: "user, 21 Oct 2026: Test_28 'from 0 to 15 sec it should be 0 for the redundancy' (intro, no narration). Checked on the 0:00-0:10 window; 0:10-0:20 is mixed."
+    type: window_each
+    principle: redundancy
+    video: Test_28
+    from_s: 0
+    to_s: 10
+    op: "=="
+    value: 0
+
+  - id: R10b
+    status: confirmed   # by the user, 21 Oct 2026: ">= 80" (said 100; OCR noise allowed)
+    source: "user, 21 Oct 2026: Test_28 'after 15 seconds, each word is repeated and narrated, which is written on screen … the redundancy should be 100 for each time lapse up to 2:52'. Checked on every window starting 0:10-2:40. Threshold 80 chosen by the user after the four measurement fixes: 15 of 16 windows reach 92-100; 0:40 sits at ~84 because a logo is misread as 'TEL' inside the caption."
+    type: window_each
+    principle: redundancy
+    video: Test_28
+    from_s: 10
+    to_s: 170
+    op: ">="
+    value: 80
 
   - id: R5
     status: confirmed   # by the user, 20 Oct 2026
@@ -93,9 +117,9 @@ checks:
   # ----------------------------------------------------------------- coherence
   - id: C1
     status: confirmed   # by the user, 20 Oct 2026
-    source: "user, 14 Oct 2026 (listening): test6, test_7 and Test_11 have background music; Test_14 at the end; test4 confirmed. User, 20 Oct 2026: 'Test 28 has background music' (louder in the first 7-8 s, quieter for the rest)"
+    source: "user, 14 Oct 2026 (listening): test6, test_7 and Test_11 have background music; Test_14 at the end; test4 confirmed. User, 20 Oct 2026: 'Test 28 has background music' (louder in the first 7-8 s, quieter for the rest). User, 21 Oct 2026: animation_black_holes and slides_tidal_power_subtitled have background music"
     type: music_present
-    videos: [test6, test_7, Test_11, Test_14, test4, Test_28]
+    videos: [test6, test_7, Test_11, Test_14, test4, Test_28, animation_black_holes, slides_tidal_power_subtitled]
 
   - id: C2
     status: confirmed   # by the user, 20 Oct 2026
@@ -120,7 +144,10 @@ checks:
                     # the rest are unverified by ear. If C4 ever fails, listen before changing code.
     source: "user, 14 Oct 2026 listening check named only those five videos. 'No music elsewhere' allows ≤ 1.0 on the music part (one borderline second, e.g. test_26 0.56) — Claude's draft, confirm. Test_28 was added after the listening check (20 Oct: the first run of this check caught that it shows music under 97% of its narration) — excluded until the user has listened."
     type: no_music_elsewhere
-    music_videos: [test6, test_7, Test_11, Test_14, test4, Test_28]
+    music_videos: [test6, test_7, Test_11, Test_14, test4, Test_28, animation_black_holes, slides_tidal_power_subtitled]
+    # 21 Oct 2026: the 30 candidates downloaded on 20-21 Oct have not been
+    # listened to; the user listens to those that are selected for rating.
+    not_yet_listened: [animation_blood_groups, animation_dna_to_protein, animation_fluid_mosaic, animation_here_comes_the_sun, animation_london_subtitled, animation_maslow_hierarchy, animation_our_sun, animation_water_cycle, pen_addition, pen_angular_momentum, pen_antimatter, pen_ap_physics_intro, pen_maths_notes, pen_note_taking_methods, slides_cognitive_load_theory, slides_dropped_objects, slides_labour_economics, slides_literature_review, slides_pedagogy_explained, slides_photosynthesis, slides_urine_production, slides_what_is_microlearning, whiteboard_awesome_presentation, whiteboard_empathy, whiteboard_flourishing, whiteboard_llms, whiteboard_media_bias, whiteboard_speed_velocity]
     max_part: 1.0
 
   - id: C5

@@ -1,0 +1,66 @@
+# Presentation style of each video, for the selection rule (PROGRESS.md, 20 Oct 2026).
+# Older videos labelled by Claude from one mid-video frame each (20 Oct 2026) — the
+# user may correct any line. 'footage' = filmed video (presenter or stock footage) with on-screen
+# text: eligible for selection, but not one of the four required styles (21 Oct 2026).
+# New candidates were also labelled from frames (21 Oct): their file-name prefixes were
+# guesses from titles and are often wrong — this file wins.
+video_id,style,labelled_by
+14_JzbhQX00,whiteboard,claude-frame
+Test_11,animation,claude-frame
+Test_12,animation,claude-frame
+Test_13,animation,claude-frame
+Test_14,animation,claude-frame
+Test_15,pen,claude-frame
+Test_16,pen,claude-frame
+Test_17,pen,claude-frame
+Test_17_2,slides,claude-frame
+Test_18,slides,claude-frame
+Test_19,slides,claude-frame
+Test_20,whiteboard,claude-frame
+Test_21,whiteboard,claude-frame
+Test_22,whiteboard,claude-frame
+Test_23,whiteboard,claude-frame
+Test_24,whiteboard,claude-frame
+Test_25,whiteboard,claude-frame
+Test_27,whiteboard,claude-frame
+Test_28,footage,claude-frame (filmed stock footage + captions; was 'slides' until 21 Oct)
+test4,animation,claude-frame
+test6,animation,claude-frame
+test8,whiteboard,claude-frame
+test9,whiteboard,claude-frame
+test_1,slides,claude-frame
+test_10,whiteboard,claude-frame
+test_2,pen,claude-frame
+test_26,whiteboard,claude-frame
+test_3,pen,claude-frame
+test_7,animation,claude-frame
+slides_photosynthesis,slides,claude-frame
+slides_urine_production,slides,claude-frame
+slides_dropped_objects,animation,claude-frame (3D animation)
+slides_labour_economics,footage,claude-frame (stock footage)
+slides_what_is_microlearning,animation,claude-frame (kinetic typography)
+whiteboard_empathy,animation,claude-frame
+whiteboard_flourishing,pen,claude-frame (pen on paper)
+whiteboard_media_bias,animation,claude-frame
+whiteboard_llms,animation,claude-frame
+whiteboard_speed_velocity,footage,claude-frame (presenter + text)
+pen_antimatter,pen,claude-frame
+pen_angular_momentum,pen,claude-frame
+pen_addition,pen,claude-frame (digital pen)
+pen_ap_physics_intro,slides,claude-frame (text document on screen)
+pen_maths_notes,whiteboard,claude-frame (classroom board)
+animation_fluid_mosaic,animation,claude-frame
+animation_blood_groups,animation,claude-frame
+animation_water_cycle,animation,claude-frame
+animation_dna_to_protein,animation,claude-frame
+animation_here_comes_the_sun,footage,claude-frame (presenter + animation)
+slides_tidal_power_subtitled,animation,claude-frame (3D rendering + subtitles)
+animation_london_subtitled,footage,claude-frame (filmed + subtitles)
+slides_cognitive_load_theory,animation,claude-frame
+slides_pedagogy_explained,slides,claude-frame
+slides_literature_review,footage,claude-frame (presenter + text titles)
+animation_maslow_hierarchy,whiteboard,claude-frame (hand drawing)
+pen_note_taking_methods,animation,claude-frame (motion graphics)
+whiteboard_awesome_presentation,whiteboard,claude-frame
+animation_black_holes,animation,claude-frame
+animation_our_sun,animation,claude-frame

@@ -17,3 +17,8 @@ PROGRESS.md
 CLAUDE.md
 .claude/
 .venv 2/
+
+# The professor's returned ratings are private research data, and the rating
+# package is regenerated with `mmpquant rating-workbook`.
+data/ratings/
+rating_package/

@@ -110,6 +110,8 @@ def normalise_for_verbatim(text: str, cfg: NormalisationConfig | None = None) ->
     if cfg.dehyphenate_linebreaks:
         out = _LINEBREAK_HYPHEN.sub(r"\1\2", out)
     out = out.replace("\n", " ")
+    # "17%" (speech recogniser) and "17 percent" (screen) are the same words
+    out = out.replace("%", " percent ")
     out = _ASR_DECIMAL_GAP.sub(".", out)
     if cfg.lowercase:
         out = out.lower()

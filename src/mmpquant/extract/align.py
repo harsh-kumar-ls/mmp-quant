@@ -163,7 +163,8 @@ def build_windows(
         ocr_text = _merge_block_text(ocr_blocks, block_indices)
         elements = _elements_for_window(ocr_blocks, block_indices, onscreen)
         elements = _with_stitched(
-            elements, [s for s in stitched if s.start < ocr_hi and s.end > ocr_lo]
+            elements, [s for s in stitched if s.start < ocr_hi and s.end > ocr_lo],
+            ocr_lo, ocr_hi,
         )
         if onscreen.highlighted_key_line:
             elements = _mark_highlighted(elements, usual_height, onscreen)
@@ -270,9 +271,19 @@ def _key(text: str) -> str:
     return "".join(c for c in text.lower() if c.isalnum())
 
 
-def _with_stitched(elements: list, stitched: list[StitchedSentence]) -> list:
+def _with_stitched(elements: list, stitched: list[StitchedSentence],
+                   lo: float = float("-inf"), hi: float = float("inf")) -> list:
     """Add stitched sentences as sentence elements, dropping any per-screen
-    sentence that is only a part of one (keep the longer, as dedupe does)."""
+    sentence that is only a part of one (keep the longer, as dedupe does).
+
+    The element's text is the part of the sentence ON SCREEN during [lo, hi)
+    (21 Oct 2026). The sentence is classified whole (that is what makes it a
+    sentence), but a window is compared with the narration only on what was
+    visible then: attaching the whole sentence to every window it touches
+    compared text shown later with narration spoken now, and a caption read
+    word for word scored 61-81 instead of ~100 (Test_28, expectation R10b).
+    The full sentence is kept in the evidence.
+    """
     if not stitched:
         return elements
     keys = [_key(s.text) for s in stitched]
@@ -281,12 +292,13 @@ def _with_stitched(elements: list, stitched: list[StitchedSentence]) -> list:
         if not (e.kind == KIND_SENTENCE and any(_key(e.text) in k for k in keys))
     ]
     for s in stitched:
+        visible = s.visible_text(lo, hi) or s.text
         kept.append(TextElement(
-            lines=(OcrLine(s.text, 1.0, None),),
+            lines=(OcrLine(visible, 1.0, None),),
             kind=KIND_SENTENCE,
             bbox=None,
             evidence={"reason": "stitched_across_screens", "pieces": list(s.pieces),
-                      "start": s.start, "end": s.end},
+                      "full_sentence": s.text, "start": s.start, "end": s.end},
         ))
     return kept
 

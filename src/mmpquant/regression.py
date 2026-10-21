@@ -108,6 +108,16 @@ def check_one(c: dict, results: dict[str, dict]) -> tuple[bool, str]:
             f"mean of {len(ws)} windows {c['from_s']}-{c['to_s']} s = {mean:.2f} "
             f"(need {c['op']} {c['value']}); lowest {min((w['score'] or 0) for w in ws):.2f}")
 
+    if t == "window_each":
+        ws = [w for w in _windows(results[c["video"]], c["principle"])
+              if c["from_s"] <= w["start"] < c["to_s"]]
+        if not ws:
+            return False, "no windows in range"
+        bad = [(int(w["start"]), round(w["score"] or 0.0, 2)) for w in ws
+               if not _OPS[c["op"]](w["score"] or 0.0, c["value"])]
+        return not bad, (f"all {len(ws)} windows {c['from_s']}-{c['to_s']} s {c['op']} {c['value']}"
+                         if not bad else f"{len(bad)} of {len(ws)} windows fail: {bad}")
+
     if t == "never_sentence":
         bad = sorted({e["text"].replace("\n", " ")[:60]
                       for w in _windows(results[c["video"]], "redundancy")
@@ -165,10 +175,22 @@ def check_one(c: dict, results: dict[str, dict]) -> tuple[bool, str]:
     return False, f"unknown check type {t!r}"
 
 
-def check_expectations(results: dict[str, dict], path: Path = EXPECTATIONS) -> list[CheckResult]:
+def _videos_of(c: dict) -> set[str]:
+    return ({c["video"]} if "video" in c else set()) | set(c.get("videos", [])) | set(
+        c.get("than", []))
+
+
+def check_expectations(results: dict[str, dict], path: Path = EXPECTATIONS,
+                       only: set[str] | None = None) -> list[CheckResult]:
+    """`only`: when checking a subset of videos, skip checks about others
+    (corpus-wide checks such as 'highest' still need the full set)."""
     spec = yaml.safe_load(path.read_text())
     out = []
     for c in spec.get("checks", []):
+        if only is not None:
+            vids = _videos_of(c)
+            if not vids or not vids <= only:
+                continue
         try:
             ok, detail = check_one(c, results)
         except Exception as exc:  # noqa: BLE001 -- a malformed check must fail loudly, not pass

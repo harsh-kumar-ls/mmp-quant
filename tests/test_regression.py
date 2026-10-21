@@ -144,3 +144,12 @@ def test_expectations_never_contain_manual_scores():
     # would make the validation circular. (The file's header may say so.)
     checks = yaml.safe_dump(yaml.safe_load(rg.EXPECTATIONS.read_text())["checks"]).lower()
     assert "manual_score" not in checks and "professor" not in checks
+
+
+def test_window_each_names_every_failing_window():
+    c = {"type": "window_each", "principle": "redundancy", "video": "a",
+         "from_s": 10, "to_s": 40, "op": ">=", "value": 90}
+    ws = [{"start": 0.0, "score": 0.0}, {"start": 10.0, "score": 95.0},
+          {"start": 20.0, "score": 61.0}, {"start": 30.0, "score": 99.0}]
+    ok, detail = rg.check_one(c, {"a": payload(windows=ws)})
+    assert not ok and "1 of 3 windows fail: [(20, 61.0)]" in detail

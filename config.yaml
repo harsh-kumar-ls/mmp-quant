@@ -216,9 +216,9 @@ onscreen:
 validation:
   # Build order step 4 (16 Oct 2026). The method is fixed here BEFORE any manual
   # score exists; change it only with a dated note, never after seeing results.
-  ground_truth:                       # a CSV, or a directory of CSVs (filled
-    redundancy: data/manual_scores.csv        # annotation sheets also work)
-    coherence: data/manual_coherence_scores.csv
+  ground_truth:             # the returned rating workbooks, one per rater
+    redundancy: data/ratings  # (ratings_<name>.xlsx); a CSV or a folder of
+    coherence: data/ratings   # filled annotation sheets also works
   tune_fraction: 0.6        # share of VIDEOS used to choose between the
                             # pre-registered variants; the rest are held out
   seed: 0                   # split and bootstrap; recorded in every report

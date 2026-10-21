@@ -4,8 +4,8 @@
 data/
   videos/                     # input videos
   annotations/                # blank per-segment sheets for raters (`annotation-sheet`)
-  manual_scores.csv           # redundancy ground truth — NOT YET AVAILABLE
-  manual_coherence_scores.csv # coherence ground truth — NOT YET AVAILABLE
+  ratings/                    # returned rating workbooks, ratings_<name>.xlsx
+                              # (private: not in git) — NOT YET AVAILABLE
 ```
 
 `mmpquant validate` (16 Oct 2026) accepts, without code changes: one score per video
@@ -13,6 +13,11 @@ data/
 (add `segment_index`), several raters (one `_score` column each; ground truth = their
 mean, agreement reported), or a folder of filled-in annotation sheets. Blank = not rated,
 never 0. Paths are set in `config.yaml` → `validation.ground_truth`.
+
+Since 20 Oct 2026 the main route is the rating workbook (`mmpquant
+rating-workbook` → `rating_package/ratings_template.xlsx`): one file per rater,
+per-segment scores on 'Ratings', overall scores on 'Video overall', both
+principles; `mmpquant validate [--level video]` reads a folder of them.
 
 ## manual_scores.csv
 
