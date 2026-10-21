@@ -192,7 +192,8 @@ def run_pipeline(
             str(cfg.get("scoring.redundancy.embedding_model"))
         )
     scorer = RedundancyScorer.from_config(cfg, embedder)
-    result = scorer.score(extraction.windows, extra_warnings=extraction.warnings)
+    result = scorer.score(extraction.windows, extra_warnings=extraction.warnings,
+                          context=VideoContext(extraction.transcript, None))
 
     segment_length = float(cfg.get("segments.length_s"))
     segments = aggregate_to_segments(

@@ -114,12 +114,30 @@ checks:
     video: Test_25
     text: "THE ARTS ARE VICTIMS"
 
+  - id: R11
+    status: confirmed   # by the user, 21 Oct 2026
+    source: "user, 21 Oct 2026, animation_london_subtitled: 'It's 135 metres' is said at 0:11 and its caption appears at 11.5 s — it must not count for the 0:00-0:10 window ('catching the narration timestamp and the on-screen text with timestamp is the most crucial part of our project')."
+    type: text_not_counted_in_window
+    video: animation_london_subtitled
+    text: "It's 135m high with 32 glass capsules"
+    from_s: 0
+    to_s: 10
+
+  - id: R12
+    status: confirmed   # by the user, 21 Oct 2026 (chose: weight each caption by its time on screen)
+    source: "user, 21 Oct 2026: 'The big wheel … Millennium Wheel or London Eye' was counted in both 0:00-0:10 and 0:10-0:20. It is on screen 7.0-11.5 s, so only 1.5 s of the second window: it must weigh less there than 'It's 135m high …' (on screen 11.5-17.0 s)."
+    type: lighter_in_window
+    video: animation_london_subtitled
+    window_start: 10
+    lighter: "The big wheel you can see is the Millennium"
+    heavier: "It's 135m high with 32 glass capsules"
+
   # ----------------------------------------------------------------- coherence
   - id: C1
     status: confirmed   # by the user, 20 Oct 2026
     source: "user, 14 Oct 2026 (listening): test6, test_7 and Test_11 have background music; Test_14 at the end; test4 confirmed. User, 20 Oct 2026: 'Test 28 has background music' (louder in the first 7-8 s, quieter for the rest). User, 21 Oct 2026: animation_black_holes and slides_tidal_power_subtitled have background music"
     type: music_present
-    videos: [test6, test_7, Test_11, Test_14, test4, Test_28, animation_black_holes, slides_tidal_power_subtitled]
+    videos: [test6, test_7, Test_11, Test_14, test4, Test_28, animation_black_holes, slides_tidal_power_subtitled, pen_angular_momentum]  # pen_angular_momentum: user, 22 Oct 2026 ('has background music')
 
   - id: C2
     status: confirmed   # by the user, 20 Oct 2026
@@ -144,10 +162,10 @@ checks:
                     # the rest are unverified by ear. If C4 ever fails, listen before changing code.
     source: "user, 14 Oct 2026 listening check named only those five videos. 'No music elsewhere' allows ≤ 1.0 on the music part (one borderline second, e.g. test_26 0.56) — Claude's draft, confirm. Test_28 was added after the listening check (20 Oct: the first run of this check caught that it shows music under 97% of its narration) — excluded until the user has listened."
     type: no_music_elsewhere
-    music_videos: [test6, test_7, Test_11, Test_14, test4, Test_28, animation_black_holes, slides_tidal_power_subtitled]
+    music_videos: [test6, test_7, Test_11, Test_14, test4, Test_28, animation_black_holes, slides_tidal_power_subtitled, pen_angular_momentum]
     # 21 Oct 2026: the 30 candidates downloaded on 20-21 Oct have not been
     # listened to; the user listens to those that are selected for rating.
-    not_yet_listened: [animation_blood_groups, animation_dna_to_protein, animation_fluid_mosaic, animation_here_comes_the_sun, animation_london_subtitled, animation_maslow_hierarchy, animation_our_sun, animation_water_cycle, pen_addition, pen_angular_momentum, pen_antimatter, pen_ap_physics_intro, pen_maths_notes, pen_note_taking_methods, slides_cognitive_load_theory, slides_dropped_objects, slides_labour_economics, slides_literature_review, slides_pedagogy_explained, slides_photosynthesis, slides_urine_production, slides_what_is_microlearning, whiteboard_awesome_presentation, whiteboard_empathy, whiteboard_flourishing, whiteboard_llms, whiteboard_media_bias, whiteboard_speed_velocity]
+    not_yet_listened: [animation_blood_groups, animation_here_comes_the_sun, animation_london_subtitled, animation_maslow_hierarchy, pen_antimatter, pen_ap_physics_intro, slides_cognitive_load_theory, slides_pedagogy_explained, slides_photosynthesis, slides_urine_production, slides_what_is_microlearning, whiteboard_awesome_presentation, whiteboard_empathy, whiteboard_llms, whiteboard_speed_velocity]
     max_part: 1.0
 
   - id: C5

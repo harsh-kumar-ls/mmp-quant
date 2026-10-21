@@ -565,20 +565,48 @@ function checkResult(c, m) {
   return `<span class="result-fail">✗ Not above chance</span>`;
 }
 
-function chanceRow(name, raw, chance, adj) {
-  if (raw === null || raw === undefined) return "";
-  const working = raw <= chance
-    ? `${f4(raw)} is not above chance ${f4(chance)} → <strong>0</strong>`
+function chanceCell(raw, chance, adj) {
+  if (raw === null || raw === undefined) return "—";
+  return raw <= chance
+    ? `${f4(raw)} ≤ chance ${f4(chance)} → <strong>0</strong>`
     : `(${f4(raw)} − ${f4(chance)}) ÷ (1 − ${f4(chance)}) = <strong>${f4(adj)}</strong>`;
-  return `<tr><td>${name}</td><td class="num tabular">${f4(raw)}</td><td class="num tabular">${f4(chance)}</td><td class="tabular">${working}</td></tr>`;
+}
+
+// m:ss.s — the precision the timing decisions are made at (0.5 s frames)
+function tc(t) {
+  const m = Math.floor(t / 60), s = t - 60 * m;
+  return `${m}:${s.toFixed(1).padStart(4, "0")}`;
+}
+const spansText = (spans) => (spans || []).map(([a, b]) => `${tc(a)}–${tc(b)}`).join(", ");
+
+// The narration word by word, a time stamp at each pause, and the words spoken
+// in the ± tolerance margin outside the window faded (21 Oct 2026, user: the
+// narration timestamp is the most crucial part of the project).
+function timedNarration(w) {
+  const words = w.narration_timed || [];
+  if (!words.length) return escapeHtml(w.narration) || "<em>(no narration)</em>";
+  let out = "", last = null;
+  for (const x of words) {
+    if (last === null || x.start - last > 1.0) out += `<span class="tstamp">${tc(x.start)}</span> `;
+    out += `<span class="${x.in_window ? "w-in" : "w-outside"}" title="${tc(x.start)}–${tc(x.end)}">${escapeHtml(x.text)}</span> `;
+    last = x.end;
+  }
+  return out;
 }
 
 function windowCalculation(w, m, open) {
   const status = !w.qualifies ? ["badge-na", "Left out"] : w.gate === "passed" ? ["badge-scored", "Restates a sentence"] : ["badge-zero", "Nothing restated"];
+  const tol = escapeHtml(String(m.alignment_tolerance_s ?? 3));
+  const checks = w.sentence_checks || [];
+  const timed = checks.some((c) => c.spans);
+  const screenCol = timed
+    ? checks.map((c) => `<div class="screen-sent"><span class="tstamp">${spansText(c.spans)}</span> ${escapeHtml(c.sentence)}</div>`).join("")
+    : escapeHtml(w.onscreen_compared) || "<em>(no sentence on screen)</em>";
   const texts = `<div class="evidence-grid" style="margin-top:12px">
-      <div class="evidence-col screen"><div class="evidence-col-title">${icon("eye", 14)} On-screen sentences</div>${escapeHtml(w.onscreen_compared) || "<em>(no sentence on screen)</em>"}</div>
-      <div class="evidence-col voice"><div class="evidence-col-title">${icon("mic", 14)} Narration (± ${escapeHtml(String(m.alignment_tolerance_s ?? 3))} s)</div>${escapeHtml(w.narration) || "<em>(no narration)</em>"}</div>
+      <div class="evidence-col screen"><div class="evidence-col-title">${icon("eye", 14)} On-screen sentences${timed ? " — when shown" : ""}</div>${screenCol}</div>
+      <div class="evidence-col voice"><div class="evidence-col-title">${icon("mic", 14)} Narration (± ${tol} s)</div>${timedNarration(w)}</div>
     </div>
+    ${(w.narration_timed || []).length ? `<div class="note" style="margin:8px 0 0">Times are when each word is spoken (hover a word). Faded words fall in the ± ${tol} s margin outside ${escapeHtml(w.timecode)}.</div>` : ""}
     ${w.labels_excluded.length ? `<div class="note" style="margin:10px 0 0">Set aside as labels / key terms — signaling, never redundancy:</div>
       <div class="labels">${w.labels_excluded.map((l) => `<span>${escapeHtml(l)}</span>`).join("")}${w.n_labels_excluded > w.labels_excluded.length ? `<span>+${w.n_labels_excluded - w.labels_excluded.length} more</span>` : ""}</div>` : ""}`;
 
@@ -587,14 +615,17 @@ function windowCalculation(w, m, open) {
     body = `${texts}<div class="verdict">${icon("info", 18)}<div><strong>Not assessed.</strong> ${escapeHtml(cap(w.exclusion_label || ""))}.
       A window needs at least ${m.min_onscreen_words} words of on-screen sentence text and some narration, so there is nothing here to assess — it counts as 0 in the segment average.</div></div>`;
   } else {
+    const heard = (c) => c.narration_from === null || c.narration_from === undefined ? ""
+      : `<div class="heard"><span class="tstamp">${tc(c.narration_from)}–${tc(c.narration_to)}</span> compared with: ${escapeHtml(c.narration || "(nothing spoken)")}</div>`;
     const step1 = `<div class="step-block"><div class="step-title"><span class="step-num">1</span>Does the narration restate an on-screen sentence?</div>
-      <div class="note">Restated = the narration says at least ${m.min_shared_content_words ?? 2} of the sentence's content words,
+      <div class="note">Each sentence is compared with the narration spoken while it is on screen — up to ${escapeHtml(String(m.nearby_reach_s ?? 10))} s beyond this window either side — ± ${tol} s (the times are shown under it).
+        Restated = that narration says at least ${m.min_shared_content_words ?? 2} of the sentence's content words,
         <strong>more than ${pct(m.min_sentence_coverage ?? 0.5)}</strong> of them, and more than narration elsewhere in the video
         does (chance: median over ${w.null_windows || 0} windows &gt; ${m.null_exclusion_s ?? 30} s away${w.null_windows ? "" : " — too few, so taken as 0"}).
         Content words skip "the", "is", "of"…; plurals and tenses match. A question counts only if it is asked aloud.</div>
-      ${w.sentence_checks.length ? `<div class="table-scroll"><table class="plain"><thead><tr><th>On-screen sentence</th><th>Its content words</th>
+      ${checks.length ? `<div class="table-scroll"><table class="plain"><thead><tr><th>On-screen sentence</th><th>Its content words</th>
         <th>Narration said</th><th class="num">Coverage</th><th class="num">Chance</th><th>Result</th></tr></thead><tbody>
-        ${w.sentence_checks.map((c) => `<tr class="${c.passed ? "row-pass" : ""}"><td>${escapeHtml(c.sentence)}${c.is_question ? ' <span class="muted">(question)</span>' : ""}</td>
+        ${checks.map((c) => `<tr class="${c.passed ? "row-pass" : ""}"><td>${escapeHtml(c.sentence)}${c.is_question ? ' <span class="muted">(question)</span>' : ""}${heard(c)}</td>
           <td>${escapeHtml(c.content_words.join(", "))}</td><td>${escapeHtml(c.shared_words.join(", ") || "—")}</td>
           <td class="num tabular">${c.shared_words.length}/${c.content_words.length} = ${pct(c.coverage)}</td>
           <td class="num tabular">${pct(c.chance)}</td><td>${checkResult(c, m)}</td></tr>`).join("")}
@@ -603,20 +634,30 @@ function windowCalculation(w, m, open) {
     if (w.gate !== "passed") {
       body = `${texts}${step1}<div class="verdict">${icon("check", 18)}<div>No on-screen sentence is restated →
         <strong>window score = 0</strong> (assessed, no redundancy). It still counts as 0 in the segment average.</div></div>`;
+    } else if (checks.some((c) => c.time_weight === undefined)) {
+      body = `${texts}${step1}<div class="verdict">${icon("info", 18)}<div>Window score <strong>${fmtScore(w.score)}</strong>.
+        This run was scored before the time-weighted calculation (21 Oct 2026); re-score the video to see every step.</div></div>`;
     } else {
       const wv = m.weight_verbatim, ws = m.weight_semantic;
+      const shown = (w.screen_time_share ?? 1) * w.duration;
+      const counted = checks.filter((c) => c.time_weight > 0);
       body = `${texts}${step1}
-        <div class="step-block"><div class="step-title"><span class="step-num">2</span>How closely does the narration match the restated sentence?</div>
-          <div class="note">Word match = share of the on-screen content words the narration says, in order. Meaning = cosine similarity of each on-screen sentence with the narration sentence that matches it best (sentence
-            embeddings (${escapeHtml(m.embedding_model)}). Only what is above chance counts: (raw − chance) ÷ (1 − chance).</div>
-          <div class="table-scroll"><table class="plain"><thead><tr><th>Measure</th><th class="num">Raw</th><th class="num">Chance</th><th>Above chance</th></tr></thead><tbody>
-            ${chanceRow("Word match", w.verbatim_raw, w.verbatim_chance, w.verbatim)}
-            ${chanceRow("Meaning", w.semantic_raw, w.semantic_chance, w.semantic)}
+        <div class="step-block"><div class="step-title"><span class="step-num">2</span>Score each sentence</div>
+          <div class="note">Word match = share of the sentence's content words the narration says, in order. Meaning = cosine similarity of the sentence with the narration sentence that matches it best
+            (${escapeHtml(m.embedding_model)}). Only what is above chance counts: (raw − chance) ÷ (1 − chance).
+            Sentence score = 100 × (${wv} × word match + ${ws} × meaning); a sentence not restated scores 0.</div>
+          <div class="table-scroll"><table class="plain"><thead><tr><th>Sentence</th><th>On screen</th><th>Word match</th><th>Meaning</th><th class="num">Sentence score</th></tr></thead><tbody>
+            ${checks.map((c) => `<tr class="${c.passed ? "row-pass" : ""}"><td>${escapeHtml(c.sentence)}</td>
+              <td class="tabular">${spansText(c.spans)}<br/><span class="muted">${(c.visible_s ?? 0).toFixed(1)} s in this window</span></td>
+              <td class="tabular">${c.passed ? chanceCell(c.verbatim_raw, c.verbatim_chance, c.verbatim) : "not restated"}</td>
+              <td class="tabular">${c.passed ? chanceCell(c.semantic_raw, c.semantic_chance, c.semantic) : "—"}</td>
+              <td class="num tabular"><strong>${fmtScore(c.score ?? 0)}</strong></td></tr>`).join("")}
           </tbody></table></div></div>
-        <div class="step-block"><div class="step-title"><span class="step-num">3</span>Window score</div>
-          <div class="formula tabular">100 × (${wv} × word match + ${ws} × meaning)<br/>
-            = 100 × (${wv} × ${f4(w.verbatim)} + ${ws} × ${f4(w.semantic)})<br/>
-            = 100 × (${f4(wv * w.verbatim)} + ${f4(ws * w.semantic)})<br/>
+        <div class="step-block"><div class="step-title"><span class="step-num">3</span>Window score — weighted by time on screen</div>
+          <div class="note">Every half-second of the window with a sentence on screen counts equally (${shown.toFixed(1)} of ${w.duration.toFixed(0)} s here; moments with no sentence are left out).
+            When two sentences are on screen together they share the moment in proportion to their content words.
+            Each sentence's weight is its share of those moments.</div>
+          <div class="formula tabular">${counted.map((c) => `${f4(c.time_weight)} × ${fmtScore(c.score ?? 0)}`).join("<br/>+ ")}<br/>
             = <strong>${fmtScore(w.score)}</strong></div></div>`;
     }
   }

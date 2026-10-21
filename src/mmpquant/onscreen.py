@@ -392,7 +392,10 @@ def _belongs_to_same_element(
     cx0, cy0, cx1, _cy1 = curr.bbox
 
     gap = cy0 - py1
-    ref_height = max(_height(prev), _height(curr), 1.0)
+    # The two lines' mean height, not the larger (21 Oct 2026): OCR once drew
+    # a London subtitle line's box 96 px tall for 50 px text, and against
+    # that one box the 129 px gap up to the watermark looked like line spacing.
+    ref_height = max((_height(prev) + _height(curr)) / 2, 1.0)
     if gap > line_gap_ratio * ref_height:
         return False
     if gap < -ref_height:  # wildly overlapping: different regions, not a block
@@ -412,19 +415,34 @@ def group_lines(
     x_align_tol_px: float = 24.0,
 ) -> list[list[OcrLine]]:
     """Group OCR lines (in reading order) into the text blocks they form on
-    screen, by layout alone -- no classification."""
+    screen, by layout alone -- no classification.
+
+    A lone glyph -- a line with fewer than two letters or digits -- is a group
+    of its own and never links the lines around it (21 Oct 2026). It carries
+    no words, and as a bridge it joins things that are far apart: on London at
+    1:10 a stray "L" (part of the picture) sat between the watermark
+    "(c) Loescher Editore" and a subtitle, and chained them into one
+    "sentence"; without it they are 3.7 line heights apart.
+    """
     lines = [line for line in lines if line.text.strip()]
-    if not lines:
-        return []
-    groups: list[list[OcrLine]] = [[lines[0]]]
-    for prev, curr in itertools.pairwise(lines):
-        if _belongs_to_same_element(
-            prev, curr, line_gap_ratio=line_gap_ratio, x_align_tol_px=x_align_tol_px
+    groups: list[list[OcrLine]] = []
+    current: list[OcrLine] | None = None  # the group of the last real line
+    for line in lines:
+        if _is_lone_glyph(line.text):
+            groups.append([line])
+            continue
+        if current is not None and _belongs_to_same_element(
+            current[-1], line, line_gap_ratio=line_gap_ratio, x_align_tol_px=x_align_tol_px
         ):
-            groups[-1].append(curr)
+            current.append(line)
         else:
-            groups.append([curr])
+            current = [line]
+            groups.append(current)
     return groups
+
+
+def _is_lone_glyph(text: str) -> bool:
+    return sum(c.isalnum() for c in text) < 2
 
 
 def group_into_elements(
@@ -467,6 +485,17 @@ def _union_bbox(lines: list[OcrLine]) -> tuple[float, float, float, float] | Non
     )
 
 
+def merge_spans(spans) -> list[list[float]]:
+    """Union of [start, end) intervals, sorted and merged."""
+    out: list[list[float]] = []
+    for a, b in sorted((float(a), float(b)) for a, b in spans):
+        if out and a <= out[-1][1] + 1e-6:
+            out[-1][1] = max(out[-1][1], b)
+        else:
+            out.append([a, b])
+    return out
+
+
 def collapse_near_duplicates(
     elements: list[TextElement], *, similarity_threshold: float = 0.88
 ) -> list[TextElement]:
@@ -491,37 +520,63 @@ def collapse_near_duplicates(
     The similarity test is deliberately strict. At 0.88 it collapses readings of
     the same text, while leaving genuinely different short labels apart; two
     unrelated labels of similar length are nowhere near 88% character-identical.
-    Longer variants win, being the more complete reading.
+    Longer variants win, being the more complete reading -- except among
+    near-copies (equal, or above `similarity_threshold`), where the reading on
+    screen longest wins (21 Oct 2026). Those are the same text read
+    differently, and the reading seen for most of its time is the likeliest
+    correct one: a London subtitle read "...you can walk" for 3.5 s and
+    "...you can walk." (a stray full stop) for 0.5 s was kept with the full
+    stop, split in two there, and lost its second half.
     """
     from difflib import SequenceMatcher
 
     from .textnorm import normalise_for_verbatim
 
     ranked = sorted(elements, key=lambda e: -len(e.text))
-    # Per kept element: its key, the element, and the kinds of every reading
-    # that is a near-copy of it (equal, or above `similarity_threshold`).
-    kept: list[tuple[str, TextElement, list[str]]] = []
+    # Per kept element: its key, the element, the kinds of every reading
+    # that is a near-copy of it (equal, or above `similarity_threshold`), and
+    # the time spans of every reading of it (21 Oct 2026: how long the text
+    # is on screen decides how much it counts).
+    kept: list[tuple[str, list[TextElement], list[str], list]] = []
     for element in ranked:
         key = normalise_for_verbatim(element.text).replace(" ", "")
         if not key:
             continue
         duplicate = False
-        for seen, _, votes in kept:
+        spans = list(element.evidence.get("spans") or [])
+        for seen, readings, votes, seen_spans in kept:
             if key == seen or SequenceMatcher(None, key, seen).ratio() >= similarity_threshold:
                 votes.append(element.kind)
+                seen_spans.extend(spans)
+                readings.append(element)
                 duplicate = True
                 break
-            if key in seen or seen in key:
-                # A partial render, or a short label inside a longer text: the
-                # same physical text or a different one, but not a full
-                # reading of it -- dropped, without a vote.
+            if key in seen:
                 duplicate = True
+                # A partial render of this text (a caption caught mid-draw) is
+                # the same text on screen; a short label that merely occurs
+                # inside a longer text is not, so it lends no screen time.
+                if len(key) * 2 >= len(seen):
+                    seen_spans.extend(spans)
                 break
         if not duplicate:
-            kept.append((key, element, [element.kind]))
+            kept.append((key, [element], [element.kind], spans))
+
+    def most_seen(readings: list[TextElement]) -> TextElement:
+        # total screen time of each distinct reading; ties (e.g. no spans
+        # recorded) -> the longer text, then the first
+        time: dict[str, float] = {}
+        for e in readings:
+            text = " ".join(e.text.split())
+            time[text] = time.get(text, 0.0) + sum(b - a for a, b in e.evidence.get("spans") or [])
+        return max(readings, key=lambda e: (round(time[" ".join(e.text.split())], 3), len(e.text)))
 
     out = []
-    for _key, element, votes in kept:
+    for _key, readings, votes, spans in kept:
+        element = most_seen(readings)
+        if spans:
+            element = dataclasses.replace(
+                element, evidence={**element.evidence, "spans": merge_spans(spans)})
         # A filmed board is read ~20 times per 10 s window, and with chalk some
         # reading always has a misread that looks like a verb ("for" -> "fer",
         # Test_22). One reading in twenty must not decide what the text is: it
@@ -538,8 +593,8 @@ def collapse_near_duplicates(
         out.append(element)
 
     order = {id(e): i for i, e in enumerate(elements)}
-    for original, final in zip([k[1] for k in kept], out, strict=True):
-        order[id(final)] = order[id(original)]
+    for readings, final in zip([k[1] for k in kept], out, strict=True):
+        order[id(final)] = min(order[id(r)] for r in readings)
     return sorted(out, key=lambda e: order[id(e)])
 
 
@@ -685,10 +740,27 @@ _QUESTION_START = re.compile(
 )
 
 
+_INVERTED = re.compile(
+    r"^\W*(?:\(?[0-9]{0,2}[a-z]?\)\s*)?(what|how|why|when|where|which|who|whom|whose)\s+"
+    r"(is|are|was|were|am|do|does|did|can|could|will|would|shall|should|"
+    r"may|might|must|has|have|had|happens|happened)\b",
+    re.IGNORECASE,
+)
+
+
 def is_question(sentence: str) -> bool:
-    """An on-screen question: ends with "?" or opens with a question word."""
+    """An on-screen question: ends with "?", or opens with a question word
+    followed directly by a verb ("What is the new volume ..." with the "?"
+    lost by OCR).
+
+    Until 21 Oct 2026 any sentence OPENING with a question word counted, so
+    "When it opened on 10th June, the Bridge had to be closed ..." -- a
+    statement -- was compared only with narration spoken as a question and
+    scored as never said (animation_london_subtitled, 1:27), though it was
+    read aloud word for word.
+    """
     s = sentence.strip()
-    return s.endswith("?") or bool(_QUESTION_START.match(s))
+    return s.endswith("?") or bool(_INVERTED.match(s))
 
 
 @functools.lru_cache(maxsize=50_000)

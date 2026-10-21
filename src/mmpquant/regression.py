@@ -78,6 +78,10 @@ _OPS: dict[str, Callable[[float, float], bool]] = {
 }
 
 
+def _norm_key(text: str) -> str:
+    return "".join(ch for ch in text.lower() if ch.isalnum())
+
+
 def check_one(c: dict, results: dict[str, dict]) -> tuple[bool, str]:
     t = c["type"]
     need = [c["video"]] if "video" in c else list(c.get("videos", []))
@@ -132,6 +136,29 @@ def check_one(c: dict, results: dict[str, dict]) -> tuple[bool, str]:
                        for r in (w.get("evidence") or {}).get("restated_sentences") or []
                        if k in "".join(ch for ch in r["sentence"].lower() if ch.isalnum())})
         return not hits, ("never counted" if not hits else f"counted as redundancy at {hits} s")
+
+    if t == "text_not_counted_in_window":
+        k = _norm_key(c["text"])
+        hits = sorted({int(w["start"]) for w in _windows(results[c["video"]], "redundancy")
+                       if c["from_s"] <= w["start"] < c["to_s"]
+                       for r in (w.get("evidence") or {}).get("restated_sentences") or []
+                       if k in _norm_key(r["sentence"]) or _norm_key(r["sentence"]) in k})
+        return not hits, ("not counted there" if not hits else f"counted at {hits} s")
+
+    if t == "lighter_in_window":
+        ws = [w for w in _windows(results[c["video"]], "redundancy")
+              if int(w["start"]) == int(c["window_start"])]
+        if not ws:
+            return False, "no such window"
+        weights = {}
+        for chk in (ws[0].get("evidence") or {}).get("sentence_checks") or []:
+            for name in ("lighter", "heavier"):
+                if _norm_key(c[name]) in _norm_key(chk["sentence"]):
+                    weights[name] = chk.get("visible_s")
+        if weights.get("lighter") is None or weights.get("heavier") is None:
+            return False, f"time on screen not recorded for both sentences: {weights}"
+        return weights["lighter"] < weights["heavier"], (
+            f"on screen {weights['lighter']} s vs {weights['heavier']} s in this window")
 
     if t == "question_not_restated":
         hits = [w["start"] for w in _windows(results[c["video"]], "redundancy")

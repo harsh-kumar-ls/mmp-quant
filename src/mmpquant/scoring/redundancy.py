@@ -72,6 +72,15 @@ from ..types import Window, WindowScore
 from .base import PrincipleScorer, register
 
 _SENTENCE_SPLIT = re.compile(r"(?<=[.!?])\s+")
+# Two showings of the same sentence this close together are one showing: a
+# subtitle re-detected after a background change, or cut at a block edge.
+_SAME_SHOWING_GAP_S = 1.0
+
+
+def _showing_key(sentence: str) -> str:
+    return normalise_for_verbatim(sentence).replace(" ", "")
+
+TIME_STEP_S = 0.5  # the time grid of the window score: the frame sampling interval
 
 
 def _above_chance(value: float, chance: float) -> float:
@@ -104,6 +113,8 @@ class RedundancyScorer(PrincipleScorer):
         min_sentence_coverage: float = 0.5,
         null_exclusion_s: float = 30.0,
         min_null_windows: int = 3,
+        align_tolerance_s: float = 3.0,
+        nearby_reach_s: float = 10.0,
         verbatim_measure: str = "screen_coverage",
         semantic_measure: str = "best_matching_sentence",
     ) -> None:
@@ -126,6 +137,10 @@ class RedundancyScorer(PrincipleScorer):
         if semantic_measure not in ("best_matching_sentence", "whole_window"):
             raise ValueError(f"unknown semantic_measure {semantic_measure!r}")
         self.verbatim_measure = verbatim_measure
+        self.align_tolerance_s = align_tolerance_s
+        self.nearby_reach_s = nearby_reach_s
+        self._words: tuple = ()
+        self._showings: dict[str, list[list[float]]] = {}
         self.semantic_measure = semantic_measure
         self._vec_cache: dict[str, Any] = {}
         # A static slide spans many windows, so the same (ocr, asr) text pair
@@ -151,6 +166,8 @@ class RedundancyScorer(PrincipleScorer):
             ),
             null_exclusion_s=float(cfg.get(r + "chance_correction.null_exclusion_s", 30.0)),
             min_null_windows=int(cfg.get(r + "chance_correction.min_null_windows", 3)),
+            align_tolerance_s=float(cfg.get("alignment.tolerance_s", 3.0)),
+            nearby_reach_s=float(cfg.get(r + "nearby_reach_s", 10.0)),
             verbatim_measure=str(cfg.get(r + "verbatim_measure", "screen_coverage")),
             semantic_measure=str(cfg.get(r + "semantic_measure", "best_matching_sentence")),
         )
@@ -166,6 +183,8 @@ class RedundancyScorer(PrincipleScorer):
             "embedding_model": self.embedding_model_name,
             "verbatim_measure": self.verbatim_measure,
             "semantic_measure": self.semantic_measure,
+            "align_tolerance_s": self.align_tolerance_s,
+            "nearby_reach_s": self.nearby_reach_s,
             "text_normalisation": vars(self.norm),
             "chance_correction": {
                 "min_shared_content_words": self.min_shared_content_words,
@@ -188,8 +207,15 @@ class RedundancyScorer(PrincipleScorer):
         lecture about determinants mentions determinants throughout; a caption
         about them is only redundant where the narration says it *then*.
 
-        `context` is unused: redundancy needs only the windows.
+        `context` (21 Oct 2026): when it carries the transcript, each on-screen
+        sentence is compared with the narration spoken from `align_tolerance_s`
+        before it appears to `align_tolerance_s` after it disappears -- its
+        own time on screen, not the window's. Without it (unit tests, windows
+        built by hand) the window's narration pool is used.
         """
+        self._words = tuple(context.transcript.words) if (
+            context is not None and getattr(context, "transcript", None) is not None) else ()
+        self._showings = self._video_showings(windows)
         scores = []
         for w in windows:
             elsewhere = [
@@ -240,7 +266,8 @@ class RedundancyScorer(PrincipleScorer):
         # from the journal name and "cockroaches" from the abstract. It scored
         # 21.27 on words alone; no sentence on screen is restated (best: 12%).
         sentences = self._screen_sentences(window)
-        narration = said_forms(window.asr_text)
+        spans_of = self._sentence_spans(window)
+        raw_spans_of = self._sentence_spans(window, clip=False)
         has_null = len(elsewhere) >= self.min_null_windows
         restated = []
         # Every sentence tested, passed or not, so a reader can follow the
@@ -254,10 +281,11 @@ class RedundancyScorer(PrincipleScorer):
             # volume of the solution." -- but a question and its answer are
             # different things, and the answer is not redundancy. So a question
             # is compared only with narration spoken as a question.
+            heard, heard_from, heard_to = self._narration_for(sentence, raw_spans_of, window)
             if is_question(sentence):
-                said, said_elsewhere = question_said_forms(window.asr_text), question_said_forms
+                said, said_elsewhere = question_said_forms(heard), question_said_forms
             else:
-                said, said_elsewhere = narration, said_forms
+                said, said_elsewhere = said_forms(heard), said_forms
             words, shared = shared_content(sentence, said)
             if not words:
                 continue
@@ -273,8 +301,15 @@ class RedundancyScorer(PrincipleScorer):
                 and coverage > self.min_sentence_coverage
                 and coverage > chance
             )
+            spans = spans_of.get(sentence, [[window.start, window.end]])
             checks.append({
                 "sentence": sentence,
+                "narration": heard,
+                # the stretch of narration compared (None: the window's pool)
+                "narration_from": None if heard_from is None else round(heard_from, 2),
+                "narration_to": None if heard_to is None else round(heard_to, 2),
+                "spans": [[round(a, 2), round(b, 2)] for a, b in spans],
+                "visible_s": round(sum(b - a for a, b in spans), 2),
                 "is_question": is_question(sentence),
                 "content_words": sorted(words),
                 "shared_words": sorted(shared),
@@ -307,27 +342,48 @@ class RedundancyScorer(PrincipleScorer):
                 evidence={**evidence, "gate": "failed"},
             )
 
-        # How redundant: measured on the sentences actually restated, not on
-        # everything else that happened to be on screen beside them.
-        ocr_for_scoring = " ".join(r["sentence"] for r in restated)
-        screen_cw = self._content_text(ocr_for_scoring)
-        sentences = [r["sentence"] for r in restated]
-        verbatim_raw = self._verbatim_sentences(sentences, screen_cw, window.asr_text)
-        semantic_raw = self._meaning(sentences, ocr_for_scoring, window.asr_text)
-        if has_null:
-            verbatim_null = statistics.median(
-                self._verbatim_sentences(sentences, screen_cw, n) for n in elsewhere)
-            semantic_null = statistics.median(
-                self._meaning(sentences, ocr_for_scoring, n) for n in elsewhere
-            )
-        else:
-            verbatim_null = semantic_null = 0.0
-        # Kept for audit and comparison: the measure used until 15 Oct 2026.
-        counts["verbatim_f1_raw"] = round(
-            rouge_l_f1(screen_cw, self._content_text(window.asr_text), self.norm), 4)
-        verbatim = _above_chance(verbatim_raw, verbatim_null)
-        semantic = _above_chance(semantic_raw, semantic_null)
+        # How redundant (21 Oct 2026, user's decision): every on-screen
+        # sentence is scored on its own -- 0 if the narration does not restate
+        # it -- and the window score is the average, over the half-seconds in
+        # which a sentence is on screen, of the length-weighted score of the
+        # sentences visible at that moment. A caption counts for exactly the
+        # seconds it is visible, so one that crosses a window boundary is
+        # shared between the windows, not counted in full twice (user,
+        # animation_london_subtitled: "The big wheel …" is on screen 7.0-11.5 s
+        # and had counted fully in both 0:00-0:10 and 0:10-0:20).
+        restated_set = {r["sentence"] for r in restated}
+        per_sentence = {}
+        for chk in checks:
+            sent = chk["sentence"]
+            if sent not in restated_set:
+                per_sentence[sent] = {"verbatim": 0.0, "semantic": 0.0}
+                continue
+            cw = self._content_text(sent)
+            heard = chk["narration"]
+            v_raw = self._verbatim_sentences([sent], cw, heard)
+            s_raw = self._meaning([sent], sent, heard)
+            v_ch = statistics.median(self._verbatim_sentences([sent], cw, n)
+                                     for n in elsewhere) if has_null else 0.0
+            s_ch = statistics.median(self._meaning([sent], sent, n)
+                                     for n in elsewhere) if has_null else 0.0
+            per_sentence[sent] = {
+                "verbatim_raw": round(v_raw, 4), "verbatim_chance": round(v_ch, 4),
+                "verbatim": round(_above_chance(v_raw, v_ch), 4),
+                "semantic_raw": round(s_raw, 4), "semantic_chance": round(s_ch, 4),
+                "semantic": round(_above_chance(s_raw, s_ch), 4),
+            }
+        for chk in checks:
+            ps = per_sentence[chk["sentence"]]
+            chk.update(ps)
+            chk["score"] = round(100.0 * (self.weight_verbatim * ps["verbatim"]
+                                          + self.weight_semantic * ps["semantic"]), 2)
+
+        verbatim, semantic, on_screen = self._time_weighted(window, checks)
         combined = self.weight_verbatim * verbatim + self.weight_semantic * semantic
+        # Kept for audit and comparison: the measure used until 15 Oct 2026.
+        all_cw = self._content_text(" ".join(r["sentence"] for r in restated))
+        counts["verbatim_f1_raw"] = round(
+            rouge_l_f1(all_cw, self._content_text(window.asr_text), self.norm), 4)
 
         return WindowScore(
             window=window,
@@ -337,38 +393,135 @@ class RedundancyScorer(PrincipleScorer):
                 **counts,
                 "verbatim": round(verbatim, 4),
                 "semantic": round(semantic, 4),
-                "verbatim_raw": round(verbatim_raw, 4),
-                "semantic_raw": round(semantic_raw, 4),
-                "verbatim_chance": round(verbatim_null, 4),
-                "semantic_chance": round(semantic_null, 4),
+                "screen_time_share": round(on_screen, 4),
             },
             exclusion_reason=None,
-            evidence={**evidence, "gate": "passed"},
+            evidence={**evidence, "gate": "passed", "time_step_s": TIME_STEP_S},
         )
+
+    def _time_weighted(self, window: Window, checks: list[dict]) -> tuple[float, float, float]:
+        """(verbatim, semantic, share of time with a sentence on screen),
+        averaged over the window's half-seconds; see score_window."""
+        n = max(1, round((window.end - window.start) / TIME_STEP_S))
+        step = (window.end - window.start) / n
+        v_sum = s_sum = shown = 0.0
+        share = [0.0] * len(checks)
+        for k in range(n):
+            t = window.start + (k + 0.5) * step
+            visible = [c for c in checks
+                       if any(a <= t < b for a, b in c["spans"])]
+            if not visible:
+                continue
+            shown += 1
+            weights = [max(1, len(c["content_words"])) for c in visible]
+            total = sum(weights)
+            for wt, c in zip(weights, visible, strict=True):
+                share[next(i for i, x in enumerate(checks) if x is c)] += wt / total
+            v_sum += sum(w * c.get("verbatim", 0.0) for w, c in zip(weights, visible, strict=True)) / total
+            s_sum += sum(w * c.get("semantic", 0.0) for w, c in zip(weights, visible, strict=True)) / total
+        # Each sentence's exact share of the window's average, so the report
+        # can show the window score as a weighted sum of sentence scores.
+        for c, x in zip(checks, share, strict=True):
+            c["time_weight"] = round(x / shown, 4) if shown else 0.0
+        if not shown:
+            return 0.0, 0.0, 0.0
+        # Averaged over the moments a sentence is on screen. Seconds with no
+        # recognised sentence are left out of the window's average (21 Oct
+        # 2026): counting them as 0 turned every gap in sentence recognition --
+        # a subtitle fragment not stitched, a logo glued onto a caption -- into
+        # "nothing redundant", and contradicted the user's confirmed
+        # expectations for Test_28 (R4-R6, R10b). Windows with no sentence at
+        # all still count 0 in the segment and video averages.
+        return v_sum / shown, s_sum / shown, shown / n
+
+    def _narration_for(self, sentence: str, raw_spans: dict,
+                       window: Window) -> tuple[str, float | None, float | None]:
+        """The narration a sentence on screen in this window is compared with.
+
+        The NEARBY rule (user's decision, 22 Oct 2026): narration spoken while
+        the sentence is on screen -- its whole showing, across window edges --
+        but no further than `nearby_reach_s` beyond the window on either side,
+        widened by `align_tolerance_s`. A slide whose three sentences are read
+        one per 10 s counts as read aloud throughout, as a rater watching it
+        would judge; a slide read once and then left up stops counting one
+        window later (test_1). Rejected alternatives, both measured on the
+        corpus on 21 Oct: only the part on screen in this window (+-3 s), which
+        scored slide decks read gradually as ~30 (Test_18 29 -> 11.5); and the
+        whole showing uncapped, which compared a slide up for the whole video
+        with the whole video's narration (test_1 4 -> 70).
+        """
+        spans = raw_spans.get(sentence)
+        if not self._words or not spans:
+            return window.asr_text, None, None
+        lo = min(a for a, _ in spans)
+        hi = max(b for _, b in spans)
+        for a, b in self._showings.get(_showing_key(sentence), ()):
+            if a <= hi + _SAME_SHOWING_GAP_S and b >= lo - _SAME_SHOWING_GAP_S:
+                lo, hi = min(lo, a), max(hi, b)
+        lo = max(lo, window.start - self.nearby_reach_s) - self.align_tolerance_s
+        hi = min(hi, window.end + self.nearby_reach_s) + self.align_tolerance_s
+        return " ".join(w.text.strip() for w in self._words if lo <= w.midpoint < hi), lo, hi
+
+    def _video_showings(self, windows: Sequence[Window]) -> dict[str, list[list[float]]]:
+        """Every continuous showing of each on-screen sentence in the video
+        (gaps up to `_SAME_SHOWING_GAP_S` bridged), keyed by its normalised text."""
+        times: dict[str, list] = {}
+        for w in windows:
+            for sentence, spans in self._sentence_spans(w, clip=False).items():
+                times.setdefault(_showing_key(sentence), []).extend(spans)
+        out = {}
+        for key, spans in times.items():
+            runs: list[list[float]] = []
+            for a, b in sorted((float(a), float(b)) for a, b in spans):
+                if runs and a <= runs[-1][1] + _SAME_SHOWING_GAP_S:
+                    runs[-1][1] = max(runs[-1][1], b)
+                else:
+                    runs.append([a, b])
+            out[key] = runs
+        return out
+
+    def _sentence_spans(self, window: Window, clip: bool = True) -> dict[str, list[list[float]]]:
+        """When each on-screen sentence is visible, from its element's
+        recorded spans -- clipped to the window unless `clip` is False.
+        Elements without spans count for the whole window."""
+        out: dict[str, list[list[float]]] = {}
+        for e in window.ocr_elements:
+            if e.get("kind") != "sentence":
+                continue
+            raw = e.get("spans") or [[window.start, window.end]]
+            if not clip:
+                for sent in self._sentences_of_element(e):
+                    out.setdefault(sent, []).extend([list(x) for x in raw])
+                continue
+            spans = [[max(a, window.start), min(b, window.end)] for a, b in raw
+                     if b > window.start and a < window.end]
+            if not spans:
+                continue
+            for sent in self._sentences_of_element(e):
+                out.setdefault(sent, []).extend(spans)
+        return out
 
     def _screen_sentences(self, window: Window) -> tuple[str, ...]:
         """Every on-screen sentence in the window, one per bullet/sentence."""
         out: list[str] = []
-        texts = []
         for e in window.ocr_elements:
-            if e.get("kind") != "sentence":
-                continue
-            if e.get("reason") == "stitched_across_screens":
-                # Already classified as a whole sentence; its text here is the
-                # part visible in this window, which may be a fragment and must
-                # not be re-classified (21 Oct 2026). It is still split at
-                # sentence ends, since a window can show the end of one caption
-                # sentence and the start of the next.
-                for piece in _SENTENCE_SPLIT.split(" ".join(e["text"].split())):
-                    if len(content_lemmas(piece)) >= self.min_shared_content_words:
-                        out.append(piece.strip())
-                continue
-            texts.append(e["text"])
-        if not texts and not out and window.ocr_sentence_text.strip():
-            texts = [window.ocr_sentence_text]  # windows built without elements
-        for t in texts:
-            out.extend(onscreen_sentences(t, self.min_shared_content_words))
+            if e.get("kind") == "sentence":
+                out.extend(self._sentences_of_element(e))
+        if not out and window.ocr_sentence_text.strip() and not window.ocr_elements:
+            out.extend(onscreen_sentences(window.ocr_sentence_text,
+                                          self.min_shared_content_words))
         return tuple(dict.fromkeys(out))
+
+    def _sentences_of_element(self, e: dict) -> list[str]:
+        if e.get("reason") == "stitched_across_screens":
+            # Already classified as a whole sentence; its text here is the
+            # part visible in this window, which may be a fragment and must
+            # not be re-classified (21 Oct 2026). Still split at sentence ends,
+            # since a window can show the end of one caption sentence and the
+            # start of the next.
+            return [piece.strip() for piece in _SENTENCE_SPLIT.split(" ".join(e["text"].split()))
+                    if len(content_lemmas(piece)) >= self.min_shared_content_words]
+        return list(onscreen_sentences(e["text"], self.min_shared_content_words))
 
     def _content_words(self, text: str) -> frozenset[str]:
         # Words of 3+ letters, and numbers of 2+ characters ("25", "300",
