@@ -191,6 +191,10 @@ onscreen:
   line_gap_ratio: 1.6      # max vertical gap between lines of one block,
                            # as a multiple of line height
   x_align_tol_px: 24.0     # left edges within this many px count as aligned
+  min_link_confidence: 0.75  # a ONE-WORD OCR line below this confidence never
+                             # joins other lines into a block (10 Nov 2026: a
+                             # logo read as "TEL", conf 0.5, inside Test_28's
+                             # caption). Apple Vision reports 0.5 or 1.0.
   dedup_similarity: 0.88   # character similarity above which two readings are
                            # treated as the same text read twice (animated text
                            # is captured mid-render and misread)

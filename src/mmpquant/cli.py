@@ -240,16 +240,25 @@ def select_for_rating(
     output: Path = typer.Option(Path("rating_package/selection.csv"), "--output", "-o"),
     max_duration: float = typer.Option(200.0, "--max-duration", help="seconds (3:20)"),
     config: Path = typer.Option(Path("config.yaml"), "--config", "-c"),
+    include_development: bool = typer.Option(
+        False, "--include-development",
+        help="also allow videos named in redundancy expectations (off since 10 Nov 2026)"),
 ) -> None:
     """Choose the 10 videos for the professor by the pre-registered rule
-    (PROGRESS.md, 20 Oct 2026). The table holds system scores: student only."""
-    from .selection import load_candidates, load_styles, select, write_table
+    (PROGRESS.md, 20 Oct 2026; amendments 21 Oct and 10 Nov in selection.py).
+    The table holds system scores: student only."""
+    from .regression import EXPECTATIONS
+    from .selection import development_videos, load_candidates, load_styles, select, write_table
 
     cfg = Config.load(config)
     exts = {".mp4", ".mov", ".mkv", ".webm", ".m4v", ".avi"}
     videos = [p.stem for p in sorted(Path("data/videos").iterdir()) if p.suffix.lower() in exts]
-    cands, skipped = load_candidates(Path(str(cfg.get("output.dir", "runs"))), videos,
+    dev = set() if include_development else development_videos(EXPECTATIONS)
+    cands, skipped = load_candidates(Path(str(cfg.get("output.dir", "runs"))),
+                                     [v for v in videos if v not in dev],
                                      load_styles(Path("data/video_styles.csv")), max_duration)
+    skipped.update({v: "development video (named in a redundancy expectation)"
+                    for v in videos if v in dev})
     sel = select(cands)
     table = Table(title=f"Selected for rating ({len(cands)} eligible, total distance "
                         f"{sel.cost:.1f})")

@@ -1,0 +1,18 @@
+# Round 3 (10 Nov 2026): a TARGETED top-up of the candidate pool, searched for
+# designs that suggest mid-range redundancy (partial text, key phrases) to fill
+# the empty 31-70 band of the 22 Oct selection. Disclose in the thesis: unlike
+# rounds 1-2 (chosen by style only), these were chosen with the score gap in mind.
+# The selection rule itself is unchanged and applied mechanically.
+video_id,youtube_id,url,style,channel,title,duration_s,license,downloaded
+footage_osha_intro,3JoXP3Gh9C8,https://www.youtube.com/watch?v=3JoXP3Gh9C8,footage,"Mometrix Academy","Intro to OSHA",129,"NA",2026-11-10
+animation_freud_instincts,7vFf5CS27-Y,https://www.youtube.com/watch?v=7vFf5CS27-Y,animation,"Study.com","Freud's Psychoanalytic Theory on Instincts: Motivation, Personality and Development",158,"NA",2026-11-10
+animation_rip_van_winkle,F6v5xW27sC0,https://www.youtube.com/watch?v=F6v5xW27sC0,animation,"Study.com","Washington Irving's Rip Van Winkle: Summary and Analysis",184,"NA",2026-11-10
+whiteboard_marketing_4ps,Mco8vBAwOmA,https://www.youtube.com/watch?v=Mco8vBAwOmA,whiteboard,"College & Career Ready Labs | Paxton Patterson","The 4 Ps of The Marketing Mix Simplified",167,"NA",2026-11-10
+animation_project_management,9LSnINglkQA,https://www.youtube.com/watch?v=9LSnINglkQA,animation,"Gavin Wedell","What is Project Management? Training Video",161,"CC BY",2026-11-10
+whiteboard_opportunity_cost,12ZlNwgxsOI,https://www.youtube.com/watch?v=12ZlNwgxsOI,whiteboard,"Zachary Fruhling","Introduction to Economics: Scarcity and Opportunity Cost",177,"NA",2026-11-10
+footage_first_aid_basics,DHbI3dw4H_I,https://www.youtube.com/watch?v=DHbI3dw4H_I,footage,"GotSafety","FIRST-AID: BASICS",161,"NA",2026-11-10
+animation_chain_of_infection,nOF6JbNpEtw,https://www.youtube.com/watch?v=nOF6JbNpEtw,animation,"Apsta Group","Break The Chain of Infection - Infection Prevention and Control",129,"NA",2026-11-10
+# Also downloaded and looked at, NOT added (frames show almost no on-screen text, so
+# no sentence to restate; the round targets text design): GJzhUEWpos4 (ECDC "Infection
+# Prevention in Hospitals"), G4H1N_yXBiA (National Geographic "Causes and Effects of
+# Climate Change"). Files left in data/staging_2026-11-10/ (gitignored).

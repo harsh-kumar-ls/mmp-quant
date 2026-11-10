@@ -237,6 +237,38 @@ def _has_subject(token) -> bool:
     return False
 
 
+_IMPERATIVE_LEADS = {"please", "now", "then", "so", "and", "just", "always", "never",
+                     "first", "next", "finally"}
+_CLOSED = re.compile(r"[.!?][\"')\]]*\s*$")
+
+
+def _is_imperative_sentence(doc, text: str) -> bool:
+    """A complete instruction: "Click the link in the description to begin
+    your training now." (10 Nov 2026).
+
+    An imperative has no subject, so the finite-verb-with-subject test called
+    every one a label -- including captions read word for word (Test_28 2:40-
+    2:53). A bare verb up front is weak evidence, though: "Apply", "Try again",
+    "subscribe now" and whiteboard fragments ("educate our children to") are
+    headings, buttons and pieces. So it takes two more signals: it closes like
+    a sentence (. ! ?), and it carries at least `min_content_words` content
+    words (checked by the caller, the signaling threshold). Every imperative
+    label in the corpus was listed before choosing this rule (PROGRESS.md).
+    """
+    if not _CLOSED.search(text):
+        return False
+    for sent in doc.sents:
+        words = [t for t in sent if not t.is_punct and t.text not in ("•", "-", "–")]
+        if not words:
+            continue
+        lead = words[1] if words[0].lower_ in _IMPERATIVE_LEADS and len(words) > 1 else words[0]
+        root = sent.root
+        if (root.i == lead.i and root.tag_ == "VB" and root.pos_ == "VERB"
+                and not any(c.dep_ in _SUBJECT_DEPS for c in root.children)):
+            return True
+    return False
+
+
 def classify_text(text: str, *, min_content_words: int = 5) -> tuple[str, dict]:
     """Classify on-screen text as a sentence or a label, with its evidence.
 
@@ -309,6 +341,10 @@ def classify_text(text: str, *, min_content_words: int = 5) -> tuple[str, dict]:
     if finite and content >= 2:
         reason = "finite_verb"
         kind = KIND_SENTENCE
+    elif _is_imperative_sentence(doc, probe) and content >= min_content_words:
+        reason = "imperative"
+        kind = KIND_SENTENCE
+        finite = [t.text for t in doc if t.dep_ == "ROOT"]
     elif finite:
         reason = "finite_verb_but_too_few_content_words_to_be_a_clause"
         kind = KIND_LABEL
@@ -413,6 +449,7 @@ def group_lines(
     *,
     line_gap_ratio: float = 1.6,
     x_align_tol_px: float = 24.0,
+    min_link_confidence: float = 0.75,
 ) -> list[list[OcrLine]]:
     """Group OCR lines (in reading order) into the text blocks they form on
     screen, by layout alone -- no classification.
@@ -423,12 +460,19 @@ def group_lines(
     1:10 a stray "L" (part of the picture) sat between the watermark
     "(c) Loescher Editore" and a subtitle, and chained them into one
     "sentence"; without it they are 3.7 line heights apart.
+
+    So does a single word the OCR itself is unsure of (confidence below
+    `min_link_confidence`, 10 Nov 2026): Test_28's caption box had a logo
+    read as "TEL" (0.5) just above it, and "course from TEL OSHA Education
+    School" lost coverage for a word nobody said. Apple Vision reports 0.5 on
+    ~8% of lines, nearly all lone digits, axis letters and notation pieces.
     """
     lines = [line for line in lines if line.text.strip()]
     groups: list[list[OcrLine]] = []
     current: list[OcrLine] | None = None  # the group of the last real line
     for line in lines:
-        if _is_lone_glyph(line.text):
+        if _is_lone_glyph(line.text) or (
+                line.confidence < min_link_confidence and len(line.text.split()) == 1):
             groups.append([line])
             continue
         if current is not None and _belongs_to_same_element(
@@ -451,13 +495,15 @@ def group_into_elements(
     min_prose_words: int = 5,
     line_gap_ratio: float = 1.6,
     x_align_tol_px: float = 24.0,
+    min_link_confidence: float = 0.75,
 ) -> list[TextElement]:
     """Reconstruct text elements from OCR lines and classify each one.
 
     Lines are expected in reading order (top-to-bottom, left-to-right), which is
     how the OCR backend returns them.
     """
-    groups = group_lines(lines, line_gap_ratio=line_gap_ratio, x_align_tol_px=x_align_tol_px)
+    groups = group_lines(lines, line_gap_ratio=line_gap_ratio, x_align_tol_px=x_align_tol_px,
+                         min_link_confidence=min_link_confidence)
     elements: list[TextElement] = []
     for group in groups:
         text = "\n".join(line.text for line in group)
@@ -760,7 +806,27 @@ def is_question(sentence: str) -> bool:
     read aloud word for word.
     """
     s = sentence.strip()
-    return s.endswith("?") or bool(_INVERTED.match(s))
+    if s.endswith("?"):
+        return True
+    if not _INVERTED.match(s):
+        return False
+    # Without its "?", a question is one clause (10 Nov 2026). On a whiteboard
+    # the line "WHAT IS HAPPENING" ended one drawn sentence and began the next
+    # element -- "WHAT IS HAPPENING WE ARE GETTING OUR CHILDREN THROUGH
+    # EDUCATION ..." (test_26 0:20) -- which was then compared only with spoken
+    # questions, though the narrator reads it. A second subject marks a run-on
+    # statement, not a question.
+    nlp = _nlp()
+    if nlp is None:
+        return True
+    probe = s.lower() if s.isupper() else s
+    def finite(verb) -> bool:
+        return "Fin" in verb.morph.get("VerbForm") or any(
+            c.dep_ in ("aux", "auxpass") and "Fin" in c.morph.get("VerbForm")
+            for c in verb.children)
+    # subjects of finite clauses only ("What causes motion TO CHANGE" is one)
+    subjects = [t for t in nlp(probe) if t.dep_ in _SUBJECT_DEPS and finite(t.head)]
+    return len(subjects) < 2
 
 
 @functools.lru_cache(maxsize=50_000)

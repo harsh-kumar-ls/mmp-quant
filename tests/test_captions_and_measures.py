@@ -349,6 +349,10 @@ class TestTimeWeightedWindowScore:
     ("How do we square that circle?", True),
     ("Why does ice float on water", True),
     ("(b) What is the new volume of the solution", True),   # worksheet item label
+    ("What causes motion to change?", True),
+    ("WHAT IS HAPPENING WE ARE GETTING OUR CHILDREN THROUGH EDUCATION BY NAESTHETISING",
+     False),                                              # run-on statement (test_26)
+    ("What is happening, we are getting our children through education?", True),  # has "?"
 ])
 def test_a_statement_opening_with_a_question_word_is_not_a_question(sentence, question):
     from mmpquant.onscreen import is_question
@@ -499,3 +503,59 @@ def test_the_window_score_is_the_time_weighted_sum_of_sentence_scores():
     checks = ws.evidence["sentence_checks"]
     assert sum(c["time_weight"] for c in checks) == pytest.approx(1.0, abs=1e-3)
     assert sum(c["time_weight"] * c["score"] for c in checks) == pytest.approx(ws.score, abs=0.05)
+
+
+class TestImperativesAndUnsureWords10Nov:
+    """10 Nov 2026, Test_28: captions that are instructions, and a logo the OCR
+    was unsure of, inside the caption box."""
+
+    @pytest.mark.parametrize("text, kind", [
+        ("Click the link in the description to begin your training now.", "sentence"),
+        ("Enroll today in the Microlearning-Safety Everywhere course from OSHA Education School.",
+         "sentence"),
+        ("Model and predict spring forces using Hooke's law.", "sentence"),
+        ("Click the link in the description", "label"),       # no closing punctuation
+        ("Subscribe now", "label"),                           # a button
+        ("Give it another try!", "label"),                    # too few content words
+        ("EARN YOUR OSHA DOL CARD 10-hour Const:", "label"),  # a lead-in, not closed
+        ("educate our children to take their place in the economies of the 21st", "label"),
+        ("Apply", "label"),
+    ])
+    def test_a_long_closed_instruction_is_a_sentence(self, text, kind):
+        from mmpquant.onscreen import classify_text
+
+        assert classify_text(text)[0] == kind
+
+    def test_an_instruction_caption_across_two_screens_is_stitched(self):
+        pieces = stream(["Click the link in the description"],
+                        ["to begin your training now."])
+        out = stitch_sentences(pieces)
+        assert [s.text for s in out] == [
+            "Click the link in the description to begin your training now."]
+
+    def test_an_unsure_one_word_line_does_not_join_a_caption(self):
+        from mmpquant.onscreen import group_lines
+        from mmpquant.types import OcrLine
+
+        lines = [OcrLine("TEL", 0.5, (408, 253, 466, 280)),
+                 OcrLine("OSHA Education School uses", 1.0, (166, 282, 474, 304)),
+                 OcrLine("short, focused", 1.0, (240, 306, 400, 334))]
+        assert [[ln.text for ln in g] for g in group_lines(lines)] == [
+            ["TEL"], ["OSHA Education School uses", "short, focused"]]
+        # read with full confidence, the same word would still join
+        sure = [OcrLine("TEL", 1.0, lines[0].bbox), *lines[1:]]
+        assert len(group_lines(sure)) == 1
+
+
+def test_a_sentence_in_two_elements_is_not_on_screen_twice():
+    """10 Nov 2026: visible_s was 18.0 in a 10 s window (pedagogy 2:10)."""
+    from mmpquant.types import Window
+
+    text = "Use your senses to observe what happens in the experiment today."
+    els = ({"text": text, "kind": "sentence", "spans": [[130.0, 140.0]]},
+           {"text": "Step one. " + text, "kind": "sentence", "spans": [[132.0, 140.0]]})
+    w = Window(index=13, start=130.0, end=140.0, asr_text="we look at the results",
+               ocr_text="", ocr_sentence_text=" ".join(e["text"] for e in els),
+               asr_pool_start=127, asr_pool_end=143, ocr_elements=els)
+    checks = RedundancyScorer(embedder=JaccardEmbedder()).score_window(w).evidence["sentence_checks"]
+    assert max(c["visible_s"] for c in checks) <= 10.0

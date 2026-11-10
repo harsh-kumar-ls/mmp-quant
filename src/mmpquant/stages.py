@@ -482,6 +482,7 @@ def _onscreen_params(cfg: Config) -> OnscreenParams:
         min_prose_words=int(cfg.get("scoring.redundancy.min_onscreen_words")),
         line_gap_ratio=float(cfg.get("onscreen.line_gap_ratio", 1.6)),
         x_align_tol_px=float(cfg.get("onscreen.x_align_tol_px", 24.0)),
+        min_link_confidence=float(cfg.get("onscreen.min_link_confidence", 0.75)),
         dedup_similarity=float(cfg.get("onscreen.dedup_similarity", 0.88)),
         split_run_together_words=bool(cfg.get("onscreen.split_run_together_words", True)),
         caption_stitching=bool(cfg.get("onscreen.caption_stitching.enabled", True)),

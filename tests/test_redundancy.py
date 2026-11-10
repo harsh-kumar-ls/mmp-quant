@@ -220,6 +220,17 @@ class TestAggregation:
         assert result.score is None
         assert result.status == "N/A"
 
+    def test_silent_video_with_some_text_free_windows_is_na(self):
+        # 10 Nov 2026 (animation_chain_of_infection: text and music, no voice):
+        # text-free windows are excluded as "no on-screen text" first, which
+        # hid the silence and scored the video 0.
+        s = scorer()
+        windows = [make_window(REDUNDANT_OCR if i % 2 else "", "", index=i, start=i * 10.0,
+                               end=(i + 1) * 10.0) for i in range(4)]
+        result = s.score(windows)
+        assert result.score is None
+        assert result.status == "N/A"
+
     def test_no_windows_at_all_is_na(self):
         result = scorer().score([])
         assert result.score is None
