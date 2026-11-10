@@ -126,6 +126,13 @@ def get_stages() -> list[dict]:
     return STAGES
 
 
+def _styles() -> dict[str, str]:
+    """Presentation style per video (data/video_styles.csv), if present."""
+    from ..selection import load_styles
+
+    return load_styles(Path("data/video_styles.csv"))
+
+
 @app.get("/api/videos")
 def list_videos() -> list[dict]:
     """Every video already scored (by the CLI or this app), most recent first.
@@ -136,6 +143,7 @@ def list_videos() -> list[dict]:
     out = []
     if not RUNS_DIR.exists():
         return out
+    styles = _styles()
     for result_path in RUNS_DIR.glob("*/result.json"):
         try:
             payload = json.loads(result_path.read_text())
@@ -146,6 +154,9 @@ def list_videos() -> list[dict]:
             {
                 "video_id": payload.get("video_id", result_path.parent.name),
                 "score": res.get("score"),
+                # for the library's filters (React UI, 10 Nov 2026)
+                "style": styles.get(payload.get("video_id", result_path.parent.name)),
+                "coherence": ((payload.get("coherence") or {}).get("result") or {}).get("score"),
                 "status": res.get("status"),
                 "duration": payload.get("duration"),
                 "n_segments": len(payload.get("segments", [])),
@@ -154,6 +165,53 @@ def list_videos() -> list[dict]:
         )
     out.sort(key=lambda v: v["scored_at"], reverse=True)
     return out
+
+
+PACKAGES_GLOB = "rating_package*/selection.csv"
+
+
+def _current_package() -> Path | None:
+    """The professor's package: the newest rating_package*/ not marked
+    SUPERSEDED in its README (10 Nov 2026)."""
+    for sel in sorted(Path(".").glob(PACKAGES_GLOB), reverse=True):
+        readme = sel.parent / "README.txt"
+        if readme.exists() and "SUPERSEDED" in readme.read_text().splitlines()[0]:
+            continue
+        return sel.parent
+    return None
+
+
+@app.get("/api/rating-set")
+def rating_set() -> dict:
+    """The 10 videos chosen for the professor's ratings, with their targets and
+    system scores (10 Nov 2026). STUDENT ONLY: these scores must never reach a
+    rater before the ratings are back -- the UI says so on the page."""
+    import csv
+
+    pkg = _current_package()
+    if pkg is None:
+        raise HTTPException(404, "no rating package (run `mmpquant select-for-rating`)")
+    rows = []
+    for r in csv.DictReader((pkg / "selection.csv").open()):
+        def num(x):
+            return None if x in ("", None) else float(x)
+        current = None
+        result = RUNS_DIR / r["video_id"] / "result.json"
+        if result.exists():
+            payload = json.loads(result.read_text())
+            current = {"redundancy": payload.get("result", {}).get("score"),
+                       "coherence": ((payload.get("coherence") or {}).get("result") or {})
+                       .get("score")}
+        rows.append({
+            "target": int(r["target"]), "video_id": r["video_id"], "style": r["style"],
+            "duration_s": num(r["duration_s"]),
+            "redundancy": num(r["redundancy"]), "distance": num(r["distance"]),
+            "coherence": num(r["coherence"]), "music_loudness_db": num(r["music_loudness_db"]),
+            "current": current,
+        })
+    rows.sort(key=lambda x: x["target"])
+    return {"package": pkg.name, "rows": rows,
+            "total_distance": round(sum(x["distance"] or 0 for x in rows), 1)}
 
 
 @app.get("/api/videos/{video_id}/report")
@@ -189,4 +247,14 @@ class _RevalidatingStaticFiles(StaticFiles):
         return response
 
 
-app.mount("/", _RevalidatingStaticFiles(directory=_STATIC_DIR, html=True), name="static")
+# The React UI (10 Nov 2026, webapp-react/) is the main site once built
+# (`npm run build`): it is served at / (and /react/, where its assets live).
+# The original plain-JS UI stays available at /classic/ as the fallback. With
+# no build present, / serves the original UI as before — no Node needed.
+REACT_DIST = Path("webapp-react/dist")
+app.mount("/classic", _RevalidatingStaticFiles(directory=_STATIC_DIR, html=True), name="classic")
+if REACT_DIST.is_dir():
+    app.mount("/react", _RevalidatingStaticFiles(directory=REACT_DIST, html=True), name="react")
+    app.mount("/", _RevalidatingStaticFiles(directory=REACT_DIST, html=True), name="static")
+else:
+    app.mount("/", _RevalidatingStaticFiles(directory=_STATIC_DIR, html=True), name="static")

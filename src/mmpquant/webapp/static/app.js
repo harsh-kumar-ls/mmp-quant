@@ -17,6 +17,7 @@ const MAIN = document.getElementById("main");
 const VIDEO_LIST = document.getElementById("video-list");
 const DROPZONE = document.getElementById("dropzone");
 const FILE_INPUT = document.getElementById("file-input");
+const NAV_RATING = document.getElementById("nav-rating");
 
 let STAGES = [];
 let activeVideoId = null;
@@ -92,25 +93,25 @@ function icon(name, size = 18) {
 const HERO_ILLUSTRATION = `
 <svg class="float" width="300" height="170" viewBox="0 0 300 170" aria-hidden="true">
   <defs>
-    <linearGradient id="hg" x1="0" x2="1"><stop offset="0" stop-color="#7c6cff"/><stop offset="1" stop-color="#5fd8ef"/></linearGradient>
+    <linearGradient id="hg" x1="0" x2="1"><stop offset="0" stop-color="#ff6a3d"/><stop offset="1" stop-color="#ffb547"/></linearGradient>
   </defs>
-  <rect x="18" y="22" width="132" height="92" rx="12" fill="#181f37" stroke="#36406a"/>
-  <rect x="62" y="114" width="44" height="8" rx="3" fill="#283152"/>
-  <rect x="34" y="40" width="80" height="8" rx="4" fill="#5fd8ef"/>
-  <rect x="34" y="56" width="98" height="6" rx="3" fill="#36406a"/>
-  <rect x="34" y="68" width="88" height="6" rx="3" fill="#36406a"/>
-  <rect x="34" y="80" width="64" height="6" rx="3" fill="#36406a"/>
-  <rect x="34" y="94" width="40" height="8" rx="4" fill="#a397ff" opacity=".8"/>
+  <rect x="18" y="22" width="132" height="92" rx="12" fill="#1e1914" stroke="#4a3e33"/>
+  <rect x="62" y="114" width="44" height="8" rx="3" fill="#352c24"/>
+  <rect x="34" y="40" width="80" height="8" rx="4" fill="#ffb547"/>
+  <rect x="34" y="56" width="98" height="6" rx="3" fill="#4a3e33"/>
+  <rect x="34" y="68" width="88" height="6" rx="3" fill="#4a3e33"/>
+  <rect x="34" y="80" width="64" height="6" rx="3" fill="#4a3e33"/>
+  <rect x="34" y="94" width="40" height="8" rx="4" fill="#ff8a65" opacity=".8"/>
   <path d="M152 68 C 178 40, 200 40, 214 58" fill="none" stroke="url(#hg)" stroke-width="2.5" stroke-dasharray="5 6"/>
-  <circle cx="214" cy="58" r="4" fill="#5fd8ef"/>
-  <rect x="196" y="62" width="88" height="62" rx="16" fill="#181f37" stroke="#36406a"/>
-  <path d="M214 124 l-6 14 16-14z" fill="#181f37" stroke="#36406a"/>
+  <circle cx="214" cy="58" r="4" fill="#ffb547"/>
+  <rect x="196" y="62" width="88" height="62" rx="16" fill="#1e1914" stroke="#4a3e33"/>
+  <path d="M214 124 l-6 14 16-14z" fill="#1e1914" stroke="#4a3e33"/>
   <g stroke-width="4" stroke-linecap="round">
-    <path d="M214 90v6" stroke="#7c6cff"/><path d="M224 85v16" stroke="#8d8afa"/><path d="M234 78v30" stroke="#9fa9f5"/>
-    <path d="M244 86v14" stroke="#7fc0f2"/><path d="M254 80v26" stroke="#6fcdf0"/><path d="M264 89v8" stroke="#5fd8ef"/>
+    <path d="M214 90v6" stroke="#ff6a3d"/><path d="M224 85v16" stroke="#ff7848"/><path d="M234 78v30" stroke="#ff894a"/>
+    <path d="M244 86v14" stroke="#ff9b4b"/><path d="M254 80v26" stroke="#ffa94a"/><path d="M264 89v8" stroke="#ffb547"/>
   </g>
   <g fill="#ffc864"><circle cx="168" cy="26" r="2.5"/><circle cx="276" cy="40" r="2"/><circle cx="30" cy="140" r="2"/></g>
-  <path d="M176 18l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#ff7ab6"/>
+  <path d="M176 18l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#ff8fb1"/>
 </svg>`;
 
 const STAGE_ICON = { queued: "clock", asr: "mic", ocr: "eye", audio: "music", aligning: "link", scoring: "gauge", writing_report: "doc" };
@@ -146,6 +147,7 @@ async function loadVideoList() {
 
 async function selectVideo(videoId) {
   activeVideoId = videoId;
+  NAV_RATING.classList.remove("active");
   closeDrawer();
   loadVideoList();
   MAIN.innerHTML = `<div class="loading"><span class="spinner"></span>&nbsp; Loading report…</div>`;
@@ -154,6 +156,96 @@ async function selectVideo(videoId) {
   } catch (e) {
     MAIN.innerHTML = `<div class="error-box">Could not load report: ${escapeHtml(e.message)}</div>`;
   }
+}
+
+// ------------------------------------------------------------------ rating set
+//
+// The 10 videos chosen for the professor's ratings (10 Nov 2026), from the
+// current rating package. STUDENT ONLY: it shows the system's scores, and a
+// rater who saw them would anchor to them -- the banner says so.
+
+NAV_RATING.addEventListener("click", () => showRatingSet());
+
+async function showRatingSet() {
+  activeVideoId = null;
+  closeDrawer();
+  loadVideoList();
+  NAV_RATING.classList.add("active");
+  MAIN.innerHTML = `<div class="loading"><span class="spinner"></span>&nbsp; Loading the rating set…</div>`;
+  let data;
+  try {
+    data = await api("/api/rating-set");
+  } catch (e) {
+    MAIN.innerHTML = `<div class="error-box">Could not load the rating set: ${escapeHtml(e.message)}</div>`;
+    return;
+  }
+  const rows = data.rows;
+  const score = (r) => (r.current && r.current.redundancy !== undefined ? r.current.redundancy : r.redundancy);
+  const styles = [...new Set(rows.map((r) => r.style))];
+  const music = rows.filter((r) => (r.coherence ?? 0) > 10).length;
+  const minutes = rows.reduce((a, r) => a + (r.duration_s || 0), 0) / 60;
+  const drift = rows.filter((r) => r.current && r.redundancy !== null && score(r) !== null && Math.abs(score(r) - r.redundancy) > 0.01);
+
+  const ladder = rows.map((r, i) => {
+    const s = score(r);
+    const na = s === null || s === undefined;
+    const d = na ? null : s - r.target;
+    return `<div class="rs-row" data-video="${escapeHtml(r.video_id)}" role="button" tabindex="0"
+        aria-label="Open the report for ${escapeHtml(r.video_id)}">
+      <div class="rs-target tabular">${r.target}</div>
+      <div class="rs-name"><span>${escapeHtml(r.video_id)}</span><span class="rs-style">${escapeHtml(r.style)}</span></div>
+      <div class="rs-track">
+        ${na ? "" : `<div class="chart-bar" style="width:${Math.max(1, s)}%; background:${seqColor(s)}; animation-delay:${i * 50}ms"></div>`}
+        <span class="rs-marker" style="left:${r.target}%" title="target ${r.target}"></span>
+      </div>
+      <div class="rs-value tabular">${na ? "N/A" : s.toFixed(2)}<span class="rs-delta">${na ? "" : (d >= 0 ? "+" : "−") + Math.abs(d).toFixed(1)}</span></div>
+    </div>`;
+  }).join("");
+
+  const table = `<div class="table-scroll"><table class="plain"><thead><tr>
+      <th class="num">Target</th><th>Video</th><th>Style</th><th class="num">Length</th>
+      <th class="num">Redundancy</th><th class="num">Distance</th><th class="num">Coherence</th></tr></thead><tbody>
+    ${rows.map((r) => `<tr class="rs-tr" data-video="${escapeHtml(r.video_id)}">
+      <td class="num tabular">${r.target}</td><td>${escapeHtml(r.video_id)}</td><td>${escapeHtml(r.style)}</td>
+      <td class="num tabular">${timecode(r.duration_s || 0)}</td>
+      <td class="num tabular">${fmtScore(score(r))}</td><td class="num tabular">${f2(r.distance)}</td>
+      <td class="num tabular">${fmtScore(r.current ? r.current.coherence : r.coherence)}${(r.coherence ?? 0) > 10 ? ` <span class="muted">(music)</span>` : ""}</td>
+    </tr>`).join("")}
+    </tbody></table></div>`;
+
+  MAIN.innerHTML = `
+    <div class="report-head rs-head">
+      <div class="kicker">${escapeHtml(data.package)}</div>
+      <h1>Rating set</h1>
+      <p class="card-sub" style="margin:4px 0 0">The 10 videos the professor rates, one per redundancy target 0, 10, … 90,
+        chosen by the pre-registered rule. Click a video to open its full report.</p>
+    </div>
+    <div class="banner banner-warning" role="note">${icon("info", 18)}<div><strong>Student only — never show this page to the professor.</strong>
+      It holds the system's scores. The professor rates blind; seeing these numbers first would anchor the ratings and
+      spoil the validation. Send only the package folder's videos, workbook and guide — never <code>selection.csv</code>.</div></div>
+    <dl class="stat-row">
+      <div class="stat"><dt>Videos</dt><dd class="tabular">${rows.length}</dd></div>
+      <div class="stat"><dt>Total distance</dt><dd class="tabular">${data.total_distance.toFixed(1)}</dd></div>
+      <div class="stat"><dt>Styles</dt><dd>${styles.length} · ${escapeHtml(styles.join(", "))}</dd></div>
+      <div class="stat"><dt>With music</dt><dd class="tabular">${music} of ${rows.length}</dd></div>
+      <div class="stat"><dt>Watching time</dt><dd class="tabular">${minutes.toFixed(0)} min</dd></div>
+    </dl>
+    ${drift.length ? `<div class="banner banner-warning" style="margin-top:12px">${icon("info", 18)}<div><strong>Scores changed since selection</strong>
+      ${drift.map((r) => `${escapeHtml(r.video_id)}: ${f2(r.redundancy)} → ${f2(score(r))}`).join("; ")}. The bars show today's score.</div></div>` : ""}
+    <div class="card" style="margin-top:18px">
+      <h2><span class="card-icon">${icon("gauge")}</span>Score against target</h2>
+      <p class="card-sub">Bar = the system's redundancy score; white tick = the target it was chosen for;
+        the number after the score is how far it sits from that target.</p>
+      <div class="rs-ladder">${ladder}</div>
+      <div class="rs-axis"><span></span><div><span>0</span><span>25</span><span>50</span><span>75</span><span>100</span></div><span></span></div>
+    </div>
+    <div class="card"><h2><span class="card-icon">${icon("doc")}</span>Details</h2>${table}</div>`;
+
+  MAIN.querySelectorAll("[data-video]").forEach((el) => {
+    const open = () => selectVideo(el.dataset.video);
+    el.addEventListener("click", open);
+    el.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } });
+  });
 }
 
 // ------------------------------------------------------------------ empty state
@@ -304,8 +396,8 @@ function scoreRing(score) {
   return `<div class="ring">
     <svg width="148" height="148" viewBox="0 0 148 148" aria-hidden="true">
       <defs><linearGradient id="rg" x1="0" x2="1" y1="0" y2="1">
-        <stop offset="0" stop-color="#7c6cff"/><stop offset="1" stop-color="#5fd8ef"/></linearGradient></defs>
-      <circle cx="74" cy="74" r="${r}" fill="none" stroke="#181f37" stroke-width="12"/>
+        <stop offset="0" stop-color="#ff6a3d"/><stop offset="1" stop-color="#ffb547"/></linearGradient></defs>
+      <circle cx="74" cy="74" r="${r}" fill="none" stroke="#1e1914" stroke-width="12"/>
       <circle class="ring-arc" cx="74" cy="74" r="${r}" fill="none" stroke="url(#rg)" stroke-width="12"
         stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c}" data-target="${target}"/>
     </svg>
@@ -750,7 +842,7 @@ function coherenceChart(c) {
 
 // Categorical dark slots 3 (aqua) and 2 (orange) of the dataviz reference
 // palette — blue is skipped because it already means magnitude on this page.
-// Validated on the chart surface #181f37 (11 Oct 2026): CVD ΔE 9.4, normal
+// Validated on the chart surface #1e1914 (11 Oct 2026): CVD ΔE 9.4, normal
 // ΔE 26.5, both >= 3:1. "Music, no speech" is texture (hatching), not a hue.
 const LANE = { speech: "#199e70", music: "#d95926", alone: "#5d6788" };
 
@@ -761,8 +853,8 @@ function laneSvg(duration, seconds, color, label, hatch) {
   return `<div class="lane"><div class="lane-label">${label}</div>
     <svg class="lane-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="${label}">
       <defs><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-        <rect width="6" height="6" fill="#1f2744"/><rect width="2.4" height="6" fill="${LANE.alone}"/></pattern></defs>
-      <rect width="${W}" height="${H}" fill="#181f37"/>${rects}</svg></div>`;
+        <rect width="6" height="6" fill="#27201a"/><rect width="2.4" height="6" fill="${LANE.alone}"/></pattern></defs>
+      <rect width="${W}" height="${H}" fill="#1e1914"/>${rects}</svg></div>`;
 }
 
 function soundTimeline(data, c) {

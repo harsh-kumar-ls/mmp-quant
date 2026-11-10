@@ -74,7 +74,7 @@ def page(site):
         errors: list[str] = []
         pg.on("pageerror", lambda e: errors.append(str(e)))
         pg.on("console", lambda m: errors.append(m.text) if m.type == "error" else None)
-        pg.goto(site["url"])
+        pg.goto(site["url"] + "/classic/")   # the original UI (10 Nov 2026: / is the React UI)
         yield pg
         browser.close()
         assert not errors, f"JavaScript errors on the page: {errors}"
@@ -200,3 +200,119 @@ class TestTiming:
         assert "5.5 s in this window" in high.inner_text()
         formula = win.locator(".formula").inner_text()
         assert formula.strip().endswith(f"= {w['score']:.2f}")
+
+
+class TestRatingSet:
+    """10 Nov 2026: the tab listing the 10 videos chosen for the professor."""
+
+    def test_lists_ten_videos_warns_and_opens_a_report(self, page, site):
+        import glob
+
+        if not glob.glob("rating_package*/selection.csv"):
+            pytest.skip("no rating package in this checkout (it is gitignored)")
+        page.locator("#nav-rating").click()
+        page.locator(".rs-row").first.wait_for()
+        assert page.locator(".rs-row").count() == 10
+        assert "Student only" in page.locator(".banner").first.inner_text()
+        targets = page.locator(".rs-target").all_inner_texts()
+        assert targets == [str(t) for t in range(0, 100, 10)]
+
+
+def test_root_serves_the_react_ui_and_classic_stays_available(site):
+    """10 Nov 2026: / is the React UI when it is built; the original is at /classic/."""
+    import urllib.request
+
+    from mmpquant.webapp import server
+    root = urllib.request.urlopen(site["url"] + "/").read().decode()
+    classic = urllib.request.urlopen(site["url"] + "/classic/").read().decode()
+    assert 'id="video-list"' in classic and 'src="app.js"' in classic
+    if server.REACT_DIST.is_dir():
+        assert 'id="root"' in root and "/react/assets/" in root
+    else:
+        assert root == classic
+
+
+class TestReactUI:
+    """The React UI (10 Nov 2026, webapp-react/), served built at /react/ by
+    the same server. Same checks as the original UI: numbers on screen equal
+    result.json, the drawer's working adds up, timing is shown."""
+
+    @pytest.fixture
+    def react(self, page, site):
+        from mmpquant.webapp import server
+        if not server.REACT_DIST.is_dir():
+            pytest.skip("webapp-react/dist not built (npm run build)")
+        page.goto(site["url"] + "/react/")
+        return page
+
+    def _open(self, page, vid):
+        page.get_by_test_id("video-list").get_by_text(vid, exact=True).click()
+        page.get_by_test_id("ring-value").wait_for()
+
+    def test_header_and_segments_match_result_json(self, react, site):
+        self._open(react, REDUNDANCY_VIDEO)
+        res = _result(site, REDUNDANCY_VIDEO)
+        assert react.get_by_test_id("ring-value").inner_text() == f"{res['result']['score']:.1f}"
+        shown = react.get_by_test_id("segment-value").all_inner_texts()
+        assert shown == [f"{s['score']:.2f}" for s in res["segments"]]
+
+    def test_drawer_formula_navigation_and_close(self, react, site):
+        self._open(react, REDUNDANCY_VIDEO)
+        segs = _result(site, REDUNDANCY_VIDEO)["segments"]
+        seg = next(i for i, s in enumerate(segs) if s["score"])
+        react.get_by_test_id("segment-row").nth(seg).click()
+        drawer = react.get_by_test_id("drawer")
+        assert drawer.get_by_test_id("drawer-score").inner_text() == f"{segs[seg]['score']:.2f}"
+        assert drawer.get_by_test_id("segment-formula").inner_text().strip().endswith(f"= {segs[seg]['score']:.2f}")
+        body = drawer.get_by_test_id("drawer-body")
+        b = body.bounding_box()
+        react.mouse.move(b["x"] + b["width"] / 2, b["y"] + b["height"] / 2)
+        react.mouse.wheel(0, 600)
+        react.wait_for_timeout(300)
+        assert body.evaluate("el => el.scrollTop") > 0, "drawer body does not scroll"
+        if seg + 1 < len(segs):
+            drawer.get_by_label("Next segment").click()
+            assert f"segment {seg + 2} of {len(segs)}" in drawer.get_by_test_id("drawer-kicker").inner_text().lower()
+        react.keyboard.press("Escape")
+        assert react.get_by_test_id("drawer").count() == 0
+
+    def test_timing_margin_and_window_formula(self, react, site):
+        if not (site["runs"] / TIMING_VIDEO / "result.json").exists():
+            pytest.skip(f"runs/{TIMING_VIDEO} not available")
+        w = next(x for x in _result(site, TIMING_VIDEO)["result"]["windows"] if x["start"] == 10.0)
+        self._open(react, TIMING_VIDEO)
+        react.get_by_test_id("segment-row").first.click()
+        wins = react.get_by_test_id("win")
+        first = wins.filter(has=react.locator(".win-time", has_text=re.compile(r"^0:00")))
+        assert first.locator(".w-outside", has_text="135").count() == 1
+        second = wins.filter(has=react.locator(".win-time", has_text=re.compile(r"^0:10"))).first
+        second.evaluate("d => d.open = true")
+        assert "1.5 s in this window" in second.locator("tr", has_text="The big wheel").last.inner_text()
+        assert second.get_by_test_id("formula").inner_text().strip().endswith(f"= {w['score']:.2f}")
+
+    def test_coherence_tab_and_drawer(self, react, site):
+        self._open(react, COHERENCE_VIDEO)
+        coh = _result(site, COHERENCE_VIDEO)["coherence"]
+        react.get_by_test_id("tab-coherence").click()
+        assert react.get_by_test_id("ring-value").inner_text() == f"{coh['result']['score']:.1f}"
+        react.locator('[data-principle-of="coherence"]').first.click()
+        assert react.get_by_test_id("drawer").get_attribute("data-principle") == "coherence"
+
+    def test_rating_set(self, react):
+        import glob
+
+        if not glob.glob("rating_package*/selection.csv"):
+            pytest.skip("no rating package in this checkout (it is gitignored)")
+        react.get_by_test_id("nav-rating").click()
+        react.get_by_test_id("rs-row").first.wait_for()
+        assert react.get_by_test_id("rs-target").all_inner_texts() == [str(t) for t in range(0, 100, 10)]
+        assert "Student only" in react.get_by_role("note").first.inner_text()
+
+    def test_phone_width_never_scrolls_sideways(self, page, site):
+        from mmpquant.webapp import server
+        if not server.REACT_DIST.is_dir():
+            pytest.skip("webapp-react/dist not built")
+        page.set_viewport_size({"width": 375, "height": 812})
+        page.goto(site["url"] + "/react/")
+        self._open(page, REDUNDANCY_VIDEO)
+        assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth + 1")
