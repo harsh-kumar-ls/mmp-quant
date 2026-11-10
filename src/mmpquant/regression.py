@@ -145,6 +145,15 @@ def check_one(c: dict, results: dict[str, dict]) -> tuple[bool, str]:
                        if k in _norm_key(r["sentence"]) or _norm_key(r["sentence"]) in k})
         return not hits, ("not counted there" if not hits else f"counted at {hits} s")
 
+    if t == "text_counted_in_window":
+        # the counterpart of text_not_counted_in_window (10 Nov 2026)
+        k = _norm_key(c["text"])
+        hits = sorted({int(w["start"]) for w in _windows(results[c["video"]], "redundancy")
+                       if c["from_s"] <= w["start"] < c["to_s"]
+                       for r in (w.get("evidence") or {}).get("restated_sentences") or []
+                       if k in _norm_key(r["sentence"]) or _norm_key(r["sentence"]) in k})
+        return bool(hits), (f"counted at {hits} s" if hits else "not counted there")
+
     if t == "lighter_in_window":
         ws = [w for w in _windows(results[c["video"]], "redundancy")
               if int(w["start"]) == int(c["window_start"])]

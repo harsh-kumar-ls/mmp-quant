@@ -14,6 +14,15 @@ the new candidates were scored -- see PROGRESS.md).
   low 10-30, mid 30-70, high > 70); only then the shorter video. It changes
   the sampling of coherence only, never the redundancy coverage.
 
+AMENDMENT (10 Nov 2026, PI decision in the overnight loop, made after the
+round-3 scores -- disclose in the thesis): development videos are not
+eligible. A video named in a redundancy expectation (tests/golden/
+expectations.yaml, ids R*) was used to fix the measurement rules -- the system
+was made to agree with the student's judgement on it -- so a rating of it
+would not test the method independently. Music checks (C*) do not count: the
+music detector was never adjusted on them. This RAISES the selection
+distance; it is motivated by independence, not by the scores.
+
 The selection table carries the system's scores and is for the student only;
 the professor receives just the videos and a blank workbook.
 """
@@ -94,6 +103,19 @@ def load_candidates(runs_dir: Path, videos: list[str], styles: dict[str, str],
                              (coh.get("result") or {}).get("score") or 0.0,
                              (coh.get("music_loudness") or {}).get("median_db")))
     return out, skipped
+
+
+def development_videos(expectations: Path) -> set[str]:
+    """Videos named in any redundancy expectation (id R*), confirmed or draft."""
+    import yaml
+
+    if not expectations.exists():
+        return set()
+    out: set[str] = set()
+    for c in yaml.safe_load(expectations.read_text()).get("checks", []):
+        if str(c.get("id", "")).startswith("R"):
+            out |= ({c["video"]} if "video" in c else set()) | set(c.get("videos", []))
+    return out
 
 
 def coherence_level(c: Candidate) -> str:

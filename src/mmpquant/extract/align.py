@@ -83,6 +83,8 @@ class OnscreenParams:
     min_prose_words: int = 5
     line_gap_ratio: float = 1.6
     x_align_tol_px: float = 24.0
+    # a one-word OCR line below this confidence never links lines (10 Nov 2026)
+    min_link_confidence: float = 0.75
     dedup_similarity: float = 0.88
     split_run_together_words: bool = True
     # Captions running one sentence across screens (15 Oct 2026, captions.py)
@@ -209,7 +211,8 @@ def _stitched_sentences(
         [(" ".join(line.text for line in group), _union_box(group))
          for group in group_lines(_block_lines(b, onscreen),
                                   line_gap_ratio=onscreen.line_gap_ratio,
-                                  x_align_tol_px=onscreen.x_align_tol_px)]
+                                  x_align_tol_px=onscreen.x_align_tol_px,
+                                  min_link_confidence=onscreen.min_link_confidence)]
         for b in blocks
     ]
     pieces = caption_stream(texts, [(b.start, b.end) for b in blocks],
@@ -336,6 +339,7 @@ def _elements_for_window(
             min_prose_words=onscreen.min_prose_words,
             line_gap_ratio=onscreen.line_gap_ratio,
             x_align_tol_px=onscreen.x_align_tol_px,
+            min_link_confidence=onscreen.min_link_confidence,
         )
     ]
     return collapse_near_duplicates(

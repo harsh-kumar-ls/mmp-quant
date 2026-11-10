@@ -89,3 +89,17 @@ def test_amendment_ties_prefer_a_new_coherence_level():
     sel = select(cands, min_music=1, min_no_music=1)
     assert dict(sel.slots)[0].video_id == "mid_tie"
     assert any("amendment" in s for s in sel.swaps)
+
+
+def test_development_videos_are_those_in_redundancy_expectations(tmp_path):
+    """10 Nov 2026 amendment: videos the rules were fixed against are not rated."""
+    from mmpquant.selection import development_videos
+
+    f = tmp_path / "e.yaml"
+    f.write_text(
+        "checks:\n"
+        "  - {id: R1, type: score, video: Test_11}\n"
+        "  - {id: R13, status: draft, type: never_sentence, video: Test_28}\n"
+        "  - {id: C1, type: music_present, videos: [test6, test_7]}\n")
+    assert development_videos(f) == {"Test_11", "Test_28"}
+    assert development_videos(tmp_path / "missing.yaml") == set()

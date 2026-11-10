@@ -55,6 +55,7 @@ from spacy.lang.en.stop_words import STOP_WORDS  # a word list; loads no model
 from ..onscreen import (
     content_lemmas,
     is_question,
+    merge_spans,
     onscreen_sentences,
     question_said_forms,
     said_forms,
@@ -499,7 +500,9 @@ class RedundancyScorer(PrincipleScorer):
                 continue
             for sent in self._sentences_of_element(e):
                 out.setdefault(sent, []).extend(spans)
-        return out
+        # one sentence can arrive through two elements (10 Nov 2026: "Use your
+        # senses to observe what happens." showed visible_s 18.0 in a 10 s window)
+        return {k: merge_spans(v) for k, v in out.items()}
 
     def _screen_sentences(self, window: Window) -> tuple[str, ...]:
         """Every on-screen sentence in the window, one per bullet/sentence."""
@@ -576,7 +579,13 @@ class RedundancyScorer(PrincipleScorer):
         if base is not None:
             return base
 
-        if all(ws.exclusion_reason == EXCL_NO_NARRATION for ws in window_scores):
+        # No narration ANYWHERE -- checked on the narration itself (10 Nov 2026).
+        # Testing the exclusion reasons missed silent videos with some text-free
+        # windows: those are excluded as "no on-screen text" first, so a
+        # text-and-music video (animation_chain_of_infection: 6 windows "no
+        # narration", 7 "no on-screen text") was scored 0 while its own warning
+        # said "redundancy is N/A".
+        if window_scores and not any(ws.window.asr_text.strip() for ws in window_scores):
             return (
                 f"no narration detected in any of {len(window_scores)} windows — "
                 "redundancy is undefined without speech to compare against. Check "

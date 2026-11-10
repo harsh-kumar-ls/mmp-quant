@@ -80,6 +80,17 @@ class TestEachCheckCanFail:
         ok, detail = run(c, {"a": counted})
         assert not ok and "counted as redundancy" in detail
 
+    def test_text_counted_in_window(self):
+        c = {"type": "text_counted_in_window", "video": "a", "text": "Enroll today in the",
+             "from_s": 0, "to_s": 10}
+        missing = payload(10.0)
+        counted = payload(10.0)
+        counted["result"]["windows"][0]["evidence"]["restated_sentences"] = [
+            {"sentence": "Enroll today in the course."}]
+        assert run(c, {"a": counted})[0] is True
+        ok, detail = run(c, {"a": missing})
+        assert not ok and "not counted" in detail
+
     def test_music_within_fails_outside_and_when_absent(self):
         c = {"type": "music_within", "video": "a", "from_s": 0, "to_s": 60, "tolerance_s": 5}
         assert run(c, {"a": payload(coh=10, music_at=[12, 30])})[0] is True
