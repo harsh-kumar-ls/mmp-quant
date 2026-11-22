@@ -1,0 +1,8 @@
+# Cloud (Hugging Face Space, Linux) overrides, merged over config.yaml by
+# tools/build_hf_space.py. ONLY what must differ off the Mac:
+#   - OCR: Apple Vision is macOS-only; RapidOCR (PP-OCRv4) is the cross-platform
+#     backend already in the project. It reads handwriting and chalk less well, so
+#     cloud scores can differ from the thesis numbers (measured: PROGRESS.md,
+#     Apple-vs-RapidOCR comparison, 12 Nov 2026). Every cloud report is labelled.
+ocr:
+  backend: rapidocr

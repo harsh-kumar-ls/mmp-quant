@@ -176,8 +176,63 @@ class TestStaticFilesAreRevalidated:
     """08 Oct 2026: without Cache-Control the browser kept a stale app.js and
     the updated UI appeared only after a hard refresh."""
 
-    @pytest.mark.parametrize("path", ["/", "/app.js", "/styles.css"])
+    # the original UI lives at /classic/ since the React UI took / (10 Nov 2026)
+    @pytest.mark.parametrize("path", ["/", "/classic/", "/classic/app.js", "/classic/styles.css"])
     def test_static_responses_carry_no_cache(self, client, path):
         response = client.get(path)
         assert response.status_code == 200
         assert response.headers["cache-control"] == "no-cache"
+
+
+
+class TestSharedMode:
+    """`mmpquant serve --shared` (13 Nov 2026): uploads through the tunnel stay
+    out of the corpus but are listed and readable like any video."""
+
+    @pytest.fixture
+    def shared(self, tmp_path, monkeypatch):
+        runs = tmp_path / "runs"
+        for d, vid in [(runs / "corpus_video", "corpus_video"),
+                       (runs / "_shared" / "her_upload", "her_upload")]:
+            d.mkdir(parents=True)
+            payload = _minimal_payload()
+            payload["video_id"] = vid
+            (d / "result.json").write_text(json.dumps(payload))
+        monkeypatch.setattr(server, "RUNS_DIR", runs)
+        monkeypatch.setattr(server, "VIDEOS_DIR", tmp_path / "videos")
+        monkeypatch.setattr(server, "SHARED_VIDEOS_DIR", tmp_path / "shared_uploads")
+        monkeypatch.setattr(server, "SHARED", True)
+        return TestClient(server.app)
+
+    def test_upload_goes_outside_the_corpus(self, shared, tmp_path, monkeypatch):
+        submitted = {}
+
+        class FakeJob:
+            job_id = "j"
+
+            def to_dict(self):
+                return {"job_id": "j", "video_id": "clip", "status": "queued"}
+
+        def fake_submit(video_path, outdir):
+            submitted.update(video_path=video_path, outdir=outdir)
+            return FakeJob()
+
+        monkeypatch.setattr(server.job_manager, "submit", fake_submit)
+        res = shared.post("/api/videos", files={"file": ("clip.mp4", io.BytesIO(b"x"), "video/mp4")})
+        assert res.status_code == 202
+        assert submitted["video_path"] == tmp_path / "shared_uploads" / "clip.mp4"
+        assert submitted["outdir"] == tmp_path / "runs" / "_shared" / "clip"
+        assert not (tmp_path / "videos").exists()
+
+    def test_shared_uploads_are_listed_and_readable(self, shared):
+        ids = {v["video_id"] for v in shared.get("/api/videos").json()}
+        assert ids == {"corpus_video", "her_upload"}
+        assert shared.get("/api/videos/her_upload/report").status_code == 200
+
+    def test_a_shared_upload_never_takes_a_corpus_video_name(self, shared, tmp_path):
+        (tmp_path / "runs" / "lecture").mkdir()
+        assert server._unique_video_path("lecture", ".mp4").name == "lecture-2.mp4"
+
+    def test_without_shared_mode_uploads_join_the_corpus(self, shared, monkeypatch, tmp_path):
+        monkeypatch.setattr(server, "SHARED", False)
+        assert server._upload_dirs() == (tmp_path / "videos", tmp_path / "runs")

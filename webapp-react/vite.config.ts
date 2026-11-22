@@ -8,7 +8,8 @@ import path from "node:path";
 // comes from that API — this app adds no scoring behaviour.
 export default defineConfig(({ command }) => ({
   // built files are served by `mmpquant serve` at /react/ (no Node needed to view)
-  base: command === "build" ? "/react/" : "/",
+  // VITE_BASE="./" for the read-only copy (tools/build_static_site.py)
+  base: process.env.VITE_BASE ?? (command === "build" ? "/react/" : "/"),
   plugins: [react(), tailwindcss()],
   resolve: { alias: { "@": path.resolve(import.meta.dirname, "src") } },
   server: {

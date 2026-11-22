@@ -1,0 +1,1398 @@
+video_id,block,time_s,image,model,picture,what,kind,related
+GDPR-Compliance-Training-SnapYT_App,0,0.0,frames/GDPR-Compliance-Training-SnapYT_App/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a person typing on a laptop with the text ""CampusGuard's GDPR Compliance",banner,yes
+GDPR-Compliance-Training-SnapYT_App,10,5.0,frames/GDPR-Compliance-Training-SnapYT_App/00010.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A group of people working in an office setting.,banner,yes
+GDPR-Compliance-Training-SnapYT_App,20,10.0,frames/GDPR-Compliance-Training-SnapYT_App/00020.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"A group of people in an office setting, with one person holding a folder and another person looking at",banner,yes
+GDPR-Compliance-Training-SnapYT_App,30,15.0,frames/GDPR-Compliance-Training-SnapYT_App/00030.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+GDPR-Compliance-Training-SnapYT_App,31,42.5,frames/GDPR-Compliance-Training-SnapYT_App/00031.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+GDPR-Compliance-Training-SnapYT_App,35,78.5,frames/GDPR-Compliance-Training-SnapYT_App/00035.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+GDPR-Compliance-Training-SnapYT_App,37,99.0,frames/GDPR-Compliance-Training-SnapYT_App/00037.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+GDPR-Compliance-Training-SnapYT_App,39,100.0,frames/GDPR-Compliance-Training-SnapYT_App/00039.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+GDPR-Compliance-Training-SnapYT_App,49,105.0,frames/GDPR-Compliance-Training-SnapYT_App/00049.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+GDPR-Compliance-Training-SnapYT_App,59,110.0,frames/GDPR-Compliance-Training-SnapYT_App/00059.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+GDPR-Compliance-Training-SnapYT_App,69,134.5,frames/GDPR-Compliance-Training-SnapYT_App/00069.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+GDPR-Compliance-Training-SnapYT_App,70,135.0,frames/GDPR-Compliance-Training-SnapYT_App/00070.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+GDPR-Compliance-Training-SnapYT_App,73,155.0,frames/GDPR-Compliance-Training-SnapYT_App/00073.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+GDPR-Compliance-Training-SnapYT_App,76,175.5,frames/GDPR-Compliance-Training-SnapYT_App/00076.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows a computer screen with a question about the purpose of GDPR.,banner,yes
+GDPR-Compliance-Training-SnapYT_App,79,183.5,frames/GDPR-Compliance-Training-SnapYT_App/00079.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+GDPR-Compliance-Training-SnapYT_App,82,186.0,frames/GDPR-Compliance-Training-SnapYT_App/00082.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+GDPR-Compliance-Training-SnapYT_App,85,194.0,frames/GDPR-Compliance-Training-SnapYT_App/00085.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+GDPR-Compliance-Training-SnapYT_App,87,195.0,frames/GDPR-Compliance-Training-SnapYT_App/00087.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+GDPR-Compliance-Training-SnapYT_App,93,210.5,frames/GDPR-Compliance-Training-SnapYT_App/00093.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_11,0,0.0,frames/Test_11/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_11,8,6.5,frames/Test_11/00008.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_11,11,11.0,frames/Test_11/00011.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_11,15,15.0,frames/Test_11/00015.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_11,23,20.0,frames/Test_11/00023.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_11,33,27.0,frames/Test_11/00033.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_11,38,30.0,frames/Test_11/00038.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_11,42,39.5,frames/Test_11/00042.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_11,43,41.0,frames/Test_11/00043.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_11,48,50.5,frames/Test_11/00048.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_11,53,56.5,frames/Test_11/00053.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_11,58,60.0,frames/Test_11/00058.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_11,66,65.0,frames/Test_11/00066.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_11,76,74.5,frames/Test_11/00076.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_11,77,75.5,frames/Test_11/00077.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_11,79,80.0,frames/Test_11/00079.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_11,85,85.0,frames/Test_11/00085.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_11,89,94.5,frames/Test_11/00089.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_11,90,96.0,frames/Test_11/00090.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_11,93,103.5,frames/Test_11/00093.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_11,95,106.0,frames/Test_11/00095.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_11,101,111.0,frames/Test_11/00101.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_11,105,116.0,frames/Test_11/00105.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_11,107,121.5,frames/Test_11/00107.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_11,114,125.0,frames/Test_11/00114.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_11,121,132.0,frames/Test_11/00121.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_11,124,136.0,frames/Test_11/00124.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_11,131,144.0,frames/Test_11/00131.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_11,133,145.0,frames/Test_11/00133.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_11,136,150.5,frames/Test_11/00136.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_11,137,161.0,frames/Test_11/00137.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_11,143,165.5,frames/Test_11/00143.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_11,145,171.0,frames/Test_11/00145.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_11,149,175.0,frames/Test_11/00149.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_13,0,0.0,frames/Test_13/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_13,1,5.0,frames/Test_13/00001.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_13,5,11.0,frames/Test_13/00005.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_13,8,15.5,frames/Test_13/00008.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_13,14,21.5,frames/Test_13/00014.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_13,21,25.0,frames/Test_13/00021.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_13,26,30.5,frames/Test_13/00026.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_13,32,35.5,frames/Test_13/00032.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_13,33,42.5,frames/Test_13/00033.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_13,34,51.5,frames/Test_13/00034.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_13,41,55.0,frames/Test_13/00041.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_13,51,60.0,frames/Test_13/00051.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_13,61,65.0,frames/Test_13/00061.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_13,71,70.0,frames/Test_13/00071.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_13,81,78.0,frames/Test_13/00081.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_13,85,80.0,frames/Test_13/00085.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_13,90,85.0,frames/Test_13/00090.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_13,100,90.0,frames/Test_13/00100.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_13,110,95.0,frames/Test_13/00110.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_13,120,100.0,frames/Test_13/00120.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_13,130,105.0,frames/Test_13/00130.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_13,140,110.0,frames/Test_13/00140.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_13,149,116.5,frames/Test_13/00149.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_13,153,120.0,frames/Test_13/00153.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_13,160,125.5,frames/Test_13/00160.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_13,169,130.0,frames/Test_13/00169.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_13,172,136.0,frames/Test_13/00172.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_13,177,147.0,frames/Test_13/00177.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_13,183,153.5,frames/Test_13/00183.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_13,186,155.0,frames/Test_13/00186.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_13,192,162.5,frames/Test_13/00192.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_13,197,165.0,frames/Test_13/00197.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_13,201,174.5,frames/Test_13/00201.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_13,202,175.0,frames/Test_13/00202.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_14,0,0.0,frames/Test_14/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_14,3,6.5,frames/Test_14/00003.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_14,6,13.0,frames/Test_14/00006.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_14,8,26.0,frames/Test_14/00008.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_14,10,36.5,frames/Test_14/00010.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_14,15,43.0,frames/Test_14/00015.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_14,19,45.0,frames/Test_14/00019.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_14,26,50.0,frames/Test_14/00026.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_14,32,55.0,frames/Test_14/00032.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_14,35,60.0,frames/Test_14/00035.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_14,37,68.0,frames/Test_14/00037.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_14,39,74.5,frames/Test_14/00039.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_14,40,75.0,frames/Test_14/00040.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_14,43,85.0,frames/Test_14/00043.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_14,44,90.5,frames/Test_14/00044.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_14,46,96.0,frames/Test_14/00046.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_14,47,103.5,frames/Test_14/00047.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_14,48,107.5,frames/Test_14/00048.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_14,51,110.0,frames/Test_14/00051.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_14,57,115.0,frames/Test_14/00057.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_14,64,120.0,frames/Test_14/00064.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_14,71,126.0,frames/Test_14/00071.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_14,75,130.0,frames/Test_14/00075.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_14,85,135.0,frames/Test_14/00085.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_14,95,140.0,frames/Test_14/00095.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_14,105,145.0,frames/Test_14/00105.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_14,115,150.0,frames/Test_14/00115.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_14,123,155.5,frames/Test_14/00123.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_14,132,160.0,frames/Test_14/00132.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_14,139,166.0,frames/Test_14/00139.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_14,145,170.0,frames/Test_14/00145.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_16,0,0.0,frames/Test_16/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_16,1,23.5,frames/Test_16/00001.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_16,2,42.5,frames/Test_16/00002.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_16,3,51.5,frames/Test_16/00003.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_16,5,68.0,frames/Test_16/00005.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_16,6,71.0,frames/Test_16/00006.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_16,8,81.0,frames/Test_16/00008.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_16,10,88.0,frames/Test_16/00010.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_16,11,93.0,frames/Test_16/00011.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_16,12,104.0,frames/Test_16/00012.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_16,13,108.5,frames/Test_16/00013.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_16,14,131.0,frames/Test_16/00014.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_16,17,138.5,frames/Test_16/00017.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_16,18,144.0,frames/Test_16/00018.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_16,19,145.0,frames/Test_16/00019.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_16,20,152.0,frames/Test_16/00020.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_16,21,174.0,frames/Test_16/00021.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_17,0,0.0,frames/Test_17/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_17,1,10.5,frames/Test_17/00001.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_17,3,19.5,frames/Test_17/00003.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_17,4,28.0,frames/Test_17/00004.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_17,5,33.5,frames/Test_17/00005.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_17,6,42.0,frames/Test_17/00006.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_17,7,47.5,frames/Test_17/00007.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_17,9,57.0,frames/Test_17/00009.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_17,10,60.0,frames/Test_17/00010.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_17,12,73.5,frames/Test_17/00012.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_17,13,79.5,frames/Test_17/00013.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_17,14,86.0,frames/Test_17/00014.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_17,15,91.5,frames/Test_17/00015.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_17,16,97.0,frames/Test_17/00016.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_17_2,0,0.0,frames/Test_17_2/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_17_2,10,5.0,frames/Test_17_2/00010.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"A woman in a classroom setting, possibly giving a presentation.",logo,yes
+Test_17_2,20,10.0,frames/Test_17_2/00020.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_17_2,30,15.0,frames/Test_17_2/00030.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_17_2,40,20.0,frames/Test_17_2/00040.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_17_2,50,50.0,frames/Test_17_2/00050.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_17_2,60,55.0,frames/Test_17_2/00060.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_17_2,70,60.0,frames/Test_17_2/00070.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_17_2,80,65.0,frames/Test_17_2/00080.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_17_2,90,70.0,frames/Test_17_2/00090.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_17_2,100,75.0,frames/Test_17_2/00100.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_17_2,110,80.0,frames/Test_17_2/00110.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_17_2,120,85.0,frames/Test_17_2/00120.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A woman in a black shirt is giving a presentation in front of a blackboard.,photo,yes
+Test_17_2,125,97.5,frames/Test_17_2/00125.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_17_2,130,100.0,frames/Test_17_2/00130.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_17_2,140,105.0,frames/Test_17_2/00140.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_17_2,150,110.0,frames/Test_17_2/00150.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"A woman in a classroom setting, holding a piece of paper.",photo,yes
+Test_17_2,160,115.0,frames/Test_17_2/00160.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_17_2,166,130.5,frames/Test_17_2/00166.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_17_2,167,138.5,frames/Test_17_2/00167.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_17_2,168,142.5,frames/Test_17_2/00168.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_17_2,169,147.5,frames/Test_17_2/00169.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_17_2,174,150.0,frames/Test_17_2/00174.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_17_2,184,155.0,frames/Test_17_2/00184.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A woman in a classroom with a laptop and a blackboard.,photo,yes
+Test_17_2,194,160.0,frames/Test_17_2/00194.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_17_2,200,171.0,frames/Test_17_2/00200.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_17_2,208,175.0,frames/Test_17_2/00208.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_18,0,0.0,frames/Test_18/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A woman in a black shirt is standing in front of a blackboard and a laptop.,photo,yes
+Test_18,10,5.0,frames/Test_18/00010.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"A woman in a classroom setting, possibly giving a presentation.",logo,yes
+Test_18,20,10.0,frames/Test_18/00020.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"A woman in a classroom, holding a fidget spinner.",logo,yes
+Test_18,27,48.0,frames/Test_18/00027.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_18,28,64.0,frames/Test_18/00028.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"A woman in a classroom setting, holding a white object.",photo,yes
+Test_18,30,65.0,frames/Test_18/00030.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_18,40,70.0,frames/Test_18/00040.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_18,50,75.0,frames/Test_18/00050.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"A woman in a classroom setting, holding a white object.",photo,yes
+Test_18,60,80.0,frames/Test_18/00060.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_18,65,103.5,frames/Test_18/00065.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_18,66,160.5,frames/Test_18/00066.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_19,0,0.0,frames/Test_19/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_19,1,5.0,frames/Test_19/00001.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A woman in a black shirt stands in front of a chalkboard and a screen.,clip art,yes
+Test_19,11,10.0,frames/Test_19/00011.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_19,13,40.0,frames/Test_19/00013.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_19,23,45.0,frames/Test_19/00023.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_19,32,61.0,frames/Test_19/00032.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_19,40,65.0,frames/Test_19/00040.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_19,44,83.5,frames/Test_19/00044.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"A woman in a classroom setting, holding a remote control.",logo,yes
+Test_19,47,85.0,frames/Test_19/00047.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A woman in a classroom with a laptop and a blackboard.,clip art,yes
+Test_19,57,90.0,frames/Test_19/00057.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_19,67,95.0,frames/Test_19/00067.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_19,77,100.0,frames/Test_19/00077.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_22,0,0.0,frames/Test_22/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_22,10,5.0,frames/Test_22/00010.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A man is writing on a chalkboard in a classroom.,logo,yes
+Test_22,19,10.0,frames/Test_22/00019.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_22,29,15.0,frames/Test_22/00029.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A man is writing on a chalkboard in front of a class.,logo,yes
+Test_22,39,20.0,frames/Test_22/00039.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"A man writing on a chalkboard with the title ""Geometric Anatomy of Theoretical Physics"" by",logo,yes
+Test_22,49,25.0,frames/Test_22/00049.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"A man writing on a chalkboard with the title ""Geometric Anatomy of Theoretical Physics.""",logo,yes
+Test_22,59,30.0,frames/Test_22/00059.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"A man is writing on a chalkboard with the title ""Geometric Anatomy of Theoretical Physics.""",logo,yes
+Test_22,69,35.0,frames/Test_22/00069.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_22,79,40.0,frames/Test_22/00079.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_22,89,45.0,frames/Test_22/00089.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_22,99,50.0,frames/Test_22/00099.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_22,109,55.0,frames/Test_22/00109.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A man is writing on a chalkboard in a classroom.,logo,yes
+Test_22,119,60.0,frames/Test_22/00119.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A man in front of a chalkboard with a blackboard.,logo,yes
+Test_22,129,65.0,frames/Test_22/00129.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"A man is writing on a chalkboard with the title ""Geometric Anatomy of Theoretical Physics.""",logo,yes
+Test_22,139,70.0,frames/Test_22/00139.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_22,149,75.0,frames/Test_22/00149.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A chalkboard with a blackboard and a clock.,logo,yes
+Test_22,158,80.0,frames/Test_22/00158.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A man is standing in front of a chalkboard with a blackboard.,logo,yes
+Test_22,168,85.5,frames/Test_22/00168.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_22,176,90.5,frames/Test_22/00176.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A chalkboard with geometric anatomy of theoretical physics written on it.,logo,yes
+Test_22,185,95.5,frames/Test_22/00185.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_22,194,100.0,frames/Test_22/00194.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_22,204,105.0,frames/Test_22/00204.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_22,214,110.0,frames/Test_22/00214.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_22,219,115.0,frames/Test_22/00219.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_22,229,120.0,frames/Test_22/00229.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_22,233,126.0,frames/Test_22/00233.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_22,236,130.0,frames/Test_22/00236.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_22,242,140.0,frames/Test_22/00242.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_22,244,147.5,frames/Test_22/00244.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_22,249,150.0,frames/Test_22/00249.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_22,258,155.0,frames/Test_22/00258.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_22,268,160.0,frames/Test_22/00268.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_22,278,168.0,frames/Test_22/00278.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_22,282,170.0,frames/Test_22/00282.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_22,289,175.0,frames/Test_22/00289.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_24,0,0.0,frames/Test_24/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_24,10,5.0,frames/Test_24/00010.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_24,14,10.0,frames/Test_24/00014.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_24,24,15.0,frames/Test_24/00024.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_24,34,20.0,frames/Test_24/00034.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_24,44,25.0,frames/Test_24/00044.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_24,54,30.0,frames/Test_24/00054.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_24,63,35.0,frames/Test_24/00063.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_24,66,40.5,frames/Test_24/00066.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_24,75,45.0,frames/Test_24/00075.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_24,85,50.0,frames/Test_24/00085.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_24,92,56.0,frames/Test_24/00092.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_24,98,60.0,frames/Test_24/00098.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_24,108,65.0,frames/Test_24/00108.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_24,118,70.0,frames/Test_24/00118.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_24,126,78.5,frames/Test_24/00126.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_24,129,80.0,frames/Test_24/00129.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_24,139,85.0,frames/Test_24/00139.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_24,149,90.0,frames/Test_24/00149.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_24,159,95.0,frames/Test_24/00159.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_24,169,100.5,frames/Test_24/00169.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_24,170,106.5,frames/Test_24/00170.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_24,177,110.0,frames/Test_24/00177.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_24,186,115.0,frames/Test_24/00186.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_24,195,120.0,frames/Test_24/00195.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_24,205,125.0,frames/Test_24/00205.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_24,213,130.0,frames/Test_24/00213.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_24,222,135.0,frames/Test_24/00222.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_24,232,140.0,frames/Test_24/00232.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_24,240,145.0,frames/Test_24/00240.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_24,250,150.5,frames/Test_24/00250.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_24,258,155.0,frames/Test_24/00258.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_24,268,160.0,frames/Test_24/00268.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_24,278,165.0,frames/Test_24/00278.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_24,288,170.5,frames/Test_24/00288.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_24,297,175.0,frames/Test_24/00297.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_25,0,0.0,frames/Test_25/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_25,9,5.0,frames/Test_25/00009.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_25,19,10.0,frames/Test_25/00019.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_25,28,15.0,frames/Test_25/00028.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_25,30,20.0,frames/Test_25/00030.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_25,40,25.0,frames/Test_25/00040.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_25,48,30.0,frames/Test_25/00048.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_25,55,36.5,frames/Test_25/00055.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_25,62,40.0,frames/Test_25/00062.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_25,67,50.5,frames/Test_25/00067.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_25,75,55.0,frames/Test_25/00075.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_25,85,60.0,frames/Test_25/00085.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_25,95,65.0,frames/Test_25/00095.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_25,103,71.0,frames/Test_25/00103.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_25,110,75.5,frames/Test_25/00110.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_25,119,80.0,frames/Test_25/00119.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_25,121,85.0,frames/Test_25/00121.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_25,129,90.0,frames/Test_25/00129.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_25,139,95.0,frames/Test_25/00139.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_25,149,100.0,frames/Test_25/00149.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_25,159,105.0,frames/Test_25/00159.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_25,169,110.0,frames/Test_25/00169.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_25,176,115.0,frames/Test_25/00176.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_25,186,120.0,frames/Test_25/00186.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_25,191,130.0,frames/Test_25/00191.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_25,201,135.0,frames/Test_25/00201.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_25,206,145.0,frames/Test_25/00206.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_25,214,150.0,frames/Test_25/00214.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_25,215,156.0,frames/Test_25/00215.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_25,223,160.0,frames/Test_25/00223.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_25,233,165.0,frames/Test_25/00233.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_25,242,172.5,frames/Test_25/00242.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_25,247,175.0,frames/Test_25/00247.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_27,0,0.0,frames/Test_27/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_27,1,9.0,frames/Test_27/00001.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_27,3,10.0,frames/Test_27/00003.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_27,4,17.0,frames/Test_27/00004.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_27,10,20.0,frames/Test_27/00010.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_27,19,25.0,frames/Test_27/00019.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_27,23,31.5,frames/Test_27/00023.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_27,30,51.5,frames/Test_27/00030.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_27,35,55.0,frames/Test_27/00035.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_27,44,60.0,frames/Test_27/00044.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_27,54,68.5,frames/Test_27/00054.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_27,57,70.0,frames/Test_27/00057.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_27,65,75.0,frames/Test_27/00065.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_27,73,81.0,frames/Test_27/00073.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_27,81,85.0,frames/Test_27/00081.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_27,91,90.0,frames/Test_27/00091.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_27,101,95.0,frames/Test_27/00101.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_27,111,100.0,frames/Test_27/00111.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_27,120,105.0,frames/Test_27/00120.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_27,130,110.0,frames/Test_27/00130.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_27,140,115.0,frames/Test_27/00140.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_27,150,120.0,frames/Test_27/00150.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_27,160,125.0,frames/Test_27/00160.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_27,167,130.0,frames/Test_27/00167.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_27,177,135.0,frames/Test_27/00177.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_27,187,140.0,frames/Test_27/00187.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_27,197,145.0,frames/Test_27/00197.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_27,206,150.0,frames/Test_27/00206.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_28,0,0.0,frames/Test_28/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A construction site with cranes and buildings.,banner,yes
+Test_28,10,5.0,frames/Test_28/00010.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_28,16,10.0,frames/Test_28/00016.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_28,23,15.0,frames/Test_28/00023.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_28,33,20.0,frames/Test_28/00033.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"A man wearing a hard hat and safety goggles, driving a forklift.",logo,yes
+Test_28,43,25.0,frames/Test_28/00043.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows a hospital scene with doctors and a patient.,cartoon character,yes
+Test_28,53,30.0,frames/Test_28/00053.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A person sleeping on a desk in a library.,cartoon character,yes
+Test_28,63,35.0,frames/Test_28/00063.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"A man in a red and black checkered shirt with a green lei, with the text ""it",cartoon character,yes
+Test_28,73,40.0,frames/Test_28/00073.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A woman is on a video call with a group of people.,logo,yes
+Test_28,83,45.0,frames/Test_28/00083.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A woman is using a laptop for an OSHA Education School video call.,logo,yes
+Test_28,93,50.0,frames/Test_28/00093.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A person is pointing at a laptop screen with a group of people on it.,logo,yes
+Test_28,103,55.0,frames/Test_28/00103.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,Two people working on computers.,logo,yes
+Test_28,113,60.0,frames/Test_28/00113.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"Three workers in helmets, one with a tablet, working on an air conditioning unit.",clip art,yes
+Test_28,123,65.0,frames/Test_28/00123.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"A person is injured in a warehouse, with another person assisting.",clip art,yes
+Test_28,133,70.0,frames/Test_28/00133.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A person in a yellow vest is injured on the floor.,cartoon character,yes
+Test_28,143,75.0,frames/Test_28/00143.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_28,153,80.0,frames/Test_28/00153.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows industrial pollution, with smoke and steam rising from a factory.",clip art,yes
+Test_28,163,85.0,frames/Test_28/00163.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A man with a headache.,logo,yes
+Test_28,173,90.0,frames/Test_28/00173.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A stormy day with palm trees and rain.,logo,yes
+Test_28,183,95.0,frames/Test_28/00183.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A person lying in the snow with cold temperatures.,cartoon character,yes
+Test_28,193,100.0,frames/Test_28/00193.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"A person lying in the snow, possibly experiencing heat exhaustion or heat stroke.",clip art,yes
+Test_28,203,105.0,frames/Test_28/00203.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,Two emergency workers in an ambulance.,logo,yes
+Test_28,213,110.0,frames/Test_28/00213.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,Firefighters extinguishing a fire.,clip art,yes
+Test_28,223,115.0,frames/Test_28/00223.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A firefighter in a hazmat suit.,logo,yes
+Test_28,233,120.0,frames/Test_28/00233.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,Firefighters in protective gear.,logo,yes
+Test_28,243,125.0,frames/Test_28/00243.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A group of motorcyclists waiting at a traffic light.,clip art,yes
+Test_28,253,130.0,frames/Test_28/00253.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"A group of people on motorcycles, wearing protective gear and helmets.",clip art,yes
+Test_28,263,135.0,frames/Test_28/00263.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,Firefighters in a disaster scene.,clip art,yes
+Test_28,273,140.0,frames/Test_28/00273.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,Firefighters responding to a disaster.,cartoon character,yes
+Test_28,283,145.0,frames/Test_28/00283.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A firefighter using a walkie-talkie.,logo,yes
+Test_28,293,150.0,frames/Test_28/00293.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_28,300,155.0,frames/Test_28/00300.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_28,307,160.0,frames/Test_28/00307.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"Two men in hard hats and overalls, discussing a laptop.",cartoon character,yes
+Test_28,317,165.0,frames/Test_28/00317.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A hand typing on a laptop.,logo,yes
+Test_28,327,170.0,frames/Test_28/00327.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a hand interacting with a laptop, with various icons related to education and learning.",logo,yes
+Test_28,337,175.0,frames/Test_28/00337.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+Test_28,346,180.0,frames/Test_28/00346.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_black_holes,0,0.0,frames/animation_black_holes/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_black_holes,10,5.0,frames/animation_black_holes/00010.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_black_holes,20,10.0,frames/animation_black_holes/00020.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_black_holes,27,15.0,frames/animation_black_holes/00027.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_black_holes,34,20.0,frames/animation_black_holes/00034.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_black_holes,44,25.0,frames/animation_black_holes/00044.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_black_holes,46,30.0,frames/animation_black_holes/00046.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_black_holes,56,35.0,frames/animation_black_holes/00056.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_black_holes,66,40.0,frames/animation_black_holes/00066.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_black_holes,76,45.0,frames/animation_black_holes/00076.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_black_holes,86,50.0,frames/animation_black_holes/00086.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_black_holes,96,56.0,frames/animation_black_holes/00096.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_black_holes,104,60.0,frames/animation_black_holes/00104.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_black_holes,114,65.0,frames/animation_black_holes/00114.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_black_holes,124,70.0,frames/animation_black_holes/00124.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_black_holes,133,75.0,frames/animation_black_holes/00133.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_black_holes,140,80.0,frames/animation_black_holes/00140.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows the Andromeda Galaxy.,banner,yes
+animation_black_holes,150,85.0,frames/animation_black_holes/00150.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows the Andromeda Galaxy.,banner,yes
+animation_black_holes,160,90.0,frames/animation_black_holes/00160.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows a galaxy with a swirling pattern and a red and blue nebula.,clip art,yes
+animation_black_holes,170,95.0,frames/animation_black_holes/00170.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a galaxy with a black hole at its center, as observed by the Chandra",logo,yes
+animation_black_holes,180,100.0,frames/animation_black_holes/00180.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows a galaxy with a black hole at its center.,banner,yes
+animation_black_holes,190,105.0,frames/animation_black_holes/00190.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_black_holes,200,110.5,frames/animation_black_holes/00200.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_black_holes,206,116.0,frames/animation_black_holes/00206.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_black_holes,211,120.5,frames/animation_black_holes/00211.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_black_holes,218,125.0,frames/animation_black_holes/00218.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_black_holes,227,130.0,frames/animation_black_holes/00227.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"Karl Schwarzschild, a theory about black holes.",clip art,yes
+animation_black_holes,237,135.0,frames/animation_black_holes/00237.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"Karl Schwarzschild, a theoretical physicist, is shown in a black and white photograph.",clip art,yes
+animation_black_holes,247,140.0,frames/animation_black_holes/00247.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"Karl Schwarzschild, a theoretical physicist, is shown in a black and white photograph.",clip art,yes
+animation_black_holes,254,145.5,frames/animation_black_holes/00254.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_black_holes,262,150.0,frames/animation_black_holes/00262.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_black_holes,270,155.0,frames/animation_black_holes/00270.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_black_holes,280,160.0,frames/animation_black_holes/00280.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_black_holes,290,165.0,frames/animation_black_holes/00290.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_black_holes,300,170.0,frames/animation_black_holes/00300.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_black_holes,303,175.5,frames/animation_black_holes/00303.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_black_holes,312,180.0,frames/animation_black_holes/00312.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a person riding a motorcycle on a rough, rocky road.",logo,yes
+animation_black_holes,322,185.0,frames/animation_black_holes/00322.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a group of people standing on a mountain top, with the National Geographic logo and",logo,yes
+animation_black_holes,331,190.0,frames/animation_black_holes/00331.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows a colorful nebula in space.,logo,yes
+animation_blood_groups,0,0.0,frames/animation_blood_groups/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_blood_groups,6,6.5,frames/animation_blood_groups/00006.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_blood_groups,13,10.0,frames/animation_blood_groups/00013.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_blood_groups,23,15.0,frames/animation_blood_groups/00023.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_blood_groups,31,20.5,frames/animation_blood_groups/00031.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_blood_groups,35,25.5,frames/animation_blood_groups/00035.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_blood_groups,44,30.0,frames/animation_blood_groups/00044.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_blood_groups,51,35.5,frames/animation_blood_groups/00051.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_blood_groups,55,40.5,frames/animation_blood_groups/00055.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_blood_groups,58,45.0,frames/animation_blood_groups/00058.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_blood_groups,62,50.0,frames/animation_blood_groups/00062.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_blood_groups,65,55.0,frames/animation_blood_groups/00065.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_blood_groups,72,61.5,frames/animation_blood_groups/00072.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_blood_groups,77,68.5,frames/animation_blood_groups/00077.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_blood_groups,80,70.0,frames/animation_blood_groups/00080.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_blood_groups,83,77.0,frames/animation_blood_groups/00083.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_blood_groups,89,80.0,frames/animation_blood_groups/00089.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_blood_groups,94,85.0,frames/animation_blood_groups/00094.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_blood_groups,101,90.0,frames/animation_blood_groups/00101.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_blood_groups,110,95.0,frames/animation_blood_groups/00110.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The image shows red blood cells labeled Type O.,cartoon character,yes
+animation_blood_groups,120,100.0,frames/animation_blood_groups/00120.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_blood_groups,130,105.0,frames/animation_blood_groups/00130.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a group of red blood cells labeled ""Type O.""",cartoon character,yes
+animation_blood_groups,140,110.0,frames/animation_blood_groups/00140.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_blood_groups,146,116.0,frames/animation_blood_groups/00146.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_blood_groups,147,120.5,frames/animation_blood_groups/00147.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_blood_groups,154,126.0,frames/animation_blood_groups/00154.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_blood_groups,157,130.0,frames/animation_blood_groups/00157.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_blood_groups,159,135.0,frames/animation_blood_groups/00159.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_blood_groups,162,141.0,frames/animation_blood_groups/00162.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_blood_groups,165,146.0,frames/animation_blood_groups/00165.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_blood_groups,167,150.0,frames/animation_blood_groups/00167.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_blood_groups,175,155.0,frames/animation_blood_groups/00175.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_blood_groups,177,162.0,frames/animation_blood_groups/00177.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_blood_groups,180,167.0,frames/animation_blood_groups/00180.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_blood_groups,185,175.0,frames/animation_blood_groups/00185.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_blood_groups,187,181.0,frames/animation_blood_groups/00187.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_blood_groups,195,185.0,frames/animation_blood_groups/00195.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_blood_groups,205,190.0,frames/animation_blood_groups/00205.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_blood_groups,212,195.0,frames/animation_blood_groups/00212.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_chain_of_infection,0,0.0,frames/animation_chain_of_infection/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_chain_of_infection,10,5.5,frames/animation_chain_of_infection/00010.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_chain_of_infection,19,10.0,frames/animation_chain_of_infection/00019.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_chain_of_infection,29,15.0,frames/animation_chain_of_infection/00029.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_chain_of_infection,39,20.0,frames/animation_chain_of_infection/00039.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"A row of matches with one lit, illustrating infection spreading.",cartoon character,yes
+animation_chain_of_infection,46,27.0,frames/animation_chain_of_infection/00046.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_chain_of_infection,51,32.5,frames/animation_chain_of_infection/00051.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_chain_of_infection,54,35.0,frames/animation_chain_of_infection/00054.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_chain_of_infection,63,40.5,frames/animation_chain_of_infection/00063.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_chain_of_infection,69,45.5,frames/animation_chain_of_infection/00069.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_chain_of_infection,77,50.0,frames/animation_chain_of_infection/00077.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The image shows a whiteboard with a logo and some icons.,logo,yes
+animation_chain_of_infection,86,55.0,frames/animation_chain_of_infection/00086.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_chain_of_infection,95,60.0,frames/animation_chain_of_infection/00095.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_chain_of_infection,104,65.0,frames/animation_chain_of_infection/00104.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_chain_of_infection,112,70.5,frames/animation_chain_of_infection/00112.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_chain_of_infection,120,75.5,frames/animation_chain_of_infection/00120.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_chain_of_infection,126,80.0,frames/animation_chain_of_infection/00126.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_chain_of_infection,133,85.0,frames/animation_chain_of_infection/00133.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_chain_of_infection,142,90.0,frames/animation_chain_of_infection/00142.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_chain_of_infection,147,95.0,frames/animation_chain_of_infection/00147.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_chain_of_infection,157,100.0,frames/animation_chain_of_infection/00157.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_chain_of_infection,161,105.0,frames/animation_chain_of_infection/00161.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_chain_of_infection,169,110.0,frames/animation_chain_of_infection/00169.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_chain_of_infection,173,122.0,frames/animation_chain_of_infection/00173.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows the logo of the APSTA Group.,logo,yes
+animation_freud_instincts,0,0.0,frames/animation_freud_instincts/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_freud_instincts,7,5.0,frames/animation_freud_instincts/00007.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_freud_instincts,14,12.0,frames/animation_freud_instincts/00014.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a portrait of Sigmund Freud, a psychoanalyst.",clip art,yes
+animation_freud_instincts,15,15.5,frames/animation_freud_instincts/00015.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"Sigmund Freud, psychoanalyst.",logo,yes
+animation_freud_instincts,17,21.0,frames/animation_freud_instincts/00017.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a cartoon of Sigmund Freud, a psychoanalyst.",cartoon character,yes
+animation_freud_instincts,19,26.0,frames/animation_freud_instincts/00019.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_freud_instincts,22,30.5,frames/animation_freud_instincts/00022.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_freud_instincts,27,36.5,frames/animation_freud_instincts/00027.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_freud_instincts,30,44.0,frames/animation_freud_instincts/00030.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_freud_instincts,31,45.0,frames/animation_freud_instincts/00031.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_freud_instincts,33,52.0,frames/animation_freud_instincts/00033.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_freud_instincts,35,55.0,frames/animation_freud_instincts/00035.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_freud_instincts,38,63.5,frames/animation_freud_instincts/00038.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_freud_instincts,40,67.5,frames/animation_freud_instincts/00040.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_freud_instincts,41,71.0,frames/animation_freud_instincts/00041.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_freud_instincts,43,76.5,frames/animation_freud_instincts/00043.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_freud_instincts,46,83.0,frames/animation_freud_instincts/00046.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_freud_instincts,48,87.0,frames/animation_freud_instincts/00048.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_freud_instincts,54,90.0,frames/animation_freud_instincts/00054.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_freud_instincts,57,95.0,frames/animation_freud_instincts/00057.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_freud_instincts,58,102.5,frames/animation_freud_instincts/00058.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_freud_instincts,60,107.5,frames/animation_freud_instincts/00060.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_freud_instincts,65,110.0,frames/animation_freud_instincts/00065.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_freud_instincts,68,115.5,frames/animation_freud_instincts/00068.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_freud_instincts,71,120.0,frames/animation_freud_instincts/00071.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_freud_instincts,75,126.0,frames/animation_freud_instincts/00075.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_freud_instincts,81,130.0,frames/animation_freud_instincts/00081.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_freud_instincts,89,135.0,frames/animation_freud_instincts/00089.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_freud_instincts,92,141.5,frames/animation_freud_instincts/00092.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_freud_instincts,95,145.0,frames/animation_freud_instincts/00095.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_freud_instincts,97,153.5,frames/animation_freud_instincts/00097.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_freud_instincts,99,155.0,frames/animation_freud_instincts/00099.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_here_comes_the_sun,0,0.0,frames/animation_here_comes_the_sun/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_here_comes_the_sun,10,5.0,frames/animation_here_comes_the_sun/00010.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_here_comes_the_sun,19,10.0,frames/animation_here_comes_the_sun/00019.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_here_comes_the_sun,22,15.0,frames/animation_here_comes_the_sun/00022.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_here_comes_the_sun,32,20.0,frames/animation_here_comes_the_sun/00032.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A person in a plaid shirt with a SOL logo and a green wristband.,cartoon character,yes
+animation_here_comes_the_sun,42,25.0,frames/animation_here_comes_the_sun/00042.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A woman in a red plaid shirt is seated at a table.,photo,yes
+animation_here_comes_the_sun,49,30.0,frames/animation_here_comes_the_sun/00049.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_here_comes_the_sun,59,35.0,frames/animation_here_comes_the_sun/00059.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_here_comes_the_sun,68,40.0,frames/animation_here_comes_the_sun/00068.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_here_comes_the_sun,76,45.0,frames/animation_here_comes_the_sun/00076.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_here_comes_the_sun,83,50.0,frames/animation_here_comes_the_sun/00083.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_here_comes_the_sun,87,55.0,frames/animation_here_comes_the_sun/00087.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_here_comes_the_sun,92,60.5,frames/animation_here_comes_the_sun/00092.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_here_comes_the_sun,97,65.5,frames/animation_here_comes_the_sun/00097.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_here_comes_the_sun,103,70.0,frames/animation_here_comes_the_sun/00103.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_here_comes_the_sun,113,75.5,frames/animation_here_comes_the_sun/00113.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_here_comes_the_sun,121,80.0,frames/animation_here_comes_the_sun/00121.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_here_comes_the_sun,131,85.0,frames/animation_here_comes_the_sun/00131.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"A person with glasses and a red plaid shirt, with a graphic of a person and a globe",cartoon character,yes
+animation_here_comes_the_sun,141,90.0,frames/animation_here_comes_the_sun/00141.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_here_comes_the_sun,151,95.0,frames/animation_here_comes_the_sun/00151.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a woman wearing glasses, with a speech bubble explaining ""heat"" and ""light",cartoon character,yes
+animation_here_comes_the_sun,161,100.0,frames/animation_here_comes_the_sun/00161.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a woman wearing glasses, with a speech bubble explaining ""heat"" and ""light",cartoon character,yes
+animation_here_comes_the_sun,171,105.0,frames/animation_here_comes_the_sun/00171.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_here_comes_the_sun,178,110.5,frames/animation_here_comes_the_sun/00178.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_here_comes_the_sun,184,115.0,frames/animation_here_comes_the_sun/00184.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_here_comes_the_sun,193,120.0,frames/animation_here_comes_the_sun/00193.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_here_comes_the_sun,203,125.0,frames/animation_here_comes_the_sun/00203.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A woman in a red plaid shirt with glasses.,photo,yes
+animation_here_comes_the_sun,213,130.0,frames/animation_here_comes_the_sun/00213.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_here_comes_the_sun,222,135.0,frames/animation_here_comes_the_sun/00222.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_here_comes_the_sun,230,140.0,frames/animation_here_comes_the_sun/00230.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_here_comes_the_sun,240,145.0,frames/animation_here_comes_the_sun/00240.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_here_comes_the_sun,248,150.0,frames/animation_here_comes_the_sun/00248.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_here_comes_the_sun,255,155.0,frames/animation_here_comes_the_sun/00255.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_here_comes_the_sun,263,160.0,frames/animation_here_comes_the_sun/00263.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_here_comes_the_sun,273,165.0,frames/animation_here_comes_the_sun/00273.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"A person with glasses and a plaid shirt, with a blue object in the background.",logo,yes
+animation_here_comes_the_sun,283,170.0,frames/animation_here_comes_the_sun/00283.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A woman in a plaid shirt is gesturing with her hands.,cartoon character,yes
+animation_here_comes_the_sun,291,175.5,frames/animation_here_comes_the_sun/00291.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_london_subtitled,0,0.0,frames/animation_london_subtitled/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_london_subtitled,9,5.0,frames/animation_london_subtitled/00009.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_london_subtitled,19,10.0,frames/animation_london_subtitled/00019.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_london_subtitled,28,15.0,frames/animation_london_subtitled/00028.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_london_subtitled,38,20.0,frames/animation_london_subtitled/00038.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_london_subtitled,48,28.5,frames/animation_london_subtitled/00048.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_london_subtitled,50,32.0,frames/animation_london_subtitled/00050.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_london_subtitled,53,35.0,frames/animation_london_subtitled/00053.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_london_subtitled,63,40.0,frames/animation_london_subtitled/00063.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_london_subtitled,73,45.0,frames/animation_london_subtitled/00073.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_london_subtitled,83,50.0,frames/animation_london_subtitled/00083.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_london_subtitled,93,55.0,frames/animation_london_subtitled/00093.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_london_subtitled,103,60.0,frames/animation_london_subtitled/00103.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_london_subtitled,113,65.0,frames/animation_london_subtitled/00113.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows Trafalgar Square with the National Gallery art museum in the background.,banner,yes
+animation_london_subtitled,123,70.0,frames/animation_london_subtitled/00123.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_london_subtitled,126,77.5,frames/animation_london_subtitled/00126.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The image shows the British Museum in London.,logo,yes
+animation_london_subtitled,131,80.0,frames/animation_london_subtitled/00131.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The image shows the British Museum in London.,logo,yes
+animation_london_subtitled,141,85.0,frames/animation_london_subtitled/00141.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_london_subtitled,151,90.0,frames/animation_london_subtitled/00151.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_london_subtitled,161,95.0,frames/animation_london_subtitled/00161.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_london_subtitled,169,100.5,frames/animation_london_subtitled/00169.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_london_subtitled,178,105.0,frames/animation_london_subtitled/00178.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_london_subtitled,182,110.0,frames/animation_london_subtitled/00182.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_london_subtitled,192,115.0,frames/animation_london_subtitled/00192.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_london_subtitled,198,121.0,frames/animation_london_subtitled/00198.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_london_subtitled,206,125.0,frames/animation_london_subtitled/00206.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_london_subtitled,216,130.0,frames/animation_london_subtitled/00216.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_london_subtitled,226,135.0,frames/animation_london_subtitled/00226.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_london_subtitled,236,140.0,frames/animation_london_subtitled/00236.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_london_subtitled,246,145.0,frames/animation_london_subtitled/00246.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_london_subtitled,256,150.0,frames/animation_london_subtitled/00256.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_london_subtitled,266,155.0,frames/animation_london_subtitled/00266.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_london_subtitled,276,160.0,frames/animation_london_subtitled/00276.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_london_subtitled,286,165.0,frames/animation_london_subtitled/00286.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_london_subtitled,296,170.0,frames/animation_london_subtitled/00296.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_maslow_hierarchy,0,0.0,frames/animation_maslow_hierarchy/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_maslow_hierarchy,9,5.0,frames/animation_maslow_hierarchy/00009.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_maslow_hierarchy,19,10.0,frames/animation_maslow_hierarchy/00019.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_maslow_hierarchy,29,15.0,frames/animation_maslow_hierarchy/00029.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_maslow_hierarchy,38,20.5,frames/animation_maslow_hierarchy/00038.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_maslow_hierarchy,46,25.0,frames/animation_maslow_hierarchy/00046.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_maslow_hierarchy,56,30.0,frames/animation_maslow_hierarchy/00056.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_maslow_hierarchy,65,35.5,frames/animation_maslow_hierarchy/00065.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_maslow_hierarchy,74,40.0,frames/animation_maslow_hierarchy/00074.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_maslow_hierarchy,84,45.0,frames/animation_maslow_hierarchy/00084.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_maslow_hierarchy,93,50.0,frames/animation_maslow_hierarchy/00093.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_maslow_hierarchy,102,55.0,frames/animation_maslow_hierarchy/00102.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_maslow_hierarchy,112,60.0,frames/animation_maslow_hierarchy/00112.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_maslow_hierarchy,122,65.0,frames/animation_maslow_hierarchy/00122.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_maslow_hierarchy,130,70.0,frames/animation_maslow_hierarchy/00130.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_maslow_hierarchy,140,75.0,frames/animation_maslow_hierarchy/00140.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_maslow_hierarchy,150,80.0,frames/animation_maslow_hierarchy/00150.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_maslow_hierarchy,160,85.0,frames/animation_maslow_hierarchy/00160.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_maslow_hierarchy,170,90.0,frames/animation_maslow_hierarchy/00170.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_maslow_hierarchy,178,95.0,frames/animation_maslow_hierarchy/00178.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_maslow_hierarchy,188,100.0,frames/animation_maslow_hierarchy/00188.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_maslow_hierarchy,198,105.0,frames/animation_maslow_hierarchy/00198.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_maslow_hierarchy,208,110.0,frames/animation_maslow_hierarchy/00208.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_maslow_hierarchy,218,115.0,frames/animation_maslow_hierarchy/00218.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_maslow_hierarchy,226,120.0,frames/animation_maslow_hierarchy/00226.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_maslow_hierarchy,236,125.0,frames/animation_maslow_hierarchy/00236.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_maslow_hierarchy,246,130.0,frames/animation_maslow_hierarchy/00246.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_maslow_hierarchy,254,135.0,frames/animation_maslow_hierarchy/00254.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_maslow_hierarchy,263,140.0,frames/animation_maslow_hierarchy/00263.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_maslow_hierarchy,273,145.0,frames/animation_maslow_hierarchy/00273.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_maslow_hierarchy,283,150.0,frames/animation_maslow_hierarchy/00283.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_maslow_hierarchy,293,155.0,frames/animation_maslow_hierarchy/00293.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_maslow_hierarchy,303,162.0,frames/animation_maslow_hierarchy/00303.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_maslow_hierarchy,309,165.0,frames/animation_maslow_hierarchy/00309.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_project_management,0,0.0,frames/animation_project_management/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_project_management,7,5.0,frames/animation_project_management/00007.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_project_management,12,10.0,frames/animation_project_management/00012.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_project_management,21,15.0,frames/animation_project_management/00021.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_project_management,28,20.0,frames/animation_project_management/00028.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_project_management,32,25.5,frames/animation_project_management/00032.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_project_management,37,30.0,frames/animation_project_management/00037.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_project_management,46,35.0,frames/animation_project_management/00046.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_project_management,54,40.0,frames/animation_project_management/00054.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_project_management,58,45.5,frames/animation_project_management/00058.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_project_management,66,50.0,frames/animation_project_management/00066.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_project_management,73,55.5,frames/animation_project_management/00073.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_project_management,77,61.5,frames/animation_project_management/00077.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_project_management,83,68.5,frames/animation_project_management/00083.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_project_management,86,70.0,frames/animation_project_management/00086.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_project_management,94,75.0,frames/animation_project_management/00094.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_project_management,99,80.0,frames/animation_project_management/00099.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_project_management,104,88.0,frames/animation_project_management/00104.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_project_management,108,90.0,frames/animation_project_management/00108.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_project_management,114,97.5,frames/animation_project_management/00114.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_project_management,119,100.0,frames/animation_project_management/00119.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_project_management,129,105.0,frames/animation_project_management/00129.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_project_management,134,111.0,frames/animation_project_management/00134.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_project_management,141,115.0,frames/animation_project_management/00141.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_project_management,145,123.0,frames/animation_project_management/00145.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_project_management,146,127.0,frames/animation_project_management/00146.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_project_management,148,130.5,frames/animation_project_management/00148.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_project_management,151,138.5,frames/animation_project_management/00151.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_project_management,152,145.5,frames/animation_project_management/00152.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_project_management,157,154.0,frames/animation_project_management/00157.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_project_management,159,155.0,frames/animation_project_management/00159.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_rip_van_winkle,0,0.0,frames/animation_rip_van_winkle/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_rip_van_winkle,7,6.0,frames/animation_rip_van_winkle/00007.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_rip_van_winkle,11,10.0,frames/animation_rip_van_winkle/00011.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_rip_van_winkle,19,21.0,frames/animation_rip_van_winkle/00019.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_rip_van_winkle,25,28.0,frames/animation_rip_van_winkle/00025.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows Pac Van Winkle, a character from the video game ""Pac-Man.""",cartoon character,yes
+animation_rip_van_winkle,26,34.5,frames/animation_rip_van_winkle/00026.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_rip_van_winkle,27,35.0,frames/animation_rip_van_winkle/00027.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_rip_van_winkle,35,40.5,frames/animation_rip_van_winkle/00035.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_rip_van_winkle,38,45.0,frames/animation_rip_van_winkle/00038.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_rip_van_winkle,42,50.0,frames/animation_rip_van_winkle/00042.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows a cartoon character named Rip Van Winkle.,cartoon character,yes
+animation_rip_van_winkle,45,55.5,frames/animation_rip_van_winkle/00045.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,Rip Van Winkle is a character in the story.,cartoon character,yes
+animation_rip_van_winkle,51,60.0,frames/animation_rip_van_winkle/00051.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_rip_van_winkle,61,65.0,frames/animation_rip_van_winkle/00061.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_rip_van_winkle,71,70.0,frames/animation_rip_van_winkle/00071.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_rip_van_winkle,76,75.0,frames/animation_rip_van_winkle/00076.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_rip_van_winkle,81,85.0,frames/animation_rip_van_winkle/00081.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_rip_van_winkle,89,93.5,frames/animation_rip_van_winkle/00089.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_rip_van_winkle,92,95.0,frames/animation_rip_van_winkle/00092.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_rip_van_winkle,97,104.0,frames/animation_rip_van_winkle/00097.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_rip_van_winkle,98,109.0,frames/animation_rip_van_winkle/00098.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_rip_van_winkle,100,110.0,frames/animation_rip_van_winkle/00100.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_rip_van_winkle,102,115.0,frames/animation_rip_van_winkle/00102.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_rip_van_winkle,104,120.0,frames/animation_rip_van_winkle/00104.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_rip_van_winkle,107,126.5,frames/animation_rip_van_winkle/00107.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_rip_van_winkle,113,130.0,frames/animation_rip_van_winkle/00113.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"A cartoon character is standing in front of a historical site, possibly a theater.",cartoon character,yes
+animation_rip_van_winkle,117,135.0,frames/animation_rip_van_winkle/00117.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The image shows a scenic view of a Greek amphitheater with a cartoon character standing in front of,cartoon character,yes
+animation_rip_van_winkle,121,142.0,frames/animation_rip_van_winkle/00121.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_rip_van_winkle,127,151.0,frames/animation_rip_van_winkle/00127.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_rip_van_winkle,129,156.0,frames/animation_rip_van_winkle/00129.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_rip_van_winkle,131,162.0,frames/animation_rip_van_winkle/00131.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_rip_van_winkle,135,167.0,frames/animation_rip_van_winkle/00135.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_rip_van_winkle,138,170.0,frames/animation_rip_van_winkle/00138.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+animation_rip_van_winkle,141,179.0,frames/animation_rip_van_winkle/00141.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+footage_first_aid_basics,0,0.0,frames/footage_first_aid_basics/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+footage_first_aid_basics,10,5.0,frames/footage_first_aid_basics/00010.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+footage_first_aid_basics,18,10.0,frames/footage_first_aid_basics/00018.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows a man standing in front of a podium with a green heart rate monitor in the,cartoon character,yes
+footage_first_aid_basics,28,15.0,frames/footage_first_aid_basics/00028.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a man standing behind a podium with a sign that reads ""FIRST AID BAS",banner,yes
+footage_first_aid_basics,38,20.0,frames/footage_first_aid_basics/00038.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The image shows a medical professional with a mask, and two smartphones displaying safety lessons and a signature.",cartoon character,yes
+footage_first_aid_basics,48,25.0,frames/footage_first_aid_basics/00048.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+footage_first_aid_basics,58,30.0,frames/footage_first_aid_basics/00058.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a man standing behind a podium with a clipboard displaying the word ""First Aid.""",logo,yes
+footage_first_aid_basics,68,35.0,frames/footage_first_aid_basics/00068.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows a man giving a presentation on first aid basics.,banner,yes
+footage_first_aid_basics,78,40.0,frames/footage_first_aid_basics/00078.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A man is giving a presentation on CPR.,logo,yes
+footage_first_aid_basics,88,45.0,frames/footage_first_aid_basics/00088.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+footage_first_aid_basics,98,50.0,frames/footage_first_aid_basics/00098.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows a man giving a presentation on first aid basics.,banner,yes
+footage_first_aid_basics,108,55.0,frames/footage_first_aid_basics/00108.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows a man standing behind a podium with a green heart rate monitor in the background.,banner,yes
+footage_first_aid_basics,118,60.0,frames/footage_first_aid_basics/00118.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+footage_first_aid_basics,128,65.0,frames/footage_first_aid_basics/00128.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A construction worker injured and calling for help.,clip art,yes
+footage_first_aid_basics,138,70.0,frames/footage_first_aid_basics/00138.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A construction worker assisting an injured colleague.,clip art,yes
+footage_first_aid_basics,148,75.0,frames/footage_first_aid_basics/00148.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows a man giving a presentation on first aid basics.,clip art,yes
+footage_first_aid_basics,157,80.0,frames/footage_first_aid_basics/00157.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A man giving a first aid basics lecture.,clip art,yes
+footage_first_aid_basics,167,85.0,frames/footage_first_aid_basics/00167.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A man giving a first aid basics lecture.,clip art,yes
+footage_first_aid_basics,177,90.0,frames/footage_first_aid_basics/00177.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A man in a wheelchair with a backpack.,clip art,yes
+footage_first_aid_basics,187,95.0,frames/footage_first_aid_basics/00187.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a man standing behind a podium with a red sign that says ""FIRST AID",banner,yes
+footage_first_aid_basics,196,100.0,frames/footage_first_aid_basics/00196.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+footage_first_aid_basics,206,105.0,frames/footage_first_aid_basics/00206.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+footage_first_aid_basics,216,110.0,frames/footage_first_aid_basics/00216.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows a man giving a presentation on first aid basics.,banner,yes
+footage_first_aid_basics,226,115.0,frames/footage_first_aid_basics/00226.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows a man giving a presentation on first aid basics.,banner,yes
+footage_first_aid_basics,236,120.0,frames/footage_first_aid_basics/00236.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows a man standing behind a podium with a green heart rate monitor in the background.,banner,yes
+footage_first_aid_basics,246,125.0,frames/footage_first_aid_basics/00246.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a first aid scenario where a person is lying on the ground, and another person",clip art,yes
+footage_first_aid_basics,256,130.0,frames/footage_first_aid_basics/00256.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A construction worker in a room with a bright light.,clip art,yes
+footage_first_aid_basics,266,135.0,frames/footage_first_aid_basics/00266.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"A man in a black shirt with his hands raised, standing in front of a striped background.",cartoon character,yes
+footage_first_aid_basics,276,140.0,frames/footage_first_aid_basics/00276.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows a man in a black shirt with a yellow and black striped background.,logo,yes
+footage_first_aid_basics,286,145.0,frames/footage_first_aid_basics/00286.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a man with a red background, holding a tablet and a phone, with the",logo,yes
+footage_first_aid_basics,296,150.0,frames/footage_first_aid_basics/00296.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a man in front of a striped background, with two tablet screens displaying safety inspection",logo,yes
+footage_first_aid_basics,306,155.0,frames/footage_first_aid_basics/00306.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows a man in a black shirt with a phone number and website.,logo,yes
+footage_first_aid_basics,313,160.0,frames/footage_first_aid_basics/00313.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+footage_osha_intro,0,0.0,frames/footage_osha_intro/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The image shows a woman in a red dress with floral patterns, standing in a room with a wooden",logo,yes
+footage_osha_intro,10,5.0,frames/footage_osha_intro/00010.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows a woman in a red dress with OSHA logo and gear icon.,logo,yes
+footage_osha_intro,20,10.0,frames/footage_osha_intro/00020.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows two women in front of a black background, with the words ""OMEGA TEST",logo,yes
+footage_osha_intro,30,15.0,frames/footage_osha_intro/00030.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+footage_osha_intro,40,20.0,frames/footage_osha_intro/00040.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a woman in a red dress with a floral pattern, standing in front of a",logo,yes
+footage_osha_intro,50,25.0,frames/footage_osha_intro/00050.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows a woman in front of a wooden background with the Occupational Safety and Health Act of,logo,yes
+footage_osha_intro,60,30.0,frames/footage_osha_intro/00060.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"A woman in a red dress with butterfly patterns, standing in front of a wooden wall.",logo,yes
+footage_osha_intro,70,35.0,frames/footage_osha_intro/00070.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows a woman in a red dress with OSHA symbols and text.,logo,yes
+footage_osha_intro,80,40.0,frames/footage_osha_intro/00080.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows a woman in a red dress with OSHA icons in the background.,logo,yes
+footage_osha_intro,90,45.0,frames/footage_osha_intro/00090.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a woman in an orange dress, with OSHA-related icons and text.",cartoon character,yes
+footage_osha_intro,100,50.0,frames/footage_osha_intro/00100.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a woman in a red dress with flowers, standing in front of a wooden background",logo,yes
+footage_osha_intro,110,55.0,frames/footage_osha_intro/00110.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a woman in a red dress with flowers, wearing a hard hat, and a",cartoon character,yes
+footage_osha_intro,120,60.0,frames/footage_osha_intro/00120.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a woman in a red dress with flowers, with a construction worker icon and the",cartoon character,yes
+footage_osha_intro,130,65.0,frames/footage_osha_intro/00130.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a woman in a red dress with floral patterns, standing in front of a wooden",logo,yes
+footage_osha_intro,140,70.0,frames/footage_osha_intro/00140.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a woman in a red dress with floral patterns, standing in front of a wooden",logo,yes
+footage_osha_intro,150,75.0,frames/footage_osha_intro/00150.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a woman in a red dress with flowers, standing in front of a wooden background",logo,yes
+footage_osha_intro,160,80.0,frames/footage_osha_intro/00160.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a woman in an orange dress, with the text ""OSHA Act"" and",logo,yes
+footage_osha_intro,170,85.0,frames/footage_osha_intro/00170.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a woman in a red dress with flowers, standing in front of a wooden background",logo,yes
+footage_osha_intro,180,90.0,frames/footage_osha_intro/00180.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a woman in an orange dress with flowers, standing in front of a wooden background",logo,yes
+footage_osha_intro,190,95.0,frames/footage_osha_intro/00190.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a woman in an orange dress with a floral pattern, standing in front of a",logo,yes
+footage_osha_intro,200,100.0,frames/footage_osha_intro/00200.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+footage_osha_intro,210,105.0,frames/footage_osha_intro/00210.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a woman in an orange dress with floral patterns, standing in front of a wooden",logo,yes
+footage_osha_intro,220,110.0,frames/footage_osha_intro/00220.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a woman in a red dress with flowers, standing in front of a wooden background",logo,yes
+footage_osha_intro,230,115.0,frames/footage_osha_intro/00230.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a woman in a red dress with flowers, standing in front of a wooden wall",cartoon character,yes
+footage_osha_intro,240,120.0,frames/footage_osha_intro/00240.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a woman in a red dress with flowers, with OSHA and dollar signs and",logo,yes
+footage_osha_intro,250,125.0,frames/footage_osha_intro/00250.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A woman in a red dress with blue and white flowers.,clip art,yes
+pen_angular_momentum,0,0.0,frames/pen_angular_momentum/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A hand holding a Crayola marker.,logo,yes
+pen_angular_momentum,9,5.5,frames/pen_angular_momentum/00009.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_angular_momentum,18,10.0,frames/pen_angular_momentum/00018.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_angular_momentum,23,15.5,frames/pen_angular_momentum/00023.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A hand holding a Crayola marker.,logo,yes
+pen_angular_momentum,32,20.0,frames/pen_angular_momentum/00032.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_angular_momentum,42,25.0,frames/pen_angular_momentum/00042.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_angular_momentum,50,30.0,frames/pen_angular_momentum/00050.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_angular_momentum,53,35.5,frames/pen_angular_momentum/00053.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_angular_momentum,61,40.5,frames/pen_angular_momentum/00061.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_angular_momentum,70,46.5,frames/pen_angular_momentum/00070.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A hand holding a Crayola marker.,logo,yes
+pen_angular_momentum,77,50.5,frames/pen_angular_momentum/00077.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_angular_momentum,85,55.0,frames/pen_angular_momentum/00085.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_angular_momentum,90,61.5,frames/pen_angular_momentum/00090.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_angular_momentum,97,65.0,frames/pen_angular_momentum/00097.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_angular_momentum,106,70.0,frames/pen_angular_momentum/00106.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_angular_momentum,115,75.0,frames/pen_angular_momentum/00115.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_angular_momentum,121,80.0,frames/pen_angular_momentum/00121.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_angular_momentum,130,85.0,frames/pen_angular_momentum/00130.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_angular_momentum,140,90.5,frames/pen_angular_momentum/00140.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_angular_momentum,149,95.0,frames/pen_angular_momentum/00149.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_angular_momentum,158,101.0,frames/pen_angular_momentum/00158.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_angular_momentum,165,109.0,frames/pen_angular_momentum/00165.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A hand holding a Crayola marker.,logo,yes
+pen_angular_momentum,167,110.0,frames/pen_angular_momentum/00167.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_angular_momentum,175,115.5,frames/pen_angular_momentum/00175.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_angular_momentum,183,120.0,frames/pen_angular_momentum/00183.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_angular_momentum,190,125.0,frames/pen_angular_momentum/00190.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_angular_momentum,199,130.0,frames/pen_angular_momentum/00199.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_angular_momentum,205,135.5,frames/pen_angular_momentum/00205.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_angular_momentum,213,140.0,frames/pen_angular_momentum/00213.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_angular_momentum,222,146.0,frames/pen_angular_momentum/00222.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_angular_momentum,230,150.0,frames/pen_angular_momentum/00230.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A hand holding a Crayola marker.,logo,yes
+pen_angular_momentum,237,160.5,frames/pen_angular_momentum/00237.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_angular_momentum,240,166.5,frames/pen_angular_momentum/00240.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_angular_momentum,245,170.0,frames/pen_angular_momentum/00245.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_angular_momentum,249,178.0,frames/pen_angular_momentum/00249.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_angular_momentum,250,183.0,frames/pen_angular_momentum/00250.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_angular_momentum,251,188.0,frames/pen_angular_momentum/00251.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_angular_momentum,254,194.5,frames/pen_angular_momentum/00254.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_antimatter,0,0.0,frames/pen_antimatter/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A hand holding a Crayola marker.,logo,yes
+pen_antimatter,9,5.0,frames/pen_antimatter/00009.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_antimatter,17,10.0,frames/pen_antimatter/00017.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_antimatter,20,15.5,frames/pen_antimatter/00020.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_antimatter,27,20.0,frames/pen_antimatter/00027.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_antimatter,36,26.0,frames/pen_antimatter/00036.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_antimatter,43,30.0,frames/pen_antimatter/00043.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_antimatter,51,35.0,frames/pen_antimatter/00051.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_antimatter,60,40.5,frames/pen_antimatter/00060.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_antimatter,65,45.5,frames/pen_antimatter/00065.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_antimatter,72,50.0,frames/pen_antimatter/00072.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_antimatter,79,55.0,frames/pen_antimatter/00079.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A hand holding a Crayola marker.,logo,yes
+pen_antimatter,89,60.0,frames/pen_antimatter/00089.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_antimatter,97,65.5,frames/pen_antimatter/00097.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A hand holding a Crayola marker.,logo,yes
+pen_antimatter,105,72.0,frames/pen_antimatter/00105.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_antimatter,110,75.0,frames/pen_antimatter/00110.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_antimatter,118,80.5,frames/pen_antimatter/00118.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_antimatter,125,85.0,frames/pen_antimatter/00125.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_antimatter,134,91.5,frames/pen_antimatter/00134.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_antimatter,139,98.0,frames/pen_antimatter/00139.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_antimatter,141,100.0,frames/pen_antimatter/00141.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_antimatter,148,105.0,frames/pen_antimatter/00148.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_antimatter,154,110.0,frames/pen_antimatter/00154.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_antimatter,163,115.0,frames/pen_antimatter/00163.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_antimatter,172,120.0,frames/pen_antimatter/00172.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_antimatter,178,126.5,frames/pen_antimatter/00178.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_antimatter,184,130.0,frames/pen_antimatter/00184.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_antimatter,192,136.0,frames/pen_antimatter/00192.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_antimatter,198,140.5,frames/pen_antimatter/00198.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A hand holding a Crayola marker.,logo,yes
+pen_antimatter,205,145.0,frames/pen_antimatter/00205.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_antimatter,211,150.0,frames/pen_antimatter/00211.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_antimatter,218,155.0,frames/pen_antimatter/00218.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_antimatter,223,160.0,frames/pen_antimatter/00223.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_antimatter,230,165.5,frames/pen_antimatter/00230.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_antimatter,236,170.0,frames/pen_antimatter/00236.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_antimatter,245,175.0,frames/pen_antimatter/00245.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_ap_physics_intro,0,0.0,frames/pen_ap_physics_intro/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_ap_physics_intro,10,5.0,frames/pen_ap_physics_intro/00010.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_ap_physics_intro,20,10.0,frames/pen_ap_physics_intro/00020.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_ap_physics_intro,30,15.0,frames/pen_ap_physics_intro/00030.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_ap_physics_intro,40,20.0,frames/pen_ap_physics_intro/00040.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_ap_physics_intro,50,25.0,frames/pen_ap_physics_intro/00050.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_ap_physics_intro,60,30.0,frames/pen_ap_physics_intro/00060.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_ap_physics_intro,68,35.0,frames/pen_ap_physics_intro/00068.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_ap_physics_intro,76,40.5,frames/pen_ap_physics_intro/00076.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_ap_physics_intro,81,45.5,frames/pen_ap_physics_intro/00081.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_ap_physics_intro,90,50.0,frames/pen_ap_physics_intro/00090.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_ap_physics_intro,97,55.5,frames/pen_ap_physics_intro/00097.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_ap_physics_intro,104,60.0,frames/pen_ap_physics_intro/00104.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows the word ""Dynamics"" on a black background.",logo,yes
+pen_ap_physics_intro,114,65.0,frames/pen_ap_physics_intro/00114.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_ap_physics_intro,124,70.0,frames/pen_ap_physics_intro/00124.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_ap_physics_intro,134,75.0,frames/pen_ap_physics_intro/00134.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_ap_physics_intro,144,80.0,frames/pen_ap_physics_intro/00144.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_ap_physics_intro,150,86.0,frames/pen_ap_physics_intro/00150.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"A particle accelerator, the Large Hadron Collider (LHC).",clip art,yes
+pen_ap_physics_intro,152,90.0,frames/pen_ap_physics_intro/00152.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_ap_physics_intro,161,95.0,frames/pen_ap_physics_intro/00161.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_ap_physics_intro,171,100.0,frames/pen_ap_physics_intro/00171.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_ap_physics_intro,181,105.0,frames/pen_ap_physics_intro/00181.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_ap_physics_intro,191,110.0,frames/pen_ap_physics_intro/00191.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_ap_physics_intro,201,115.0,frames/pen_ap_physics_intro/00201.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_ap_physics_intro,209,120.5,frames/pen_ap_physics_intro/00209.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_ap_physics_intro,216,125.5,frames/pen_ap_physics_intro/00216.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A hand holding a hose spraying water.,clip art,yes
+pen_ap_physics_intro,225,130.0,frames/pen_ap_physics_intro/00225.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_ap_physics_intro,235,135.0,frames/pen_ap_physics_intro/00235.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_ap_physics_intro,245,142.0,frames/pen_ap_physics_intro/00245.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_ap_physics_intro,249,145.0,frames/pen_ap_physics_intro/00249.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_ap_physics_intro,255,150.0,frames/pen_ap_physics_intro/00255.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_ap_physics_intro,264,155.0,frames/pen_ap_physics_intro/00264.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_ap_physics_intro,271,161.5,frames/pen_ap_physics_intro/00271.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_ap_physics_intro,274,165.0,frames/pen_ap_physics_intro/00274.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_ap_physics_intro,280,170.0,frames/pen_ap_physics_intro/00280.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_ap_physics_intro,286,182.0,frames/pen_ap_physics_intro/00286.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+pen_ap_physics_intro,292,185.0,frames/pen_ap_physics_intro/00292.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_cognitive_load_theory,0,0.0,frames/slides_cognitive_load_theory/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_cognitive_load_theory,8,5.0,frames/slides_cognitive_load_theory/00008.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_cognitive_load_theory,16,10.0,frames/slides_cognitive_load_theory/00016.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_cognitive_load_theory,26,15.0,frames/slides_cognitive_load_theory/00026.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_cognitive_load_theory,35,20.0,frames/slides_cognitive_load_theory/00035.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_cognitive_load_theory,44,25.0,frames/slides_cognitive_load_theory/00044.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_cognitive_load_theory,54,30.0,frames/slides_cognitive_load_theory/00054.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_cognitive_load_theory,61,35.5,frames/slides_cognitive_load_theory/00061.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_cognitive_load_theory,70,40.0,frames/slides_cognitive_load_theory/00070.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_cognitive_load_theory,78,45.0,frames/slides_cognitive_load_theory/00078.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_cognitive_load_theory,84,50.0,frames/slides_cognitive_load_theory/00084.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_cognitive_load_theory,94,55.0,frames/slides_cognitive_load_theory/00094.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_cognitive_load_theory,104,60.0,frames/slides_cognitive_load_theory/00104.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_cognitive_load_theory,111,65.5,frames/slides_cognitive_load_theory/00111.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_cognitive_load_theory,119,70.0,frames/slides_cognitive_load_theory/00119.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_cognitive_load_theory,129,75.0,frames/slides_cognitive_load_theory/00129.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_cognitive_load_theory,139,80.0,frames/slides_cognitive_load_theory/00139.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_cognitive_load_theory,149,85.0,frames/slides_cognitive_load_theory/00149.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_cognitive_load_theory,159,90.0,frames/slides_cognitive_load_theory/00159.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_cognitive_load_theory,169,95.0,frames/slides_cognitive_load_theory/00169.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_cognitive_load_theory,179,100.0,frames/slides_cognitive_load_theory/00179.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_cognitive_load_theory,189,105.0,frames/slides_cognitive_load_theory/00189.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_cognitive_load_theory,199,110.0,frames/slides_cognitive_load_theory/00199.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_cognitive_load_theory,209,115.0,frames/slides_cognitive_load_theory/00209.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_cognitive_load_theory,219,120.0,frames/slides_cognitive_load_theory/00219.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_cognitive_load_theory,229,125.0,frames/slides_cognitive_load_theory/00229.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_cognitive_load_theory,239,130.0,frames/slides_cognitive_load_theory/00239.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_cognitive_load_theory,248,135.0,frames/slides_cognitive_load_theory/00248.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_cognitive_load_theory,258,140.0,frames/slides_cognitive_load_theory/00258.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_cognitive_load_theory,268,145.0,frames/slides_cognitive_load_theory/00268.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_cognitive_load_theory,278,150.0,frames/slides_cognitive_load_theory/00278.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_cognitive_load_theory,288,155.0,frames/slides_cognitive_load_theory/00288.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_cognitive_load_theory,298,160.0,frames/slides_cognitive_load_theory/00298.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_cognitive_load_theory,308,165.0,frames/slides_cognitive_load_theory/00308.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_cognitive_load_theory,314,170.0,frames/slides_cognitive_load_theory/00314.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The image shows the McGraw Hill Education logo.,logo,yes
+slides_pedagogy_explained,0,0.0,frames/slides_pedagogy_explained/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_pedagogy_explained,1,8.0,frames/slides_pedagogy_explained/00001.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_pedagogy_explained,4,10.0,frames/slides_pedagogy_explained/00004.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_pedagogy_explained,14,20.5,frames/slides_pedagogy_explained/00014.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_pedagogy_explained,16,29.0,frames/slides_pedagogy_explained/00016.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_pedagogy_explained,17,45.0,frames/slides_pedagogy_explained/00017.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_pedagogy_explained,18,59.0,frames/slides_pedagogy_explained/00018.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_pedagogy_explained,19,63.5,frames/slides_pedagogy_explained/00019.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_pedagogy_explained,20,69.0,frames/slides_pedagogy_explained/00020.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_pedagogy_explained,21,77.5,frames/slides_pedagogy_explained/00021.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_pedagogy_explained,22,82.0,frames/slides_pedagogy_explained/00022.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_pedagogy_explained,23,90.0,frames/slides_pedagogy_explained/00023.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_pedagogy_explained,25,99.5,frames/slides_pedagogy_explained/00025.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_pedagogy_explained,26,107.0,frames/slides_pedagogy_explained/00026.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_pedagogy_explained,27,115.5,frames/slides_pedagogy_explained/00027.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_pedagogy_explained,29,125.5,frames/slides_pedagogy_explained/00029.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_pedagogy_explained,30,134.0,frames/slides_pedagogy_explained/00030.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_pedagogy_explained,31,142.0,frames/slides_pedagogy_explained/00031.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_pedagogy_explained,32,150.5,frames/slides_pedagogy_explained/00032.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_pedagogy_explained,33,159.5,frames/slides_pedagogy_explained/00033.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_pedagogy_explained,34,160.5,frames/slides_pedagogy_explained/00034.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_pedagogy_explained,43,165.0,frames/slides_pedagogy_explained/00043.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_pedagogy_explained,47,173.5,frames/slides_pedagogy_explained/00047.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_photosynthesis,0,0.0,frames/slides_photosynthesis/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The image shows a scenic view of a forest with the sun shining through the trees.,clip art,yes
+slides_photosynthesis,10,5.0,frames/slides_photosynthesis/00010.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a scenic landscape with a golden frame and text that reads ""Welcome to the Bi",banner,yes
+slides_photosynthesis,20,10.0,frames/slides_photosynthesis/00020.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows green leaves with sunlight shining through.,logo,yes
+slides_photosynthesis,30,15.0,frames/slides_photosynthesis/00030.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_photosynthesis,40,20.0,frames/slides_photosynthesis/00040.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_photosynthesis,50,25.0,frames/slides_photosynthesis/00050.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_photosynthesis,60,30.0,frames/slides_photosynthesis/00060.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The image shows chloroplasts in a plant cell during light-dependent reactions.,clip art,yes
+slides_photosynthesis,70,35.0,frames/slides_photosynthesis/00070.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A microscopic view of plant cells with chlorophyll.,clip art,yes
+slides_photosynthesis,80,40.0,frames/slides_photosynthesis/00080.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_photosynthesis,90,45.0,frames/slides_photosynthesis/00090.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_photosynthesis,100,50.0,frames/slides_photosynthesis/00100.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_photosynthesis,110,55.0,frames/slides_photosynthesis/00110.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a satellite view of the Earth, highlighting the importance of photosynthesis in sustaining life",clip art,yes
+slides_photosynthesis,120,60.0,frames/slides_photosynthesis/00120.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_photosynthesis,130,65.0,frames/slides_photosynthesis/00130.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_photosynthesis,140,70.0,frames/slides_photosynthesis/00140.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_photosynthesis,150,75.0,frames/slides_photosynthesis/00150.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_photosynthesis,160,80.0,frames/slides_photosynthesis/00160.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_photosynthesis,170,85.0,frames/slides_photosynthesis/00170.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,Water enters plant roots through roots.,clip art,yes
+slides_photosynthesis,180,90.0,frames/slides_photosynthesis/00180.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,Chlorophyll in green leaves captures sunlight.,banner,yes
+slides_photosynthesis,190,95.0,frames/slides_photosynthesis/00190.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a bright sun with a halo effect, and there is a caption about photosynthesis",banner,yes
+slides_photosynthesis,200,100.0,frames/slides_photosynthesis/00200.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a bright sun with a halo, and there is text about photosynthesis being affected",logo,yes
+slides_photosynthesis,210,105.0,frames/slides_photosynthesis/00210.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows the oxygen atom and its atomic number.,button,yes
+slides_photosynthesis,220,110.0,frames/slides_photosynthesis/00220.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_photosynthesis,230,115.0,frames/slides_photosynthesis/00230.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_photosynthesis,240,120.0,frames/slides_photosynthesis/00240.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_photosynthesis,250,125.0,frames/slides_photosynthesis/00250.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,Photosynthetic organisms produce their own food.,clip art,yes
+slides_photosynthesis,260,130.0,frames/slides_photosynthesis/00260.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows sunlight filtering through a forest, highlighting the presence of photosynthetic organisms.",clip art,yes
+slides_photosynthesis,270,135.0,frames/slides_photosynthesis/00270.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A lush forest with sunlight filtering through the trees.,clip art,yes
+slides_photosynthesis,280,140.0,frames/slides_photosynthesis/00280.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A scientist examining a leaf in a petri dish.,logo,yes
+slides_photosynthesis,290,145.0,frames/slides_photosynthesis/00290.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,Scientists studying ways to enhance photosynthesis in crops.,logo,yes
+slides_photosynthesis,300,150.0,frames/slides_photosynthesis/00300.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A plant with water droplets.,logo,yes
+slides_photosynthesis,310,155.0,frames/slides_photosynthesis/00310.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows the Earth from space, highlighting its continents and oceans.",logo,yes
+slides_photosynthesis,320,160.0,frames/slides_photosynthesis/00320.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A lush tropical rainforest with bubbles.,clip art,yes
+slides_tidal_power_subtitled,0,0.0,frames/slides_tidal_power_subtitled/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_tidal_power_subtitled,9,5.0,frames/slides_tidal_power_subtitled/00009.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_tidal_power_subtitled,18,10.0,frames/slides_tidal_power_subtitled/00018.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_tidal_power_subtitled,28,15.0,frames/slides_tidal_power_subtitled/00028.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A group of people at a conference.,banner,yes
+slides_tidal_power_subtitled,38,20.0,frames/slides_tidal_power_subtitled/00038.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_tidal_power_subtitled,48,25.0,frames/slides_tidal_power_subtitled/00048.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_tidal_power_subtitled,58,30.0,frames/slides_tidal_power_subtitled/00058.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_tidal_power_subtitled,67,35.0,frames/slides_tidal_power_subtitled/00067.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_tidal_power_subtitled,77,40.0,frames/slides_tidal_power_subtitled/00077.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_tidal_power_subtitled,87,45.0,frames/slides_tidal_power_subtitled/00087.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_tidal_power_subtitled,95,50.0,frames/slides_tidal_power_subtitled/00095.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_tidal_power_subtitled,105,55.0,frames/slides_tidal_power_subtitled/00105.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_tidal_power_subtitled,115,60.0,frames/slides_tidal_power_subtitled/00115.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_tidal_power_subtitled,125,65.0,frames/slides_tidal_power_subtitled/00125.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_tidal_power_subtitled,132,70.0,frames/slides_tidal_power_subtitled/00132.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_tidal_power_subtitled,142,75.0,frames/slides_tidal_power_subtitled/00142.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_tidal_power_subtitled,152,80.0,frames/slides_tidal_power_subtitled/00152.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_tidal_power_subtitled,162,85.0,frames/slides_tidal_power_subtitled/00162.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_tidal_power_subtitled,172,90.0,frames/slides_tidal_power_subtitled/00172.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_tidal_power_subtitled,182,95.0,frames/slides_tidal_power_subtitled/00182.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_tidal_power_subtitled,191,101.0,frames/slides_tidal_power_subtitled/00191.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_tidal_power_subtitled,199,105.0,frames/slides_tidal_power_subtitled/00199.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_tidal_power_subtitled,209,110.0,frames/slides_tidal_power_subtitled/00209.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_tidal_power_subtitled,219,115.0,frames/slides_tidal_power_subtitled/00219.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_tidal_power_subtitled,229,120.0,frames/slides_tidal_power_subtitled/00229.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_tidal_power_subtitled,239,125.0,frames/slides_tidal_power_subtitled/00239.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_tidal_power_subtitled,249,130.0,frames/slides_tidal_power_subtitled/00249.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_tidal_power_subtitled,259,135.0,frames/slides_tidal_power_subtitled/00259.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_tidal_power_subtitled,269,140.0,frames/slides_tidal_power_subtitled/00269.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a dynamic tidal power plant in China, generating clean energy for new generations.",banner,yes
+slides_tidal_power_subtitled,279,145.0,frames/slides_tidal_power_subtitled/00279.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows a dynamic tidal power project.,banner,yes
+slides_tidal_power_subtitled,289,150.0,frames/slides_tidal_power_subtitled/00289.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows a dynamic tidal power plant.,logo,yes
+slides_tidal_power_subtitled,299,155.0,frames/slides_tidal_power_subtitled/00299.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows a dynamic tidal power plant in a coastal area.,banner,yes
+slides_tidal_power_subtitled,300,160.5,frames/slides_tidal_power_subtitled/00300.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The image shows a dynamic tidal power project with a bridge connecting two islands.,banner,yes
+slides_urine_production,0,0.0,frames/slides_urine_production/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_urine_production,10,5.0,frames/slides_urine_production/00010.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows a transparent human body with a blue background.,banner,yes
+slides_urine_production,20,10.0,frames/slides_urine_production/00020.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,Two jars of urine.,cartoon character,yes
+slides_urine_production,30,15.0,frames/slides_urine_production/00030.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A medical test involving urine samples.,cartoon character,yes
+slides_urine_production,40,20.0,frames/slides_urine_production/00040.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_urine_production,50,25.0,frames/slides_urine_production/00050.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_urine_production,60,30.0,frames/slides_urine_production/00060.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_urine_production,70,35.0,frames/slides_urine_production/00070.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_urine_production,80,40.0,frames/slides_urine_production/00080.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_urine_production,90,45.0,frames/slides_urine_production/00090.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_urine_production,100,50.0,frames/slides_urine_production/00100.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_urine_production,110,55.0,frames/slides_urine_production/00110.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_urine_production,120,60.0,frames/slides_urine_production/00120.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A urine color chart.,cartoon character,yes
+slides_urine_production,130,65.0,frames/slides_urine_production/00130.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A urine color chart.,cartoon character,yes
+slides_urine_production,140,70.0,frames/slides_urine_production/00140.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_urine_production,150,75.0,frames/slides_urine_production/00150.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_urine_production,160,80.0,frames/slides_urine_production/00160.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A urine sample with a doctor's note.,cartoon character,yes
+slides_urine_production,170,85.0,frames/slides_urine_production/00170.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A urine sample container.,cartoon character,yes
+slides_urine_production,180,90.0,frames/slides_urine_production/00180.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows a dehydration chart with different colors representing different levels of dehydration.,cartoon character,yes
+slides_urine_production,190,95.0,frames/slides_urine_production/00190.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A urine sample with a pH test strip.,cartoon character,yes
+slides_urine_production,200,100.0,frames/slides_urine_production/00200.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A urine test strip.,cartoon character,yes
+slides_urine_production,210,105.0,frames/slides_urine_production/00210.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A urine test with a doctor's hand holding a test strip.,cartoon character,yes
+slides_urine_production,220,110.0,frames/slides_urine_production/00220.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows a collection of kidney stones.,cartoon character,yes
+slides_urine_production,230,115.0,frames/slides_urine_production/00230.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows urine samples with a ruler for scale.,clip art,yes
+slides_urine_production,240,120.0,frames/slides_urine_production/00240.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A person examining a urine sample.,cartoon character,yes
+slides_urine_production,250,125.0,frames/slides_urine_production/00250.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A doctor holding a urine sample.,cartoon character,yes
+slides_urine_production,260,130.0,frames/slides_urine_production/00260.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A doctor holding a urine sample.,cartoon character,yes
+slides_urine_production,270,135.0,frames/slides_urine_production/00270.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A person holding a urine sample.,cartoon character,yes
+slides_urine_production,280,140.0,frames/slides_urine_production/00280.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A doctor examining a urine sample.,cartoon character,yes
+slides_urine_production,290,145.0,frames/slides_urine_production/00290.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A person holding two containers of urine.,cartoon character,yes
+slides_urine_production,300,150.0,frames/slides_urine_production/00300.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A scientist holding a blood sample.,cartoon character,yes
+slides_what_is_microlearning,0,0.0,frames/slides_what_is_microlearning/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_what_is_microlearning,8,5.0,frames/slides_what_is_microlearning/00008.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_what_is_microlearning,16,10.0,frames/slides_what_is_microlearning/00016.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_what_is_microlearning,23,16.5,frames/slides_what_is_microlearning/00023.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_what_is_microlearning,30,20.0,frames/slides_what_is_microlearning/00030.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_what_is_microlearning,40,25.0,frames/slides_what_is_microlearning/00040.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_what_is_microlearning,48,30.0,frames/slides_what_is_microlearning/00048.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"George Miller, a psychologist, is shown with a brain illustration.",logo,yes
+slides_what_is_microlearning,55,35.0,frames/slides_what_is_microlearning/00055.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_what_is_microlearning,63,40.0,frames/slides_what_is_microlearning/00063.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_what_is_microlearning,71,45.5,frames/slides_what_is_microlearning/00071.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_what_is_microlearning,78,50.0,frames/slides_what_is_microlearning/00078.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_what_is_microlearning,85,55.0,frames/slides_what_is_microlearning/00085.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_what_is_microlearning,94,60.0,frames/slides_what_is_microlearning/00094.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_what_is_microlearning,103,65.0,frames/slides_what_is_microlearning/00103.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The image shows a smartphone displaying the Google search homepage.,logo,yes
+slides_what_is_microlearning,110,70.0,frames/slides_what_is_microlearning/00110.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_what_is_microlearning,118,75.0,frames/slides_what_is_microlearning/00118.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_what_is_microlearning,127,80.0,frames/slides_what_is_microlearning/00127.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_what_is_microlearning,135,85.0,frames/slides_what_is_microlearning/00135.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_what_is_microlearning,145,90.0,frames/slides_what_is_microlearning/00145.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_what_is_microlearning,155,95.0,frames/slides_what_is_microlearning/00155.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_what_is_microlearning,165,100.0,frames/slides_what_is_microlearning/00165.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_what_is_microlearning,173,105.0,frames/slides_what_is_microlearning/00173.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_what_is_microlearning,179,110.5,frames/slides_what_is_microlearning/00179.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_what_is_microlearning,183,115.5,frames/slides_what_is_microlearning/00183.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_what_is_microlearning,189,120.0,frames/slides_what_is_microlearning/00189.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_what_is_microlearning,193,126.0,frames/slides_what_is_microlearning/00193.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_what_is_microlearning,195,131.5,frames/slides_what_is_microlearning/00195.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_what_is_microlearning,201,135.0,frames/slides_what_is_microlearning/00201.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_what_is_microlearning,208,140.0,frames/slides_what_is_microlearning/00208.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+slides_what_is_microlearning,212,145.0,frames/slides_what_is_microlearning/00212.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows a man with a phone and various icons related to microlearning.,logo,yes
+slides_what_is_microlearning,218,150.0,frames/slides_what_is_microlearning/00218.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test4,0,0.0,frames/test4/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test4,8,5.0,frames/test4/00008.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test4,16,10.5,frames/test4/00016.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test6,0,0.0,frames/test6/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test6,10,5.0,frames/test6/00010.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test6,15,10.0,frames/test6/00015.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test6,25,15.0,frames/test6/00025.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test6,34,22.0,frames/test6/00034.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test6,37,25.0,frames/test6/00037.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test6,47,30.0,frames/test6/00047.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test6,54,36.0,frames/test6/00054.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test6,56,40.5,frames/test6/00056.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test6,65,45.0,frames/test6/00065.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test6,72,50.0,frames/test6/00072.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test6,80,55.0,frames/test6/00080.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test6,84,60.0,frames/test6/00084.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test6,88,66.0,frames/test6/00088.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test6,95,70.0,frames/test6/00095.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test6,99,75.0,frames/test6/00099.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test6,105,80.0,frames/test6/00105.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test6,113,86.0,frames/test6/00113.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test6,117,92.0,frames/test6/00117.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test6,119,96.0,frames/test6/00119.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test6,120,104.5,frames/test6/00120.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test6,121,105.0,frames/test6/00121.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test6,131,110.5,frames/test6/00131.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test6,133,115.5,frames/test6/00133.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test6,136,120.0,frames/test6/00136.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test6,141,127.5,frames/test6/00141.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test6,146,130.0,frames/test6/00146.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test6,153,135.5,frames/test6/00153.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test6,162,140.0,frames/test6/00162.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test6,172,145.0,frames/test6/00172.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test6,174,150.5,frames/test6/00174.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test6,182,155.0,frames/test6/00182.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test6,189,160.5,frames/test6/00189.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test6,196,165.5,frames/test6/00196.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test6,201,170.5,frames/test6/00201.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A person is explaining a circuit diagram related to Hamming codes.,banner,yes
+test6,210,175.0,frames/test6/00210.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test6,220,180.0,frames/test6/00220.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test6,225,186.0,frames/test6/00225.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_1,0,0.0,frames/test_1/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a slide from a presentation on advanced refrigeration systems, discussing governing laws and theories",logo,yes
+test_1,7,5.0,frames/test_1/00007.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a slide from a presentation on advanced refrigeration systems, discussing governing laws and theories",logo,yes
+test_1,15,10.5,frames/test_1/00015.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a slide from a presentation on advanced refrigeration systems, discussing governing laws and theories",logo,yes
+test_1,21,15.0,frames/test_1/00021.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a slide from a presentation on advanced refrigeration systems, discussing governing laws and theories",logo,yes
+test_1,29,20.0,frames/test_1/00029.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a slide from a presentation on advanced refrigeration systems, discussing governing laws and theories",logo,yes
+test_1,36,25.0,frames/test_1/00036.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a slide from a presentation about advanced refrigeration systems, focusing on governing laws and",logo,yes
+test_1,44,30.5,frames/test_1/00044.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a slide from a presentation on advanced refrigeration systems, discussing governing laws and theories",logo,yes
+test_1,51,35.0,frames/test_1/00051.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a slide from a presentation on advanced refrigeration systems, discussing governing laws and theories",logo,yes
+test_1,58,41.0,frames/test_1/00058.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a slide from a presentation on advanced refrigeration systems, discussing governing laws and theories",logo,yes
+test_1,61,45.0,frames/test_1/00061.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a slide from a presentation on advanced refrigeration systems, discussing governing laws and theories",logo,yes
+test_1,69,50.0,frames/test_1/00069.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a slide from a presentation on advanced refrigeration systems, discussing governing laws and theories",logo,yes
+test_1,78,55.5,frames/test_1/00078.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a slide from a presentation on advanced refrigeration systems, discussing governing laws and theories",logo,yes
+test_1,82,60.0,frames/test_1/00082.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a slide from a presentation on advanced refrigeration systems, discussing governing laws and theories",logo,yes
+test_1,89,65.0,frames/test_1/00089.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a slide from a presentation on advanced refrigeration systems, discussing governing laws and theories",logo,yes
+test_1,96,70.0,frames/test_1/00096.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a slide from a presentation on advanced refrigeration systems, discussing governing laws and theories",logo,yes
+test_1,104,75.0,frames/test_1/00104.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a slide from a presentation on advanced refrigeration systems, discussing governing laws and theories",logo,yes
+test_1,110,81.0,frames/test_1/00110.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a slide from a presentation on advanced refrigeration systems, discussing governing laws and theories",logo,yes
+test_1,114,85.0,frames/test_1/00114.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a slide from a presentation on advanced refrigeration systems, discussing governing laws and theories",logo,yes
+test_1,123,90.0,frames/test_1/00123.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a slide from a presentation on advanced refrigeration systems, discussing governing laws and theories",logo,yes
+test_1,130,95.0,frames/test_1/00130.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a slide from a presentation on advanced refrigeration systems, discussing governing laws and theories",logo,yes
+test_1,138,100.0,frames/test_1/00138.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a slide from a presentation on advanced refrigeration systems, discussing governing laws and theories",logo,yes
+test_1,148,105.0,frames/test_1/00148.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a slide from a presentation on advanced refrigeration systems, discussing governing laws and theories",logo,yes
+test_1,156,110.0,frames/test_1/00156.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a slide from a presentation on advanced refrigeration systems, discussing governing laws and theories",logo,yes
+test_1,163,115.5,frames/test_1/00163.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a slide from a presentation on advanced refrigeration systems, discussing governing laws and theories",logo,yes
+test_1,172,120.0,frames/test_1/00172.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_1,178,125.0,frames/test_1/00178.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a slide from a presentation on advanced refrigeration systems, discussing governing laws and theories",logo,yes
+test_1,181,130.0,frames/test_1/00181.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a slide from a presentation on advanced refrigeration systems, discussing governing laws and theories",logo,yes
+test_1,184,136.0,frames/test_1/00184.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a slide from a presentation about advanced refrigeration systems, discussing governing laws and theories",logo,yes
+test_1,190,140.0,frames/test_1/00190.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a slide from a presentation on advanced refrigeration systems, discussing governing laws and theories",logo,yes
+test_1,197,145.0,frames/test_1/00197.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a slide from a presentation on advanced refrigeration systems, discussing governing laws and theories",logo,yes
+test_1,203,150.0,frames/test_1/00203.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a slide from a presentation on advanced refrigeration systems, discussing governing laws and theories",logo,yes
+test_1,211,155.0,frames/test_1/00211.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a slide from a presentation about advanced refrigeration systems, discussing governing laws and theories",logo,yes
+test_1,214,160.0,frames/test_1/00214.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a slide from a presentation on advanced refrigeration systems, discussing governing laws and theories",logo,yes
+test_26,0,0.0,frames/test_26/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_26,10,5.5,frames/test_26/00010.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_26,19,10.0,frames/test_26/00019.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_26,28,15.0,frames/test_26/00028.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_26,38,20.0,frames/test_26/00038.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_26,48,25.0,frames/test_26/00048.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_26,58,30.0,frames/test_26/00058.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_26,65,35.0,frames/test_26/00065.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_26,75,40.0,frames/test_26/00075.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_26,84,45.0,frames/test_26/00084.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_26,93,50.0,frames/test_26/00093.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_26,103,55.0,frames/test_26/00103.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_26,113,60.0,frames/test_26/00113.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_26,121,66.0,frames/test_26/00121.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_26,129,70.0,frames/test_26/00129.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_26,136,75.0,frames/test_26/00136.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_26,146,80.0,frames/test_26/00146.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_26,156,85.0,frames/test_26/00156.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_26,164,90.0,frames/test_26/00164.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_26,173,95.0,frames/test_26/00173.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_26,181,100.5,frames/test_26/00181.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_26,190,105.0,frames/test_26/00190.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_26,200,110.0,frames/test_26/00200.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_26,210,115.0,frames/test_26/00210.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_26,215,120.0,frames/test_26/00215.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_26,222,125.0,frames/test_26/00222.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_26,232,130.0,frames/test_26/00232.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_26,238,135.0,frames/test_26/00238.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_26,246,140.0,frames/test_26/00246.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_26,256,145.0,frames/test_26/00256.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_26,266,150.0,frames/test_26/00266.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_26,272,156.0,frames/test_26/00272.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_26,279,160.0,frames/test_26/00279.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_26,287,165.0,frames/test_26/00287.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_26,290,170.5,frames/test_26/00290.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_26,299,178.5,frames/test_26/00299.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_3,0,0.0,frames/test_3/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,Quantum Computation and Quantum Information lecture.,logo,yes
+test_3,4,5.5,frames/test_3/00004.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,Quantum computation and quantum information.,logo,yes
+test_3,9,11.5,frames/test_3/00009.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,Quantum computation and quantum information.,logo,yes
+test_3,10,15.5,frames/test_3/00010.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,Quantum computation and quantum information.,logo,yes
+test_3,11,21.5,frames/test_3/00011.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,Quantum computation and quantum information.,logo,yes
+test_3,13,26.5,frames/test_3/00013.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,Quantum computation and quantum information.,logo,yes
+test_3,15,34.0,frames/test_3/00015.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,Quantum computation and quantum information.,logo,yes
+test_3,16,38.0,frames/test_3/00016.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,Quantum computation and quantum information.,logo,yes
+test_3,18,41.0,frames/test_3/00018.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A handwritten note on quantum computing and quantum information.,logo,yes
+test_3,20,48.0,frames/test_3/00020.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_3,21,50.5,frames/test_3/00021.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_3,23,55.0,frames/test_3/00023.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A handwritten note on quantum computing and quantum information.,logo,yes
+test_3,25,60.5,frames/test_3/00025.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_3,27,68.5,frames/test_3/00027.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A handwritten note on quantum computing and information.,logo,yes
+test_3,28,71.5,frames/test_3/00028.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows handwritten notes on a piece of paper.,logo,yes
+test_3,30,76.5,frames/test_3/00030.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_3,32,81.0,frames/test_3/00032.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_3,36,87.0,frames/test_3/00036.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows a handwritten note on a piece of paper.,logo,yes
+test_3,38,91.5,frames/test_3/00038.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,Quantum blackbox is a quantum computer.,logo,yes
+test_3,39,95.0,frames/test_3/00039.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows a handwritten note on a piece of paper.,logo,yes
+test_3,41,102.0,frames/test_3/00041.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows a handwritten note on a piece of paper.,logo,yes
+test_3,42,105.0,frames/test_3/00042.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"Quantum blackbox is a quantum computer, can choose inputs to be in superposition state.",logo,yes
+test_3,45,110.0,frames/test_3/00045.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"Quantum blackbox is a quantum computer, can choose inputs in superposition state.",logo,yes
+test_3,50,116.0,frames/test_3/00050.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,Quantum Computation and Quantum Information.,logo,yes
+test_3,52,121.5,frames/test_3/00052.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_3,57,126.0,frames/test_3/00057.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_3,61,133.5,frames/test_3/00061.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,Quantum computation and quantum information.,logo,yes
+test_3,62,135.5,frames/test_3/00062.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows a handwritten note on a piece of paper.,logo,yes
+test_3,64,140.0,frames/test_3/00064.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,Quantum computation and quantum information.,logo,yes
+test_3,66,148.5,frames/test_3/00066.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_3,67,152.0,frames/test_3/00067.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_3,68,156.0,frames/test_3/00068.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,Quantum computation and quantum information.,logo,yes
+test_3,74,160.0,frames/test_3/00074.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,Quantum Computation and Quantum Information.,logo,yes
+test_3,83,165.0,frames/test_3/00083.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows a mathematical equation in quantum computing.,logo,yes
+test_7,0,0.0,frames/test_7/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_7,10,5.0,frames/test_7/00010.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_7,20,10.0,frames/test_7/00020.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_7,30,15.0,frames/test_7/00030.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_7,40,20.0,frames/test_7/00040.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_7,50,25.0,frames/test_7/00050.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_7,60,30.0,frames/test_7/00060.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_7,70,35.0,frames/test_7/00070.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_7,80,40.0,frames/test_7/00080.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_7,90,45.0,frames/test_7/00090.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"A cartoon character with a camera, possibly a robot or a child with a camera.",cartoon character,yes
+test_7,100,50.5,frames/test_7/00100.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_7,109,55.0,frames/test_7/00109.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_7,119,60.0,frames/test_7/00119.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_7,128,66.5,frames/test_7/00128.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_7,135,70.0,frames/test_7/00135.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_7,145,75.0,frames/test_7/00145.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_7,155,80.0,frames/test_7/00155.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_7,165,85.0,frames/test_7/00165.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_7,175,90.0,frames/test_7/00175.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_7,185,95.0,frames/test_7/00185.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_7,195,100.0,frames/test_7/00195.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_7,204,105.0,frames/test_7/00204.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_7,211,110.0,frames/test_7/00211.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_7,221,115.0,frames/test_7/00221.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_7,231,120.0,frames/test_7/00231.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_7,240,125.0,frames/test_7/00240.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_7,250,130.0,frames/test_7/00250.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_7,260,135.0,frames/test_7/00260.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+test_7,270,140.0,frames/test_7/00270.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_awesome_presentation,0,0.0,frames/whiteboard_awesome_presentation/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_awesome_presentation,5,5.0,frames/whiteboard_awesome_presentation/00005.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_awesome_presentation,15,12.0,frames/whiteboard_awesome_presentation/00015.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_awesome_presentation,18,16.0,frames/whiteboard_awesome_presentation/00018.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_awesome_presentation,25,20.5,frames/whiteboard_awesome_presentation/00025.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_awesome_presentation,34,26.0,frames/whiteboard_awesome_presentation/00034.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_awesome_presentation,39,30.0,frames/whiteboard_awesome_presentation/00039.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_awesome_presentation,40,37.5,frames/whiteboard_awesome_presentation/00040.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_awesome_presentation,41,40.5,frames/whiteboard_awesome_presentation/00041.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_awesome_presentation,42,45.0,frames/whiteboard_awesome_presentation/00042.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_awesome_presentation,46,50.0,frames/whiteboard_awesome_presentation/00046.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_awesome_presentation,52,55.0,frames/whiteboard_awesome_presentation/00052.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_awesome_presentation,61,60.0,frames/whiteboard_awesome_presentation/00061.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_awesome_presentation,69,67.5,frames/whiteboard_awesome_presentation/00069.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_awesome_presentation,74,70.0,frames/whiteboard_awesome_presentation/00074.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_awesome_presentation,82,75.5,frames/whiteboard_awesome_presentation/00082.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_awesome_presentation,91,80.0,frames/whiteboard_awesome_presentation/00091.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_awesome_presentation,97,85.5,frames/whiteboard_awesome_presentation/00097.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_awesome_presentation,105,90.5,frames/whiteboard_awesome_presentation/00105.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_awesome_presentation,110,98.5,frames/whiteboard_awesome_presentation/00110.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_awesome_presentation,113,102.5,frames/whiteboard_awesome_presentation/00113.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_awesome_presentation,114,105.5,frames/whiteboard_awesome_presentation/00114.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_awesome_presentation,116,111.0,frames/whiteboard_awesome_presentation/00116.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_awesome_presentation,118,116.5,frames/whiteboard_awesome_presentation/00118.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_awesome_presentation,119,120.5,frames/whiteboard_awesome_presentation/00119.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_awesome_presentation,120,128.5,frames/whiteboard_awesome_presentation/00120.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_awesome_presentation,121,133.5,frames/whiteboard_awesome_presentation/00121.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_awesome_presentation,124,136.5,frames/whiteboard_awesome_presentation/00124.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_awesome_presentation,129,140.5,frames/whiteboard_awesome_presentation/00129.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_awesome_presentation,137,145.0,frames/whiteboard_awesome_presentation/00137.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_awesome_presentation,143,150.0,frames/whiteboard_awesome_presentation/00143.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_awesome_presentation,152,156.0,frames/whiteboard_awesome_presentation/00152.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_awesome_presentation,157,160.0,frames/whiteboard_awesome_presentation/00157.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_awesome_presentation,159,165.0,frames/whiteboard_awesome_presentation/00159.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_awesome_presentation,163,170.5,frames/whiteboard_awesome_presentation/00163.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_empathy,0,0.0,frames/whiteboard_empathy/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_empathy,10,5.0,frames/whiteboard_empathy/00010.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_empathy,17,10.0,frames/whiteboard_empathy/00017.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_empathy,27,16.0,frames/whiteboard_empathy/00027.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_empathy,32,20.5,frames/whiteboard_empathy/00032.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_empathy,41,25.0,frames/whiteboard_empathy/00041.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_empathy,48,30.0,frames/whiteboard_empathy/00048.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_empathy,57,35.0,frames/whiteboard_empathy/00057.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_empathy,62,40.0,frames/whiteboard_empathy/00062.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_empathy,66,46.0,frames/whiteboard_empathy/00066.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_empathy,70,50.0,frames/whiteboard_empathy/00070.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_empathy,76,55.0,frames/whiteboard_empathy/00076.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_empathy,86,60.0,frames/whiteboard_empathy/00086.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_empathy,94,65.5,frames/whiteboard_empathy/00094.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_empathy,101,70.5,frames/whiteboard_empathy/00101.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_empathy,109,75.0,frames/whiteboard_empathy/00109.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_empathy,119,80.0,frames/whiteboard_empathy/00119.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A cartoon deer looking out of a window with a rope ladder.,cartoon character,yes
+whiteboard_empathy,127,85.0,frames/whiteboard_empathy/00127.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_empathy,137,90.0,frames/whiteboard_empathy/00137.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_empathy,141,95.0,frames/whiteboard_empathy/00141.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_empathy,150,100.0,frames/whiteboard_empathy/00150.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_empathy,159,105.0,frames/whiteboard_empathy/00159.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_empathy,169,110.0,frames/whiteboard_empathy/00169.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_empathy,179,115.0,frames/whiteboard_empathy/00179.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_empathy,185,121.0,frames/whiteboard_empathy/00185.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_empathy,189,125.5,frames/whiteboard_empathy/00189.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_empathy,196,130.0,frames/whiteboard_empathy/00196.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A cartoon cat with a bow on its head.,cartoon character,yes
+whiteboard_empathy,206,135.0,frames/whiteboard_empathy/00206.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_empathy,216,140.0,frames/whiteboard_empathy/00216.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_empathy,225,151.0,frames/whiteboard_empathy/00225.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_empathy,230,155.0,frames/whiteboard_empathy/00230.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_empathy,236,160.0,frames/whiteboard_empathy/00236.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_empathy,242,165.0,frames/whiteboard_empathy/00242.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_llms,0,0.0,frames/whiteboard_llms/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_llms,2,5.5,frames/whiteboard_llms/00002.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_llms,5,10.5,frames/whiteboard_llms/00005.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_llms,8,15.5,frames/whiteboard_llms/00008.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_llms,9,20.5,frames/whiteboard_llms/00009.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_llms,14,27.0,frames/whiteboard_llms/00014.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_llms,17,32.5,frames/whiteboard_llms/00017.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_llms,19,35.0,frames/whiteboard_llms/00019.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_llms,20,48.5,frames/whiteboard_llms/00020.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_llms,21,53.5,frames/whiteboard_llms/00021.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_llms,24,57.0,frames/whiteboard_llms/00024.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_llms,28,60.0,frames/whiteboard_llms/00028.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_llms,30,65.0,frames/whiteboard_llms/00030.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_llms,33,71.5,frames/whiteboard_llms/00033.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_llms,37,75.0,frames/whiteboard_llms/00037.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_llms,41,80.0,frames/whiteboard_llms/00041.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_llms,44,86.5,frames/whiteboard_llms/00044.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_llms,46,90.5,frames/whiteboard_llms/00046.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_llms,47,96.5,frames/whiteboard_llms/00047.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_llms,50,100.0,frames/whiteboard_llms/00050.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_llms,54,106.0,frames/whiteboard_llms/00054.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_llms,57,111.5,frames/whiteboard_llms/00057.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_llms,59,115.0,frames/whiteboard_llms/00059.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_llms,62,120.5,frames/whiteboard_llms/00062.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_llms,66,125.0,frames/whiteboard_llms/00066.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_llms,70,130.5,frames/whiteboard_llms/00070.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_llms,75,135.0,frames/whiteboard_llms/00075.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_llms,78,141.0,frames/whiteboard_llms/00078.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_llms,85,145.0,frames/whiteboard_llms/00085.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_llms,87,150.0,frames/whiteboard_llms/00087.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_marketing_4ps,0,0.0,frames/whiteboard_marketing_4ps/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_marketing_4ps,5,5.0,frames/whiteboard_marketing_4ps/00005.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_marketing_4ps,14,10.0,frames/whiteboard_marketing_4ps/00014.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_marketing_4ps,24,15.0,frames/whiteboard_marketing_4ps/00024.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_marketing_4ps,25,20.0,frames/whiteboard_marketing_4ps/00025.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_marketing_4ps,35,25.0,frames/whiteboard_marketing_4ps/00035.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_marketing_4ps,40,30.0,frames/whiteboard_marketing_4ps/00040.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_marketing_4ps,47,35.0,frames/whiteboard_marketing_4ps/00047.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_marketing_4ps,50,40.0,frames/whiteboard_marketing_4ps/00050.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_marketing_4ps,55,45.0,frames/whiteboard_marketing_4ps/00055.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_marketing_4ps,61,52.5,frames/whiteboard_marketing_4ps/00061.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_marketing_4ps,64,55.0,frames/whiteboard_marketing_4ps/00064.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_marketing_4ps,73,62.5,frames/whiteboard_marketing_4ps/00073.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_marketing_4ps,78,65.0,frames/whiteboard_marketing_4ps/00078.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_marketing_4ps,84,70.0,frames/whiteboard_marketing_4ps/00084.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_marketing_4ps,88,80.0,frames/whiteboard_marketing_4ps/00088.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_marketing_4ps,95,88.0,frames/whiteboard_marketing_4ps/00095.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_marketing_4ps,98,91.0,frames/whiteboard_marketing_4ps/00098.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_marketing_4ps,104,95.0,frames/whiteboard_marketing_4ps/00104.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_marketing_4ps,112,100.0,frames/whiteboard_marketing_4ps/00112.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_marketing_4ps,114,105.5,frames/whiteboard_marketing_4ps/00114.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_marketing_4ps,120,113.0,frames/whiteboard_marketing_4ps/00120.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_marketing_4ps,124,115.0,frames/whiteboard_marketing_4ps/00124.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_marketing_4ps,130,121.5,frames/whiteboard_marketing_4ps/00130.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_marketing_4ps,135,126.0,frames/whiteboard_marketing_4ps/00135.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_marketing_4ps,139,130.0,frames/whiteboard_marketing_4ps/00139.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_marketing_4ps,145,138.5,frames/whiteboard_marketing_4ps/00145.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_marketing_4ps,148,140.0,frames/whiteboard_marketing_4ps/00148.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_marketing_4ps,153,145.0,frames/whiteboard_marketing_4ps/00153.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_marketing_4ps,161,150.0,frames/whiteboard_marketing_4ps/00161.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_marketing_4ps,164,163.0,frames/whiteboard_marketing_4ps/00164.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_marketing_4ps,168,165.0,frames/whiteboard_marketing_4ps/00168.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_opportunity_cost,0,0.0,frames/whiteboard_opportunity_cost/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_opportunity_cost,10,5.5,frames/whiteboard_opportunity_cost/00010.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_opportunity_cost,18,10.0,frames/whiteboard_opportunity_cost/00018.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_opportunity_cost,26,15.0,frames/whiteboard_opportunity_cost/00026.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_opportunity_cost,35,20.0,frames/whiteboard_opportunity_cost/00035.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_opportunity_cost,44,27.0,frames/whiteboard_opportunity_cost/00044.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_opportunity_cost,50,30.0,frames/whiteboard_opportunity_cost/00050.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_opportunity_cost,60,35.0,frames/whiteboard_opportunity_cost/00060.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_opportunity_cost,66,41.5,frames/whiteboard_opportunity_cost/00066.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_opportunity_cost,73,45.0,frames/whiteboard_opportunity_cost/00073.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_opportunity_cost,81,50.5,frames/whiteboard_opportunity_cost/00081.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_opportunity_cost,90,55.0,frames/whiteboard_opportunity_cost/00090.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_opportunity_cost,93,60.0,frames/whiteboard_opportunity_cost/00093.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_opportunity_cost,102,67.0,frames/whiteboard_opportunity_cost/00102.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_opportunity_cost,106,70.0,frames/whiteboard_opportunity_cost/00106.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_opportunity_cost,115,75.0,frames/whiteboard_opportunity_cost/00115.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_opportunity_cost,125,80.0,frames/whiteboard_opportunity_cost/00125.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_opportunity_cost,135,85.5,frames/whiteboard_opportunity_cost/00135.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_opportunity_cost,144,90.0,frames/whiteboard_opportunity_cost/00144.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_opportunity_cost,153,95.0,frames/whiteboard_opportunity_cost/00153.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_opportunity_cost,160,100.0,frames/whiteboard_opportunity_cost/00160.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_opportunity_cost,165,109.0,frames/whiteboard_opportunity_cost/00165.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"A scene from ""Star Trek: The Next Generation"" with a character in a kitchen.",logo,yes
+whiteboard_opportunity_cost,167,110.0,frames/whiteboard_opportunity_cost/00167.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_opportunity_cost,174,117.0,frames/whiteboard_opportunity_cost/00174.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_opportunity_cost,180,120.0,frames/whiteboard_opportunity_cost/00180.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_opportunity_cost,187,125.0,frames/whiteboard_opportunity_cost/00187.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_opportunity_cost,196,134.0,frames/whiteboard_opportunity_cost/00196.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_opportunity_cost,198,135.0,frames/whiteboard_opportunity_cost/00198.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_opportunity_cost,208,140.0,frames/whiteboard_opportunity_cost/00208.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_opportunity_cost,218,145.0,frames/whiteboard_opportunity_cost/00218.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_opportunity_cost,228,150.0,frames/whiteboard_opportunity_cost/00228.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_opportunity_cost,233,155.0,frames/whiteboard_opportunity_cost/00233.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_opportunity_cost,243,160.0,frames/whiteboard_opportunity_cost/00243.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_opportunity_cost,253,165.0,frames/whiteboard_opportunity_cost/00253.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_opportunity_cost,263,170.0,frames/whiteboard_opportunity_cost/00263.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_opportunity_cost,272,176.0,frames/whiteboard_opportunity_cost/00272.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_speed_velocity,0,0.0,frames/whiteboard_speed_velocity/00000.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A man in a bow tie standing in front of a colorful graffiti wall.,cartoon character,yes
+whiteboard_speed_velocity,10,5.0,frames/whiteboard_speed_velocity/00010.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows a man in a bow tie.,cartoon character,yes
+whiteboard_speed_velocity,20,10.0,frames/whiteboard_speed_velocity/00020.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a cartoon character holding a sign that says ""Speed Velocity Accelerat.""",cartoon character,yes
+whiteboard_speed_velocity,30,15.0,frames/whiteboard_speed_velocity/00030.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_speed_velocity,40,20.0,frames/whiteboard_speed_velocity/00040.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_speed_velocity,50,25.0,frames/whiteboard_speed_velocity/00050.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a man with a bow tie, and the text explains that ""SPEED""",cartoon character,yes
+whiteboard_speed_velocity,60,30.0,frames/whiteboard_speed_velocity/00060.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_speed_velocity,70,35.0,frames/whiteboard_speed_velocity/00070.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_speed_velocity,80,40.0,frames/whiteboard_speed_velocity/00080.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_speed_velocity,90,45.0,frames/whiteboard_speed_velocity/00090.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a man in a bow tie, with a speedometer and the definition of speed",cartoon character,yes
+whiteboard_speed_velocity,100,50.0,frames/whiteboard_speed_velocity/00100.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a man with a bow tie, and it is related to speed, distance,",cartoon character,yes
+whiteboard_speed_velocity,110,55.0,frames/whiteboard_speed_velocity/00110.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,A man in a plaid shirt and bow tie.,cartoon character,yes
+whiteboard_speed_velocity,120,60.0,frames/whiteboard_speed_velocity/00120.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_speed_velocity,130,65.0,frames/whiteboard_speed_velocity/00130.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a man in a bow tie, with the words ""VELOCITY"" and """,cartoon character,yes
+whiteboard_speed_velocity,140,70.0,frames/whiteboard_speed_velocity/00140.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a man in a plaid shirt with a bow tie, and the text explains",cartoon character,yes
+whiteboard_speed_velocity,150,75.0,frames/whiteboard_speed_velocity/00150.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_speed_velocity,160,80.0,frames/whiteboard_speed_velocity/00160.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_speed_velocity,170,85.0,frames/whiteboard_speed_velocity/00170.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_speed_velocity,180,90.0,frames/whiteboard_speed_velocity/00180.jpg,Qwen/Qwen2-VL-2B-Instruct,no,,,
+whiteboard_speed_velocity,190,95.0,frames/whiteboard_speed_velocity/00190.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a man in a bow tie, explaining the concept of acceleration.",cartoon character,yes
+whiteboard_speed_velocity,200,100.0,frames/whiteboard_speed_velocity/00200.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows a man explaining the concept of acceleration in physics.,cartoon character,yes
+whiteboard_speed_velocity,210,105.0,frames/whiteboard_speed_velocity/00210.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows a man explaining the concept of acceleration in physics.,cartoon character,yes
+whiteboard_speed_velocity,220,110.0,frames/whiteboard_speed_velocity/00220.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,The main picture shows a man explaining the concept of acceleration in physics.,cartoon character,yes
+whiteboard_speed_velocity,230,115.0,frames/whiteboard_speed_velocity/00230.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a man in a bow tie, and the text ""RECAP! Speed =",cartoon character,yes
+whiteboard_speed_velocity,240,120.0,frames/whiteboard_speed_velocity/00240.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a man wearing a bow tie, standing in front of a white background.",cartoon character,yes
+whiteboard_speed_velocity,250,125.0,frames/whiteboard_speed_velocity/00250.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a man in a bow tie, with the words ""RECAP! Speed =",cartoon character,yes
+whiteboard_speed_velocity,260,130.0,frames/whiteboard_speed_velocity/00260.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a man in a bow tie, standing in front of a white background.",cartoon character,yes
+whiteboard_speed_velocity,270,135.0,frames/whiteboard_speed_velocity/00270.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"The main picture shows a man in a bow tie, standing in front of a white background.",cartoon character,yes
+whiteboard_speed_velocity,280,140.0,frames/whiteboard_speed_velocity/00280.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"A man with a mustache and bow tie, wearing a plaid shirt.",cartoon character,yes
+whiteboard_speed_velocity,290,145.0,frames/whiteboard_speed_velocity/00290.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"A man in a bow tie and plaid shirt, standing in front of a colorful brick wall with",cartoon character,yes
+whiteboard_speed_velocity,300,150.0,frames/whiteboard_speed_velocity/00300.jpg,Qwen/Qwen2-VL-2B-Instruct,yes,"A man in a plaid shirt and bow tie, with sunglasses on a colorful brick wall.",cartoon character,yes

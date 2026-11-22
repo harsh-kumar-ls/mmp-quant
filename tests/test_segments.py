@@ -252,7 +252,7 @@ class TestWholeVideoScore:
 
     def test_nothing_on_screen_anywhere_scores_zero_not_none(self):
         # User decision 08 Oct 2026: a text-free video was assessed and holds
-        # no redundancy -> 0 (project specification §2.7 said N/A; superseded).
+        # no redundancy -> 0 (the project specification §2.7 said N/A; superseded).
         ws = scored([win(i, "", "narration present here") for i in range(6)])
         agg = aggregate_video(ws)
         assert agg.score == 0.0

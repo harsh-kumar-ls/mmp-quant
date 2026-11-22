@@ -207,7 +207,7 @@ def rating_workbook(
     output: Path = typer.Option(Path("rating_package/ratings_template.xlsx"), "--output", "-o"),
     config: Path = typer.Option(Path("config.yaml"), "--config", "-c"),
     scale_min: int = typer.Option(1, "--scale-min"),
-    scale_max: int = typer.Option(5, "--scale-max"),
+    scale_max: int = typer.Option(100, "--scale-max"),
     selection: Path | None = typer.Option(
         None, "--selection", help="only the videos in this selection table (select-for-rating)"),
 ) -> None:
@@ -449,6 +449,10 @@ def regress(
 def serve(
     host: str = typer.Option("127.0.0.1", "--host"),
     port: int = typer.Option(8000, "--port"),
+    shared: bool = typer.Option(
+        False, "--shared",
+        help="the site is opened to others (e.g. through a tunnel): uploads go to "
+        "data/shared_uploads/ and runs/_shared/, never into the corpus"),
 ) -> None:
     """Run the local web UI: upload a video, watch it score, read the report.
 
@@ -464,6 +468,12 @@ def serve(
             'uv pip install -e ".[webapp]"'
         ) from exc
 
+    if shared:
+        import os
+
+        os.environ["MMPQUANT_SHARED"] = "1"  # read by webapp.server at import
+        console.print("[yellow]Shared mode:[/yellow] uploads go to data/shared_uploads/ "
+                      "and runs/_shared/, not the corpus")
     console.print(f"[bold]MMP-Quant[/bold] — open [cyan]http://{host}:{port}[/cyan]")
     console.print("[dim]Ctrl+C to stop[/dim]")
     uvicorn.run("mmpquant.webapp.server:app", host=host, port=port, log_level="info")

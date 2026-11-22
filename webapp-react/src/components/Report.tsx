@@ -13,8 +13,22 @@ export function Report({ data }: { data: R }) {
   return (
     <div className="space-y-6">
       <header className="rise">
-        <p className="font-mono text-[12px] text-mute">{timecode(data.duration)} · {data.n_windows_total} windows of 10 s</p>
+        <p className="font-mono text-[12px] text-mute">
+          {timecode(data.duration)} · {data.n_windows_total} windows of 10 s ·{" "}
+          <span data-testid="scored-with">{data.methodology.ocr_backend === "apple"
+            ? "scored on the Mac (Apple Vision OCR, thesis numbers)"
+            : `scored in the cloud (${data.methodology.ocr_backend} OCR, may differ from the thesis numbers)`}</span>
+        </p>
         <h1 className="mt-1 break-all text-[34px] leading-tight font-extrabold tracking-[-0.03em] sm:text-[44px]">{data.video_id}</h1>
+        {data.instructor && (
+          <p className="mt-2 text-[15px] text-ink-2">
+            <strong className="text-ink">Instructor score </strong>
+            <span className="font-mono text-[17px] font-semibold text-ink tabular" data-testid="instructor-value">
+              {data.instructor.score === null ? "N/A" : fmt(data.instructor.score, 1)}
+            </span>
+            <span className="text-mute"> / 100 (higher is better; = {data.instructor.formula})</span>
+          </p>
+        )}
         <div className="mt-5 flex gap-6 border-b border-line" role="tablist">
           <TabBtn active={tab === "redundancy"} onClick={() => setTab("redundancy")} testid="tab-redundancy"
             title="Redundancy" score={data.score} />

@@ -13,6 +13,12 @@ to system segments with no reconciliation.
 
 Each rater fills their own copy and saves it as ratings_<name>.xlsx; the
 validation harness reads a folder of these, one rater per file.
+
+12 Nov 2026 (after the professor's meeting): scale 1-100 (the professor's
+choice), and the 'Video overall' sheet also asks for the three parts of
+coherence the professor will rate -- background music and sounds, off-topic
+narration, extraneous on-screen material -- named `<part>_score` so the
+harness can read each one like a principle (`--principle music_sounds`).
 """
 
 from __future__ import annotations
@@ -26,6 +32,8 @@ RATINGS_SHEET = "Ratings"
 VIDEO_SHEET = "Video overall"
 README_SHEET = "Read me"
 PRINCIPLES = ("redundancy", "coherence")
+# rated once per whole video (12 Nov 2026); see the Rating Guide for definitions
+COHERENCE_PARTS = ("music_sounds", "offtopic_narration", "onscreen_extraneous")
 
 
 def _timecode(t: float) -> str:
@@ -37,7 +45,7 @@ def build_workbook(
     out: Path,
     *,
     segment_length_s: float,
-    scale: tuple[int, int] = (1, 5),
+    scale: tuple[int, int] = (1, 100),
 ) -> Path:
     from openpyxl import Workbook
     from openpyxl.styles import Alignment, Font, PatternFill
@@ -58,11 +66,16 @@ def build_workbook(
         "Please read the one-page Rating Guide before starting.",
         "",
         f"1. Sheet '{RATINGS_SHEET}': one row per 30-second segment. Watch the segment, then give",
-        f"   a redundancy score and a coherence score, each a whole number from {lo} to {hi}.",
-        f"2. Sheet '{VIDEO_SHEET}': after watching a whole video, give one overall score for each.",
+        f"   a redundancy score and a coherence score, each a whole number from {lo} to {hi}",
+        f"   ({lo} = none at all, {hi} = the worst possible).",
+        f"2. Sheet '{VIDEO_SHEET}': after watching a whole video, give an overall redundancy and",
+        "   coherence score, and score the three parts of coherence separately:",
+        "   music_sounds (background music or sounds under the narration),",
+        "   offtopic_narration (interesting but irrelevant talk),",
+        "   onscreen_extraneous (decorative pictures, large logos, banners).",
         "3. Leave a cell EMPTY if you did not rate it. Empty means 'not rated', never 0.",
-        "4. Optional: in 'extraneous', write M (background music), O (off-topic talk),",
-        "   D (decorative pictures) for whatever extraneous material you noticed.",
+        "4. Optional: in 'extraneous', write M (music/sounds), O (off-topic talk),",
+        "   D (decorative pictures, logos, banners) for what you noticed in that segment.",
         "5. Please rate without looking at the system's scores, and without discussing",
         "   your ratings with the other rater until both of you have finished.",
         "6. Save your copy as ratings_<your name>.xlsx and send it back.",
@@ -96,17 +109,18 @@ def build_workbook(
     score_check.add(f"F2:G{max(2, row - 1)}")
 
     overall = wb.create_sheet(VIDEO_SHEET)
+    parts = [f"{p}_score" for p in COHERENCE_PARTS]
     overall.append(["video_id", "duration", "redundancy_score", "coherence_score",
-                    "extraneous", "notes"])
+                    *parts, "notes"])
     overall_check = DataValidation(type="whole", operator="between", formula1=str(lo),
                                    formula2=str(hi), allow_blank=True, showErrorMessage=True,
                                    error=f"Please enter a whole number from {lo} to {hi}.")
     overall.add_data_validation(overall_check)
     for vid, duration in videos:
-        overall.append([vid, _timecode(duration), None, None, None, None])
-    overall_check.add(f"C2:D{len(videos) + 1}")
+        overall.append([vid, _timecode(duration), None, None, *[None] * len(parts), None])
+    overall_check.add(f"C2:{chr(ord('D') + len(parts))}{len(videos) + 1}")
 
-    for sheet, ws in ((ratings, widths), (overall, [26, 10, 18, 18, 12, 60])):
+    for sheet, ws in ((ratings, widths), (overall, [26, 10, 18, 18, 18, 22, 22, 60])):
         for c, w in enumerate(ws, 1):
             sheet.column_dimensions[sheet.cell(row=1, column=c).column_letter].width = w
             cell = sheet.cell(row=1, column=c)

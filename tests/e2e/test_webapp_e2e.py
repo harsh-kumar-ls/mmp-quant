@@ -256,6 +256,22 @@ class TestReactUI:
         shown = react.get_by_test_id("segment-value").all_inner_texts()
         assert shown == [f"{s['score']:.2f}" for s in res["segments"]]
 
+    def test_report_says_where_it_was_scored(self, react, site):
+        # 12 Nov 2026: the cloud Space scores uploads with RapidOCR; Mac runs are
+        # the thesis numbers -- every report says which
+        self._open(react, REDUNDANCY_VIDEO)
+        backend = _result(site, REDUNDANCY_VIDEO)["config"]["ocr"]["backend"]
+        label = react.get_by_test_id("scored-with").inner_text()
+        assert ("on the Mac" in label) == (backend == "apple")
+
+    def test_instructor_score_is_100_minus_the_mean_of_both(self, react, site):
+        # 12 Nov 2026: 100 - (R + C) / 2, computed from result.json's two scores
+        self._open(react, COHERENCE_VIDEO)
+        res = _result(site, COHERENCE_VIDEO)
+        r, c = res["result"]["score"], res["coherence"]["result"]["score"]
+        expected = round(100 - (r + c) / 2, 2)
+        assert react.get_by_test_id("instructor-value").inner_text() == f"{expected:.1f}"
+
     def test_drawer_formula_navigation_and_close(self, react, site):
         self._open(react, REDUNDANCY_VIDEO)
         segs = _result(site, REDUNDANCY_VIDEO)["segments"]
@@ -316,3 +332,58 @@ class TestReactUI:
         page.goto(site["url"] + "/react/")
         self._open(page, REDUNDANCY_VIDEO)
         assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth + 1")
+
+
+class TestReadOnlyCopy:
+    """The read-only copy (13 Nov 2026, tools/build_static_site.py): the same UI
+    reading pre-built JSON, no server. Built fresh here so it cannot be stale."""
+
+    @pytest.fixture(scope="class")
+    def static_site(self, tmp_path_factory):
+        import functools
+        import http.server
+        import subprocess
+        import sys
+
+        if not (RUNS / REDUNDANCY_VIDEO / "result.json").exists():
+            pytest.skip("runs not available")
+        if shutil.which("npx") is None:
+            pytest.skip("Node not installed")
+        out = tmp_path_factory.mktemp("static-site")
+        subprocess.run([sys.executable, "tools/build_static_site.py", str(out)], check=True,
+                       capture_output=True)
+        type(self)._out = str(out)
+        handler = functools.partial(http.server.SimpleHTTPRequestHandler, directory=str(out))
+        srv = http.server.ThreadingHTTPServer(("127.0.0.1", _free_port()), handler)
+        threading.Thread(target=srv.serve_forever, daemon=True).start()
+        yield f"http://127.0.0.1:{srv.server_address[1]}/"
+        srv.shutdown()
+
+    def test_reports_match_result_json_with_no_upload_or_rating_set(self, page, static_site):
+        page.goto(static_site)
+        page.get_by_test_id("video-list").get_by_text(REDUNDANCY_VIDEO, exact=True).click()
+        page.get_by_test_id("ring-value").wait_for()
+        res = json.loads((RUNS / REDUNDANCY_VIDEO / "result.json").read_text())
+        assert page.get_by_test_id("ring-value").inner_text() == f"{res['result']['score']:.1f}"
+        page.get_by_text("the live site for marking your own video is offline").wait_for()
+        assert page.get_by_test_id("live-link").count() == 0      # no live.json: offline
+        assert page.get_by_test_id("nav-rating").count() == 0
+        assert page.get_by_label("Mark a video (upload)").count() == 0
+
+    def test_button_follows_the_published_live_link(self, page, static_site, site):
+        # 13 Nov 2026: share_site.sh publishes live.json; the button opens that link
+        # only while it answers (the live test server stands in for the Mac)
+        live = Path(self._out) / "live.json"
+        try:
+            live.write_text(json.dumps({"url": site["url"]}))
+            page.goto(static_site)
+            link = page.get_by_test_id("live-link")
+            link.wait_for()
+            assert link.get_attribute("href") == site["url"]
+            assert link.get_attribute("target") == "_blank"
+            live.write_text(json.dumps({"url": None}))      # share_site.sh stopped
+            page.goto(static_site)
+            page.get_by_text("the live site for marking your own video is offline").wait_for()
+            assert page.get_by_test_id("live-link").count() == 0
+        finally:
+            live.write_text(json.dumps({"url": None}))

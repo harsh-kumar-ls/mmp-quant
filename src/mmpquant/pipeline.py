@@ -16,6 +16,7 @@ from pathlib import Path
 from typing import Any
 
 from .config import Config
+from .instructor import instructor_block
 from .overlap import SentenceTransformerEmbedder
 from .report import render_markdown
 from .scoring.base import VideoContext
@@ -62,7 +63,7 @@ def _apply_video_score(
 ) -> PrincipleResult:
     """Replace the scorer's assessed-only mean with the whole-video score.
 
-    The scorer reports the mean over assessed windows (project specification §2.6 as first
+    The scorer reports the mean over assessed windows (the project specification §2.6 as first
     written); the reported video score is the whole-video mean in which an
     unassessed window counts 0 (decision 08 Oct 2026 -- see
     `segments` "One averaging rule"). When the two differ by more than
@@ -107,7 +108,8 @@ def _score_coherence(
     result = scorer.score(
         extraction.windows,
         extra_warnings=extraction.audio_warnings,
-        context=VideoContext(extraction.transcript, extraction.audio_events),
+        context=VideoContext(extraction.transcript, extraction.audio_events,
+                             extraction.lesson_span),
     )
     keys = (PART_MUSIC, PART_OFF_TOPIC)
     segments = aggregate_to_segments(
@@ -193,7 +195,8 @@ def run_pipeline(
         )
     scorer = RedundancyScorer.from_config(cfg, embedder)
     result = scorer.score(extraction.windows, extra_warnings=extraction.warnings,
-                          context=VideoContext(extraction.transcript, None))
+                          context=VideoContext(extraction.transcript, None,
+                                               extraction.lesson_span))
 
     segment_length = float(cfg.get("segments.length_s"))
     segments = aggregate_to_segments(
@@ -218,6 +221,9 @@ def run_pipeline(
         "assessed_score": video_agg.assessed_score if result.status == "OK" else None,
         "coverage": video_agg.coverage,
         "aggregation": "whole_video_mean",
+        # intro/outro, never scored (13 Nov 2026); None if nobody speaks
+        "lesson_span": (extraction.lesson_span.to_dict()
+                        if extraction.lesson_span is not None else None),
         # Second principle (11 Oct 2026); None when not enabled in config.
         "coherence": _score_coherence(extraction, cfg, embedder, segment_length, video, outdir),
         # The full config, verbatim, so any number here is traceable to the
@@ -225,6 +231,9 @@ def run_pipeline(
         "config": cfg.raw,
         "config_path": str(cfg.source_path),
     }
+
+    # 100 - (R + C) / 2, higher = better (user, 12 Nov 2026; instructor.py)
+    payload["instructor"] = instructor_block(payload)
 
     stage("writing_report")
     (outdir / "result.json").write_text(json.dumps(payload, indent=2, ensure_ascii=False))

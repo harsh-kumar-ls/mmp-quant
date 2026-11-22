@@ -1,7 +1,7 @@
 /* Types for the FastAPI JSON (src/mmpquant/report_data.py, webapp/server.py).
    Only the fields this UI reads are typed. */
 
-export type VideoSummary = { video_id: string; score: number | null; status: string; duration: number; n_segments: number; style?: string | null; coherence?: number | null };
+export type VideoSummary = { video_id: string; score: number | null; status: string; duration: number; n_segments: number; style?: string | null; coherence?: number | null; instructor?: number | null };
 
 export type SentenceCheck = {
   sentence: string; narration: string; narration_from: number | null; narration_to: number | null;
@@ -55,6 +55,7 @@ export type Report = {
   coverage: number | null; status: string; na_reason: string | null; warnings: string[];
   n_windows_total: number; n_windows_qualifying: number;
   segments: Segment[]; coherence: Coherence | null; methodology: Methodology;
+  instructor?: { score: number | null; formula: string; segments: { index: number; timecode: string; score: number | null }[] } | null;
   worst_segments: { segment_index: number; timecode: string; score: number;
     windows: { timecode: string; score: number; onscreen_text: string; narration_text: string; restated_sentences: string[] }[] }[];
 };
@@ -69,8 +70,22 @@ export type RatingSet = { package: string; rows: RatingRow[]; total_distance: nu
 export type Stage = { key: string; label: string; description: string };
 export type Job = { job_id: string; video_id: string; status: string; stage: string; stage_index: number; error: string | null };
 
+// Read-only copy (13 Nov 2026, tools/build_static_site.py): no server; every
+// GET reads a pre-built JSON file, and nothing can be uploaded.
+export const STATIC = import.meta.env.VITE_STATIC === "1";
+
+function staticPath(path: string): string {
+  const base = import.meta.env.BASE_URL;
+  if (path === "/api/videos") return `${base}data/videos.json`;
+  if (path === "/api/stages") return `${base}data/stages.json`;
+  const m = path.match(/^\/api\/videos\/([^/]+)\/report/);
+  if (m) return `${base}data/reports/${encodeURIComponent(decodeURIComponent(m[1]))}.json`;
+  throw new Error("Not available in the read-only copy.");
+}
+
 export async function api<T>(path: string, init?: RequestInit): Promise<T> {
-  const r = await fetch(path, init);
+  if (STATIC && init?.method && init.method !== "GET") throw new Error("Uploading is not available in the read-only copy.");
+  const r = await fetch(STATIC ? staticPath(path) : path, STATIC ? undefined : init);
   if (!r.ok) {
     let msg = `${r.status} ${r.statusText}`;
     try { const j = await r.json(); if (j.detail) msg = String(j.detail); } catch { /* not JSON */ }

@@ -290,3 +290,47 @@ class TestRatingWorkbooks:
         self._workbook(folder / "ratings_alice.xlsx", system)
         with pytest.raises(GroundTruthError, match="say which one"):
             load_ground_truth(folder)
+
+
+class TestRatingWorkbook12Nov:
+    """12 Nov 2026, after the professor's meeting: scale 1-100, and the three
+    coherence parts rated once per whole video."""
+
+    def test_video_sheet_asks_for_the_three_coherence_parts(self, tmp_path):
+        from openpyxl import load_workbook
+
+        from mmpquant.rating_workbook import build_workbook
+
+        p = build_workbook([("a", 65.0)], tmp_path / "t.xlsx", segment_length_s=30)
+        headers = [c.value for c in load_workbook(p)["Video overall"][1]]
+        assert headers == ["video_id", "duration", "redundancy_score", "coherence_score",
+                           "music_sounds_score", "offtopic_narration_score",
+                           "onscreen_extraneous_score", "notes"]
+
+    def test_default_scale_is_1_to_100_and_covers_every_score_column(self, tmp_path):
+        from openpyxl import load_workbook
+
+        from mmpquant.rating_workbook import build_workbook
+
+        p = build_workbook([("a", 65.0), ("b", 30.0)], tmp_path / "t.xlsx", segment_length_s=30)
+        wb = load_workbook(p)
+        for sheet, cells in (("Ratings", "F2:G5"), ("Video overall", "C2:G3")):
+            (dv,) = wb[sheet].data_validations.dataValidation
+            assert (dv.formula1, dv.formula2) == ("1", "100")
+            assert str(dv.sqref) == cells
+
+    def test_a_coherence_part_can_be_validated_like_a_principle(self, tmp_path):
+        from openpyxl import load_workbook
+
+        from mmpquant.rating_workbook import build_workbook
+
+        folder = tmp_path / "ratings"
+        folder.mkdir()
+        p = build_workbook([("a", 30.0), ("b", 30.0)], folder / "ratings_x.xlsx",
+                           segment_length_s=30)
+        wb = load_workbook(p)
+        for row, v in zip(wb["Video overall"].iter_rows(min_row=2), (10, 80)):
+            row[4].value = v          # music_sounds_score (SYNTHETIC test value)
+        wb.save(p)
+        gt = load_ground_truth(folder, principle="music_sounds", level="video")
+        assert gt.level == "video" and gt.raters == ["x_score"]

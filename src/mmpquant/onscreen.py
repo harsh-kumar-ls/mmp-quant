@@ -192,6 +192,64 @@ _GOAL_HEADING = re.compile(
     re.IGNORECASE,
 )
 
+# Aim statements that are not headed "Aim:" (user's ruling, 12 Nov 2026: GDPR
+# 0:40 "Key learning objectives of our GDPR training course include:" is an aim).
+# Only objectives OF THE LESSON: "Its main goal is to protect individuals'
+# rights" (GDPR 2:30) is content about the topic and stays a sentence.
+_LESSON = r"(?:course|lesson|video|module|session|training|lecture|chapter|unit|class|tutorial|presentation)"
+_AIM_STATEMENT = re.compile(
+    r"\blearning\s+(?:objectives?|outcomes?|goals?|aims?)\b"
+    rf"|\b(?:objectives?|goals?|aims?|outcomes?)\s+of\s+(?:this|our|the)\s+(?:\w+\s+){{0,3}}{_LESSON}\b"
+    rf"|\b(?:this|our)\s+(?:\w+\s+){{0,2}}{_LESSON}\s+(?:will|aims\s+to|is\s+designed\s+to)\s+"
+    r"(?:review|cover|teach|explain|introduce|discuss|show|help|focus|explore)\b"
+    r"|\byou\s+will\s+(?:learn|be\s+able\s+to|understand|discover|explore)\b"
+    r"|\bby\s+the\s+end\s+of\s+this\b"
+    rf"|\bin\s+this\s+{_LESSON},?\s+(?:we|you)\s+will\b",
+    re.IGNORECASE,
+)
+
+# Results and conclusions are signals, not redundancy, even when read aloud
+# (user's ruling, 12 Nov 2026): a statement headed "Result:", "Conclusion:",
+# "Summary:", or opening "In summary, ...", "To sum up, ...".
+_RESULT_STATEMENT = re.compile(
+    r"^\W*(?:(?:key\s+)?(?:results?|conclusions?|summary|takeaways?|findings)\s*[:\-–—]"
+    r"|in\s+(?:summary|conclusion)\b|to\s+(?:sum\s+up|summari[sz]e|conclude)\b)",
+    re.IGNORECASE,
+)
+
+# A bullet item (12 Nov 2026): a list item of `min_content_words`+ words that the
+# narrator reads aloud is redundancy even without a verb (user's ruling, after
+# Mayer: reading the slide's bullets aloud is the textbook case). Only explicit
+# markers -- bullet glyphs and numbers ("1." "2)") -- so a verbless title card
+# or OCR debris is never promoted (defect 10.1); lettered items ("(b)") are left
+# out because they usually label question parts.
+_BULLET_MARKER = re.compile(r"(?:^|\s)((?:[•▪◦●‣■➢➤✓✔*]|[0-9]{1,2}[.)](?=\s)))\s+")
+
+
+# A second enumerator right after a bullet ("• 2) Add eggs", "• 6a) If ..."):
+# part of the marker, not a word of the item (Test_19 0:60, 12 Nov 2026 loop).
+_LEADING_ENUM = re.compile(r"^(?:\(?[0-9]{1,2}[a-z]?[.)]|\(?[a-z]\))\s+", re.IGNORECASE)
+
+
+def _item_text(item: str) -> str:
+    return _LEADING_ENUM.sub("", " ".join(item.split())).strip()
+
+
+def bullet_items(text: str) -> list[str]:
+    """The items that follow explicit bullet markers in `text`, one per item."""
+    flat = " ".join(dedupe_lines(text).split())
+    parts = _BULLET_MARKER.split(flat)
+    # parts = [before, marker, item, marker, item, ...]
+    return [_item_text(item) for item in parts[2::2] if _item_text(item)]
+
+
+def is_bullet_point(item: str, min_words: int) -> bool:
+    """A list item long enough to be read as a statement: `min_words`+ real
+    words, at least two content words, and not an aim or a result."""
+    return (word_count(item) >= min_words and len(content_lemmas(item)) >= 2
+            and not _AIM_STATEMENT.search(item) and not _RESULT_STATEMENT.match(item))
+
+
 # Contracted finite verbs, as spaCy tokenises them: "that's" -> "that" + "'s".
 # Both apostrophe forms, since OCR returns either.
 _CONTRACTED_VERBS = {
@@ -287,8 +345,10 @@ def classify_text(text: str, *, min_content_words: int = 5) -> tuple[str, dict]:
     # never redundancy -- whatever its grammar, and even when read aloud.
     # Recognised by an explicit goal heading; an unmarked goal statement
     # ("Today we will learn ...") is not caught by this rule.
-    if _GOAL_HEADING.match(stripped):
+    if _GOAL_HEADING.match(stripped) or _AIM_STATEMENT.search(stripped.replace("\n", " ")):
         return KIND_LABEL, {"reason": "goal_statement", "finite_verbs": [], "content_words": 0}
+    if _RESULT_STATEMENT.match(stripped):
+        return KIND_LABEL, {"reason": "result_statement", "finite_verbs": [], "content_words": 0}
 
     # OCR frequently returns slide text in full caps, which degrades tagging.
     probe = stripped.lower() if stripped.isupper() else stripped
@@ -345,6 +405,9 @@ def classify_text(text: str, *, min_content_words: int = 5) -> tuple[str, dict]:
         reason = "imperative"
         kind = KIND_SENTENCE
         finite = [t.text for t in doc if t.dep_ == "ROOT"]
+    elif any(is_bullet_point(item, min_content_words) for item in bullet_items(stripped)):
+        reason = "bullet_point"
+        kind = KIND_SENTENCE
     elif finite:
         reason = "finite_verb_but_too_few_content_words_to_be_a_clause"
         kind = KIND_LABEL
@@ -754,7 +817,8 @@ def shared_content(sentence: str, said: frozenset[str]) -> tuple[frozenset[str],
 
 
 @functools.lru_cache(maxsize=50_000)
-def onscreen_sentences(text: str, min_content_words: int = 2) -> tuple[str, ...]:
+def onscreen_sentences(text: str, min_content_words: int = 2,
+                       min_bullet_words: int = 5) -> tuple[str, ...]:
     """The individual sentences in a block of on-screen text.
 
     Split at bullets and enumerators, then at sentence boundaries; only pieces
@@ -765,18 +829,23 @@ def onscreen_sentences(text: str, min_content_words: int = 2) -> tuple[str, ...]
     """
     nlp = _nlp()
     out: list[str] = []
+    bullets = set(bullet_items(text))
     for piece in _ITEM_MARKER.split(text.replace("\n", " ")):
         piece = piece.strip()
         if not piece:
             continue
         parts = [s.text.strip() for s in nlp(piece).sents] if nlp is not None else [piece]
-        for s in parts:
-            if (
-                s
-                and len(content_lemmas(s)) >= min_content_words
-                and classify_text(s)[0] == KIND_SENTENCE
-            ):
-                out.append(s)
+        found = [s for s in parts
+                 if s and len(content_lemmas(s)) >= min_content_words
+                 and classify_text(s)[0] == KIND_SENTENCE]
+        # a list number is never read aloud as part of the item (12 Nov 2026)
+        found = [_item_text(f) or f for f in found]
+        item = _item_text(piece)
+        if (not found and item in bullets
+                and is_bullet_point(item, min_bullet_words)
+                and len(content_lemmas(item)) >= min_content_words):
+            found = [item]   # a verbless bullet item (12 Nov 2026)
+        out.extend(found)
     return tuple(dict.fromkeys(out))
 
 

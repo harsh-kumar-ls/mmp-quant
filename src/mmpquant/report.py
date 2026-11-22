@@ -109,6 +109,22 @@ def _header(payload: dict[str, Any]) -> list[str]:
         ),
         "",
     ]
+    ins = payload.get("instructor")
+    if ins:
+        lines += [
+            (f"**Instructor score: {_fmt_score(ins['score'])} / 100**  "
+             f"(= {ins['formula']}; higher = better design)"),
+            "",
+        ]
+    span = payload.get("lesson_span")
+    if span:
+        said = "; sign-off: " + " / ".join(f"\"{c}\"" for c in span["closing_sentences"]) \
+            if span["closing_sentences"] else ""
+        lines += [
+            (f"Lesson: {_timecode(span['start'])}–{_timecode(span['end'])} — intro "
+             f"{span['intro_s']:.1f} s and outro {span['outro_s']:.1f} s are not scored{said}."),
+            "",
+        ]
     lines += _reliability_banner(payload.get("ocr_recognition_reliability", {}))
 
     if score is None:
@@ -609,6 +625,8 @@ def _coherence(payload: dict[str, Any]) -> list[str]:
          f"{w['off_topic']} × off-topic)"),
         "segment / video  = duration-weighted mean over all windows; a window with no",
         "                   narration counts as 0 (same rule as redundancy)",
+        "intro / outro    = before the narrator's first word, and from the closing sign-off",
+        "                   on: never scored, for coherence or redundancy (window counts as 0)",
         "```",
         "",
         (f"Unrelated reference: `{p['reference_texts']}` ({p['n_reference_texts']} everyday "

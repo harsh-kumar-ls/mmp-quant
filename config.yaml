@@ -72,6 +72,14 @@ ocr:
     threshold: 0.005        # fraction of changed pixels above which a frame is "new".
                             # Measured signal for a real slide change: ~0.027.
 
+# The intro (before the narrator's first word) and the outro (the closing
+# sign-off: subscribe, links, "see you next time" ... or, without one, after the
+# last word) are not part of the lesson and are never scored -- neither
+# redundancy nor coherence (user's ruling, 13 Nov 2026; replaces the fixed
+# 10-second coherence intro of 12 Nov). Measured per video: src/mmpquant/lesson_span.py.
+lesson_span:
+  exclude_intro_outro: true
+
 scoring:
   # Which Mayer principles each run scores. Each is an independent scorer
   # (src/mmpquant/scoring/); removing one here skips its extraction step too.

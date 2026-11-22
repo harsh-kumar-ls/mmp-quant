@@ -16,6 +16,7 @@ from __future__ import annotations
 
 from typing import Any
 
+from .instructor import instructor_block
 from .report import EXCLUSION_LABELS, _basis_phrase, _timecode
 
 
@@ -258,6 +259,8 @@ def build_report_data(payload: dict[str, Any], *, top_n: int = 3) -> dict[str, A
         ],
         "worst_segments": _worst_segments(payload, top_n),
         "coherence": build_coherence_data(payload.get("coherence")),
+        # 100 - (R + C) / 2 (12 Nov 2026); recomputed so older runs show it too
+        "instructor": instructor_block(payload),
         "exclusions": _exclusions(payload),
         "methodology": {
             "weight_verbatim": params["weights"]["verbatim"],

@@ -1,4 +1,6 @@
-# MMP-Quant
+# Quantifying Multimedia Principle in Instructional Videos
+
+Python package `mmpquant` (command `mmpquant`).
 
 Scoring educational videos against two of **Mayer's multimedia principles**:
 
@@ -6,15 +8,18 @@ Scoring educational videos against two of **Mayer's multimedia principles**:
 |---|---|---|
 | **Redundancy** | on-screen text that the narration restates at the same moment | 0–100, higher = worse |
 | **Coherence** | background music playing under the narration (off-topic narration is measured too, as an experimental part kept out of the score) | 0–100, higher = worse |
+| **Instructor score** | `100 − (redundancy + coherence) / 2`, shown beside the two scores | 0–100, higher = better |
 
 A B.Tech research project. Every score comes with its evidence (the actual on-screen
 text and narration, the seconds of music, and the arithmetic), so a reader can check
 any number by hand.
 
-**Status:** the extraction pipeline, both scorers, the Markdown report, a local web UI and
-the validation harness (`mmpquant validate`) are built and tested. Validation itself waits
-for the real manual scores: the harness has only been tested on synthetic score sets with
-known answers, inside `tests/`.
+**Status:** the extraction pipeline, both scorers, the instructor score, the Markdown report, a
+web UI and the validation harness (`mmpquant validate`) are built and tested. The system was frozen
+before one expert's manual ratings were opened and was validated against them without tuning (method
+and results are in the project report, which is not part of this repository because it reproduces the
+expert's private ratings). Coherence scores only music; decorative pictures could not be detected
+reliably and are not scored.
 
 ## Setup
 
@@ -89,12 +94,15 @@ were short remarks about the board rather than real digressions.
 A video with no narration at all scores **N/A, not 0**: it could not be assessed.
 
 Every threshold and weight is in [`config.yaml`](config.yaml), with the reasoning
-behind each value written next to it. None has been tuned against human ratings yet.
+behind each value written next to it. None was tuned against the expert's ratings.
+
+The intro (before the narrator's first word) and the outro (closing sign-off) are not part of the
+lesson and are set aside by both scorers.
 
 ## Tests
 
 ```bash
-.venv/bin/python -m pytest     # 432 tests, about 10 s, no model downloads
+.venv/bin/python -m pytest     # 608 tests, about 25 s, no model downloads
 ```
 
 The scorers take their models by dependency injection, so the scoring rules are tested

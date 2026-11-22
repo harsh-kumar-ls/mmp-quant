@@ -56,6 +56,11 @@ from ..types import PrincipleResult, Window, WindowScore
 from .base import PrincipleScorer, VideoContext, register
 
 EXCL_NO_NARRATION = "no_narration"
+# The intro and outro never count (user's ruling, 13 Nov 2026; lesson_span.py):
+# a window wholly before the first word / from the closing sign-off on is
+# labelled so. Replaces the fixed 10-second intro of 12 Nov 2026.
+EXCL_INTRO = "intro"
+EXCL_OUTRO = "outro"
 
 PART_MUSIC = "background_music"
 PART_OFF_TOPIC = "off_topic"
@@ -146,6 +151,8 @@ class CoherenceScorer(PrincipleScorer):
             "reference_texts": self.reference_name,
             "n_reference_texts": len(self.reference_texts),
             "embedding_model": self.embedding_model_name,
+            "intro_outro": "not scored: before the first word and from the closing "
+                           "sign-off on (lesson_span.py, 13 Nov 2026)",
         }
 
     # ------------------------------------------------------------------ #
@@ -166,13 +173,15 @@ class CoherenceScorer(PrincipleScorer):
 
         words = context.transcript.words
         frames = context.audio_events.frames
+        span = context.lesson_span
+        lo, hi = (span.start, span.end) if span is not None else (float("-inf"), float("inf"))
         warnings = list(extra_warnings)
 
         per_window = []
         for w in windows:
             w_words = [x for x in words if w.start <= x.midpoint < w.end]
             narration = " ".join(x.text.strip() for x in w_words).strip()
-            music = self._music(w, words, frames)
+            music = self._music(w, words, frames, lo, hi)
             per_window.append((w, narration, music))
 
         off = self._off_topic([narration for _, narration, _ in per_window])
@@ -195,11 +204,14 @@ class CoherenceScorer(PrincipleScorer):
             }
             evidence = {"narration": narration, "music": music, PART_OFF_TOPIC: off_evidence}
             if music["narrated_s"] <= 0:
+                reason = (EXCL_INTRO if w.end <= lo else EXCL_OUTRO if w.start >= hi
+                          else EXCL_NO_NARRATION)
                 scores.append(WindowScore(
                     window=w, score=None, qualifies=False,
                     components={PART_MUSIC: 0.0, PART_OFF_TOPIC: 0.0,
                                 "narrated_s": 0.0, "music_s": 0.0},
-                    exclusion_reason=EXCL_NO_NARRATION, evidence=evidence,
+                    exclusion_reason=reason,
+                    evidence=evidence,
                 ))
                 continue
             a = music["share"]
@@ -221,9 +233,11 @@ class CoherenceScorer(PrincipleScorer):
 
     # ------------------------------------------------------------------ #
 
-    def _music(self, w: Window, words, frames) -> dict[str, Any]:
-        """Background-music share of the spoken seconds in one window."""
-        narrated = music_under = music_alone = 0.0
+    def _music(self, w: Window, words, frames, lo: float = float("-inf"),
+               hi: float = float("inf")) -> dict[str, Any]:
+        """Background-music share of the spoken seconds in one window. Seconds
+        outside the lesson span [lo, hi) -- intro, outro -- never count."""
+        narrated = music_under = music_alone = outside = 0.0
         music_times: list[float] = []
         jingle_times: list[float] = []
         spoken_times: list[float] = []
@@ -234,6 +248,9 @@ class CoherenceScorer(PrincipleScorer):
             if not (w.start <= mid < w.end):
                 continue
             dur = f.end - f.start
+            if not (lo <= mid < hi):
+                outside += dur       # intro / outro: never counted (13 Nov 2026)
+                continue
             spoken = any(x.start < f.end and x.end > f.start for x in words)
             has_music = any(f.probs.get(c, 0.0) >= self.music_threshold
                             for c in self.music_classes)
@@ -254,6 +271,7 @@ class CoherenceScorer(PrincipleScorer):
             "narrated_s": round(narrated, 3),
             "music_under_speech_s": round(music_under, 3),
             "music_without_speech_s": round(music_alone, 3),
+            "intro_outro_s_not_counted": round(outside, 3),
             "share": (music_under / narrated) if narrated > 0 else 0.0,
             "spoken_at": spoken_times,
             "music_under_speech_at": music_times,
@@ -329,7 +347,10 @@ class CoherenceScorer(PrincipleScorer):
         base = super()._unmeasurable_reason(window_scores)
         if base is not None:
             return base
-        if all(ws.exclusion_reason == EXCL_NO_NARRATION for ws in window_scores):
+        # The intro and outro hold no lesson words by construction (lesson_span),
+        # so a video is N/A only when nobody speaks inside the lesson.
+        if all(ws.exclusion_reason in (EXCL_NO_NARRATION, EXCL_INTRO, EXCL_OUTRO)
+               for ws in window_scores):
             return (
                 f"no narration detected in any of {len(window_scores)} windows — "
                 "neither background music under speech nor off-topic narration can "

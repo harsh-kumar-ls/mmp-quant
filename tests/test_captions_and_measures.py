@@ -8,6 +8,7 @@ from __future__ import annotations
 import pytest
 
 from mmpquant.extract.captions import caption_stream, stitch_sentences
+from mmpquant.onscreen import KIND_LABEL, KIND_SENTENCE, classify_text, onscreen_sentences
 from mmpquant.overlap import narration_units, rouge_l_f1, rouge_l_screen_coverage
 from mmpquant.scoring.redundancy import RedundancyScorer
 
@@ -559,3 +560,72 @@ def test_a_sentence_in_two_elements_is_not_on_screen_twice():
                asr_pool_start=127, asr_pool_end=143, ocr_elements=els)
     checks = RedundancyScorer(embedder=JaccardEmbedder()).score_window(w).evidence["sentence_checks"]
     assert max(c["visible_s"] for c in checks) <= 10.0
+
+
+class TestSignalsAndBullets12Nov:
+    """User's rulings after the professor's meeting, 12 Nov 2026 (R15, R16):
+    aims and results/conclusions are signals even when read aloud; a bullet of
+    five or more words read aloud is redundancy even without a verb (Mayer)."""
+
+    @pytest.mark.parametrize("text", [
+        "Key learning objectives of our GDPR training course include:",   # R15
+        "This course will review:",
+        "In this video you will learn how the heart pumps blood.",
+        "By the end of this lesson you can balance an equation.",
+        "Aim: Provide proper mathematical language for classical mechanics",
+    ])
+    def test_aims_are_signals(self, text):
+        kind, ev = classify_text(text)
+        assert (kind, ev["reason"]) == (KIND_LABEL, "goal_statement")
+
+    @pytest.mark.parametrize("text", [
+        "Conclusion: the reaction rate doubles when temperature rises by 10 degrees.",
+        "Results: the treated group recovered faster than the control group.",
+        "In summary, plants convert light energy into chemical energy.",
+        "To sum up, demand falls when the price rises.",
+    ])
+    def test_results_and_conclusions_are_signals(self, text):
+        kind, ev = classify_text(text)
+        assert (kind, ev["reason"]) == (KIND_LABEL, "result_statement")
+
+    @pytest.mark.parametrize("text", [
+        # GDPR 2:30: a goal OF THE TOPIC, not of the lesson -- content
+        ("Its main goal is to protect individuals' rights and give them more control "
+        "over their personal data."),
+        "The results of the vote were announced on Friday evening.",
+    ])
+    def test_content_that_mentions_goals_or_results_stays_a_sentence(self, text):
+        assert classify_text(text)[0] == KIND_SENTENCE
+
+    def test_long_bullets_are_scored_one_by_one(self):
+        text = ("• Understanding the purpose and scope of GDPR\n"
+                "• Identifying the responsibilities of primary GDPR\nroles and responsibilities")
+        assert classify_text(text)[1]["reason"] == "bullet_point"
+        assert onscreen_sentences(text) == (
+            "Understanding the purpose and scope of GDPR",
+            "Identifying the responsibilities of primary GDPR roles and responsibilities")
+
+    @pytest.mark.parametrize("text", [
+        "• Kidney\n• Liver\n• Pancreas",                                  # short bullets
+        "GEOMETRIC ANATOMY OF THEORETICAL PHYSICS Frederic P. Schuller",   # defect 10.1
+        "- proper mathematical language for classical mechanics",         # no marker
+        "(b) the new volume of the remaining solution in litres",         # lettered item
+    ])
+    def test_short_or_unmarked_items_stay_labels(self, text):
+        assert classify_text(text)[0] == KIND_LABEL
+        assert onscreen_sentences(text) == ()
+
+    def test_numbered_items_count_and_short_ones_do_not(self):
+        out = onscreen_sentences("Benefits of exercise\n1. Improves the health of your heart\n"
+                                 "2. Better sleep")
+        assert out == ("Improves the health of your heart",)
+
+    def test_a_nested_enumerator_is_not_a_word(self):
+        # Test_19 0:60 (12 Nov 2026 loop): "• 2) Add eggs and milk" is 4 words
+        text = "• 1) Mix dry ingredients\n• 2) Add eggs and milk\n• 3) Pour mixture in a pan"
+        assert onscreen_sentences(text) == ("Pour mixture in a pan",)
+
+    def test_bullet_threshold_follows_the_signaling_setting(self):
+        text = "• Improves the health of your heart"
+        assert onscreen_sentences(text, min_bullet_words=5) == ("Improves the health of your heart",)
+        assert onscreen_sentences(text, min_bullet_words=8) == ()

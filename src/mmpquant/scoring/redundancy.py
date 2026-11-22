@@ -512,7 +512,8 @@ class RedundancyScorer(PrincipleScorer):
                 out.extend(self._sentences_of_element(e))
         if not out and window.ocr_sentence_text.strip() and not window.ocr_elements:
             out.extend(onscreen_sentences(window.ocr_sentence_text,
-                                          self.min_shared_content_words))
+                                          self.min_shared_content_words,
+                                          self.min_onscreen_words))
         return tuple(dict.fromkeys(out))
 
     def _sentences_of_element(self, e: dict) -> list[str]:
@@ -524,7 +525,8 @@ class RedundancyScorer(PrincipleScorer):
             # start of the next.
             return [piece.strip() for piece in _SENTENCE_SPLIT.split(" ".join(e["text"].split()))
                     if len(content_lemmas(piece)) >= self.min_shared_content_words]
-        return list(onscreen_sentences(e["text"], self.min_shared_content_words))
+        return list(onscreen_sentences(e["text"], self.min_shared_content_words,
+                                       self.min_onscreen_words))
 
     def _content_words(self, text: str) -> frozenset[str]:
         # Words of 3+ letters, and numbers of 2+ characters ("25", "300",

@@ -28,6 +28,7 @@ class VideoContext:
 
     transcript: Transcript | None = None
     audio_events: Any | None = None  # extract.audio_events.AudioEvents
+    lesson_span: Any | None = None   # lesson_span.LessonSpan (13 Nov 2026)
 
 _REGISTRY: dict[str, type[PrincipleScorer]] = {}
 

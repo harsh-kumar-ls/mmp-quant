@@ -208,6 +208,19 @@ def check_one(c: dict, results: dict[str, dict]) -> tuple[bool, str]:
         ok = mine is not None and all(o is not None and mine > o for o in others.values())
         return ok, f"{c['video']} {mine} dB vs {others}"
 
+    if t == "lesson_span":
+        # 13 Nov 2026: where the lesson starts and ends (intro/outro not scored)
+        span = results[c["video"]].get("lesson_span")
+        if not span:
+            return False, f"{c['video']} has no lesson span"
+        ok = True
+        for key in ("start", "end"):
+            if f"{key}_between" in c:
+                lo, hi = c[f"{key}_between"]
+                ok = ok and lo <= span[key] <= hi
+        return ok, (f"lesson {span['start']:.1f}-{span['end']:.1f} s (need start in "
+                    f"{c.get('start_between')}, end in {c.get('end_between')})")
+
     return False, f"unknown check type {t!r}"
 
 

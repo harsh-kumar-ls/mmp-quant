@@ -15,7 +15,9 @@ from mmpquant.config import Config, ConfigError
 from mmpquant.extract.audio_events import AudioEvents, AudioFrame, frame_clips
 from mmpquant.scoring.base import VideoContext
 from mmpquant.scoring.coherence import (
+    EXCL_INTRO,
     EXCL_NO_NARRATION,
+    EXCL_OUTRO,
     PART_MUSIC,
     PART_OFF_TOPIC,
     CoherenceScorer,
@@ -406,3 +408,46 @@ class TestMusicLoudness:
 
         r = run([(0, 10, PHYSICS)], 1)
         assert music_loudness_db(r.window_scores) == {"median_db": None, "n_seconds": 0}
+
+
+class TestLessonSpan13Nov:
+    """User's ruling, 13 Nov 2026 (replaces the fixed 10 s intro of 12 Nov): the
+    intro and outro (lesson_span.py) never count for coherence."""
+
+    @staticmethod
+    def _run(spans, n, music, span):
+        ctx = VideoContext(transcript=transcript(spans), audio_events=events(n * 10, music),
+                           lesson_span=span)
+        return scorer(weight_music=1.0, weight_off_topic=0.0).score(windows(n), context=ctx)
+
+    def test_music_outside_the_lesson_never_counts_and_is_labelled(self):
+        from mmpquant.lesson_span import LessonSpan
+
+        span = LessonSpan(start=10.0, end=20.0, duration=30.0)
+        r = self._run([(10, 20, PHYSICS)], 3, lambda t: 0.6, span)
+        intro, lesson, outro = r.window_scores
+        assert intro.exclusion_reason == EXCL_INTRO and outro.exclusion_reason == EXCL_OUTRO
+        assert lesson.components[PART_MUSIC] == 1.0
+        assert aggregate_video(r.window_scores).score == pytest.approx(100 / 3, abs=0.01)
+
+    def test_music_under_speech_in_the_outro_does_not_count(self):
+        from mmpquant.lesson_span import LessonSpan
+
+        # someone speaks 0-20 s, but the lesson ends at 10 s (a sign-off follows)
+        span = LessonSpan(start=0.0, end=10.0, duration=20.0)
+        r = self._run([(0, 20, PHYSICS)], 2, lambda t: 0.6, span)
+        assert r.window_scores[1].components[PART_MUSIC] == 0.0
+        assert r.window_scores[1].evidence["music"]["intro_outro_s_not_counted"] == 10.0
+
+    def test_without_a_span_everything_counts(self):
+        r = self._run([(0, 20, PHYSICS)], 2, lambda t: 0.6, None)
+        assert [w.components[PART_MUSIC] for w in r.window_scores] == [1.0, 1.0]
+
+    def test_a_silent_video_stays_na(self):
+        from mmpquant.lesson_span import LessonSpan
+
+        ctx = VideoContext(transcript=Transcript((), "en", 0.99, 30.0),
+                           audio_events=events(30, music=lambda t: 0.6),
+                           lesson_span=LessonSpan(0.0, 0.0, 30.0))
+        r = scorer().score(windows(3), context=ctx)
+        assert r.score is None and r.status != "OK"

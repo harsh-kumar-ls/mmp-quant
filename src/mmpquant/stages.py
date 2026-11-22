@@ -354,6 +354,10 @@ class ExtractionResult:
     # Only when coherence is enabled; None otherwise.
     audio_events: object | None = None
     audio_warnings: list[str] = field(default_factory=list)
+    # Intro/outro (lesson_span.py, 13 Nov 2026); None when nobody speaks or
+    # when lesson_span.exclude_intro_outro is off. `transcript` above is then
+    # the lesson's words only; the full transcript stays in transcript.json.
+    lesson_span: object | None = None
 
 
 def _spawn(stage: str, video: Path, outdir: Path, config_path: Path) -> None:
@@ -417,6 +421,15 @@ def run_extraction(
     ocr_blocks, ocr_warnings = load_ocr(outdir / OCR_JSON)
     duration = media.duration_seconds(video)
 
+    # The intro and outro are not part of the lesson and are never scored
+    # (user's ruling, 13 Nov 2026): every scorer sees only the lesson's words.
+    span = None
+    if bool(cfg.get("lesson_span.exclude_intro_outro", False)):
+        from .lesson_span import lesson_span, within
+
+        span = lesson_span(transcript, duration)
+        transcript = within(transcript, span)
+
     params = WindowingParams(
         size_s=float(cfg.get("windowing.size_s")),
         tolerance_s=float(cfg.get("alignment.tolerance_s")),
@@ -468,6 +481,7 @@ def run_extraction(
             load_ocr_reliability(outdir / OCR_JSON), ocr_blocks
         ),
         audio_events=events,
+        lesson_span=span,
         audio_warnings=audio_warnings,
     )
 

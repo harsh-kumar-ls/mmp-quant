@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 import re
 from pathlib import Path
 
@@ -22,12 +23,15 @@ from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 
 from ..config import Config
+from ..instructor import instructor_block
 from ..report_data import build_report_data
 from .jobs import STAGES, JobManager
 
 log = logging.getLogger(__name__)
 
-CONFIG_PATH = Path("config.yaml")
+# MMPQUANT_CONFIG lets a deployment use its own config (the Hugging Face Space
+# uses config.yaml + deploy/hf-space/overrides.yaml: RapidOCR off the Mac).
+CONFIG_PATH = Path(os.environ.get("MMPQUANT_CONFIG", "config.yaml"))
 VIDEOS_DIR = Path("data/videos")
 ALLOWED_EXTENSIONS = {".mp4", ".mov", ".mkv", ".webm", ".m4v", ".avi"}
 MAX_UPLOAD_BYTES = 3 * 1024 * 1024 * 1024  # 3 GB — generous for a lecture clip,
@@ -38,6 +42,22 @@ app = FastAPI(title="MMP-Quant")
 _cfg = Config.load(CONFIG_PATH)
 RUNS_DIR = Path(str(_cfg.get("output.dir", "runs")))
 job_manager = JobManager(CONFIG_PATH)
+
+# Shared mode (`mmpquant serve --shared`, 13 Nov 2026): the site is opened to the
+# professor through a tunnel. Her uploads go to data/shared_uploads/ and
+# runs/_shared/ -- listed in the library like any video, but never part of the
+# corpus, so they cannot change `mmpquant regress` or validation (two uploads
+# through the web UI joined the corpus by accident on 11 Nov). Nothing is hidden.
+SHARED = os.environ.get("MMPQUANT_SHARED") == "1"
+SHARED_VIDEOS_DIR = Path("data/shared_uploads")
+SHARED_RUNS_SUBDIR = "_shared"
+
+
+def _upload_dirs() -> tuple[Path, Path]:
+    """Where an upload's video file and its run directory go."""
+    if SHARED:
+        return SHARED_VIDEOS_DIR, RUNS_DIR / SHARED_RUNS_SUBDIR
+    return VIDEOS_DIR, RUNS_DIR
 
 
 def _safe_stem(filename: str) -> str:
@@ -55,10 +75,12 @@ def _safe_stem(filename: str) -> str:
 
 def _unique_video_path(stem: str, suffix: str) -> Path:
     """Never silently overwrite an existing video or its run directory."""
-    candidate = VIDEOS_DIR / f"{stem}{suffix}"
+    videos_dir, runs_dir = _upload_dirs()
+    candidate = videos_dir / f"{stem}{suffix}"
     n = 2
-    while candidate.exists() or (RUNS_DIR / candidate.stem).exists():
-        candidate = VIDEOS_DIR / f"{stem}-{n}{suffix}"
+    while (candidate.exists() or (runs_dir / candidate.stem).exists()
+           or (RUNS_DIR / candidate.stem).exists()):
+        candidate = videos_dir / f"{stem}-{n}{suffix}"
         n += 1
     return candidate
 
@@ -79,7 +101,8 @@ def upload_video(file: UploadFile) -> JSONResponse:
             f"Allowed: {', '.join(sorted(ALLOWED_EXTENSIONS))}",
         )
 
-    VIDEOS_DIR.mkdir(parents=True, exist_ok=True)
+    videos_dir, runs_dir = _upload_dirs()
+    videos_dir.mkdir(parents=True, exist_ok=True)
     target = _unique_video_path(_safe_stem(file.filename or "video"), suffix)
 
     written = 0
@@ -96,7 +119,7 @@ def upload_video(file: UploadFile) -> JSONResponse:
         target.unlink(missing_ok=True)
         raise HTTPException(400, "uploaded file is empty")
 
-    job = job_manager.submit(target, RUNS_DIR / target.stem)
+    job = job_manager.submit(target, runs_dir / target.stem)
     log.info("accepted upload %s -> %s (job %s)", file.filename, target, job.job_id)
     return JSONResponse(job.to_dict(), status_code=202)
 
@@ -144,7 +167,9 @@ def list_videos() -> list[dict]:
     if not RUNS_DIR.exists():
         return out
     styles = _styles()
-    for result_path in RUNS_DIR.glob("*/result.json"):
+    results = list(RUNS_DIR.glob("*/result.json"))
+    results += list((RUNS_DIR / SHARED_RUNS_SUBDIR).glob("*/result.json"))
+    for result_path in results:
         try:
             payload = json.loads(result_path.read_text())
         except (json.JSONDecodeError, OSError):
@@ -157,6 +182,7 @@ def list_videos() -> list[dict]:
                 # for the library's filters (React UI, 10 Nov 2026)
                 "style": styles.get(payload.get("video_id", result_path.parent.name)),
                 "coherence": ((payload.get("coherence") or {}).get("result") or {}).get("score"),
+                "instructor": (instructor_block(payload) or {}).get("score"),
                 "status": res.get("status"),
                 "duration": payload.get("duration"),
                 "n_segments": len(payload.get("segments", [])),
@@ -216,6 +242,9 @@ def rating_set() -> dict:
 
 @app.get("/api/videos/{video_id}/report")
 def get_video_report(video_id: str, top: int = 3) -> dict:
+    shared = RUNS_DIR / SHARED_RUNS_SUBDIR / video_id
+    if not (RUNS_DIR / video_id / "result.json").exists() and (shared / "result.json").exists():
+        return _load_report(shared, top=top)
     return _load_report(RUNS_DIR / video_id, top=top)
 
 

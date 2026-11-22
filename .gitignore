@@ -1,4 +1,5 @@
 .venv/
+.venv
 __pycache__/
 *.py[cod]
 *.egg-info/
@@ -14,12 +15,29 @@ data/fixtures/
 
 # Private working notes and local tooling (not published)
 PROGRESS.md
-the project specification
+research_notes/
+reports/
 .venv 2/
 
-# The professor's returned ratings are private research data, and the rating
+# The expert's returned ratings are private research data, and the rating
 # package is regenerated with `mmpquant rating-workbook`.
 data/ratings/
 rating_package*/
 data/videos_archive/
 data/staging_*/
+data/shared_uploads/
+
+# assembled deployments (tools/build_hf_space.py)
+build/
+
+# Evaluation demo kit (16 Nov 2026): copies of videos, private
+demo_16Nov2026/
+
+# Evaluation decks (large binaries) and the final report: the report's appendix
+# reproduces the expert's private ratings, so it is not published.
+*.pptx
+Quantifying_Multimedia_Principle_evaluation.pdf
+MMP-Quant_evaluation_16Nov2026.pdf
+report/
+deploy/deck/
+deploy/aikosh/
